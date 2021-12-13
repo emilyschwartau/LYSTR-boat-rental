@@ -79,7 +79,7 @@ CREATE TABLE "availability" (
 CREATE TABLE "rental" (
     "id" SERIAL PRIMARY KEY,
     "rented_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    "date_id" DATE NOT NULL REFERENCES "availability" ON DELETE CASCADE
+    "date_id" INTEGER NOT NULL REFERENCES "availability" ON DELETE CASCADE
 );
 
 -- STRETCH table for messages between users
