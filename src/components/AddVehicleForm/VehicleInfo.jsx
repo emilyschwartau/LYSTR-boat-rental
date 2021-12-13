@@ -10,26 +10,15 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
-export default function VehicleInfo() {
+export default function VehicleInfo({ handleChange }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch({ type: "FETCH_VEHICLE_TYPES" });
   }, [dispatch]);
 
-  const { types } = useSelector((store) => store.vehicle);
+  const { types, newVehicleInput } = useSelector((store) => store.vehicle);
 
-  const [vehicle, setVehicle] = React.useState({
-    title: "",
-    type: "",
-  });
-
-  const handleChange = (e) => {
-    console.log(e.target.value);
-    const { name, value } = e.target;
-    setVehicle((prevState) => ({ ...prevState, [name]: value }));
-  };
-  console.log(vehicle);
   return (
     <Grid container maxWidth="md" mx="auto" direction="column">
       <Grid item>
@@ -52,10 +41,11 @@ export default function VehicleInfo() {
         <FormControl fullWidth margin="normal">
           <InputLabel id="type-selector">Type</InputLabel>
           <Select
+            defaultValue=""
             labelId="type-selector"
             label="Age"
             onChange={handleChange}
-            value={vehicle.type}
+            value={newVehicleInput.type}
             name="type"
           >
             {types?.map((type) => (

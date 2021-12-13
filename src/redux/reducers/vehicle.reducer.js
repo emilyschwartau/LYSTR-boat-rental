@@ -9,6 +9,26 @@ const types = (state = [], action) => {
   }
 };
 
+const features = (state = [], action) => {
+  switch (action.type) {
+    case "SET_FEATURES":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const newVehicleInput = (state = { type: "" }, action) => {
+  switch (action.type) {
+    case "ADD_VEHICLE_ONCHANGE":
+      return { ...state, [action.payload.property]: action.payload.value };
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   types,
+  newVehicleInput,
+  features,
 });
