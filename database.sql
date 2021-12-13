@@ -25,6 +25,7 @@ CREATE TABLE "vehicle" (
     "id" SERIAL PRIMARY KEY,
     "owned_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
     "type_id" INTEGER NOT NULL REFERENCES "vehicle_type" ON DELETE CASCADE,
+    "title" VARCHAR(255) NOT NULL,
     "make" VARCHAR(255) NOT NULL,
     "model" VARCHAR(255) NOT NULL,
     "year" VARCHAR(255) NOT NULL,
