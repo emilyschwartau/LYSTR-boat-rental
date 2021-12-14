@@ -4,27 +4,15 @@ import LandingPageLocation from '../components/LandingPage/LandingPageLocation';
 import LandingPageVehicleType from '../components/LandingPage/LandingPageVehicleType';
 import * as Scroll from 'react-scroll';
 
-const backgroundImage =
-  '/images/landing_bg.jpg';
+
+
+//give name to element to scroll to
 
 function LandingPage() {
-
-  const ScrollLink = Scroll.Link;
-  const ScrollButton = Scroll.Button;
   const ScrollElement = Scroll.Element;
-  const ScrollEvents = Scroll.Events;
-  const scroll = Scroll.animateScroll;
-  const scrollSpy = Scroll.scrollSpy;
 
-  const scrollTo = () => {
-    console.log(`in scrollTo`)
-    scroll.scrollTo('vehicleType', {
-      duration: 1500,
-      delay: 100,
-      smooth: true,
-      offset: 50});
-  }
-
+  const backgroundImage =
+    '/images/landing_bg.jpg';
 
   return (<>
     <LandingPageLayout
@@ -40,7 +28,7 @@ function LandingPage() {
         src={backgroundImage}
         alt='increase priority'
       />
-      <LandingPageLocation scrollTo={scrollTo} ScrollButton={ScrollButton}/>
+      <LandingPageLocation />
     </LandingPageLayout>
     <ScrollElement name="vehicleType">
       <LandingPageVehicleType />

@@ -7,9 +7,10 @@ import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import * as Scroll from 'react-scroll';
 
-const ScrollLink = Scroll.Link;
 
-function LandingPageLocation({ scrollTo }) {
+function LandingPageLocation() {
+    const ScrollLink = Scroll.Link;
+
     const dispatch = useDispatch();
 
     //search input
