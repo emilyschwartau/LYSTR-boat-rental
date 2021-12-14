@@ -5,26 +5,35 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
+import * as Scroll from 'react-scroll';
 
-function LandingPageLocation() {
+const ScrollLink = Scroll.Link;
+
+function LandingPageLocation({ scrollTo }) {
     const dispatch = useDispatch();
 
     //search input
     const [search, setSearch] = useState({
         location: '',
         //initial search 
-        startDate: (format(new Date(), 'MM/dd/yy')),
+        startDate: null,
     })
 
     //handle date selection
-    const handleChange = (newValue) => {
+    const handleDateChange = (newValue) => {
         const formattedStartDate = format(newValue, 'MM/dd/yy');
         console.log(`this is format`, formattedStartDate);
         setSearch({ ...search, startDate: formattedStartDate })
+        dispatch({ type: 'SET_SEARCH_DATE', payload: formattedStartDate });
     };
 
+    const handleLocationChange = (e) => {
+        setSearch({ ...search, location: e.target.value })
+        dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
+    }
+
     const handleSubmit = () => {
-        console.log(search)
+        dispatch({ type: 'SET_SEARCH', payload: search });
     }
 
     return (<>
@@ -39,7 +48,7 @@ function LandingPageLocation() {
             }}>
                 <Typography variant='h4'>Find A Boat To Rent Near You!</Typography>
                 <br />
-                <form onSubmit={() => dispatch({ type: 'SET_SEARCH', payload: search })}>
+                <form onSubmit={() => handleSubmit()}>
                     <FormControl
                         fullWidth={true}
                     >
@@ -47,8 +56,8 @@ function LandingPageLocation() {
                             placeholder='City, State'
                             helperText='Search Location by City, State'
                             label='Location'
-                            value={search.location}
-                            onChange={(e) => setSearch({ ...search, location: e.target.value })}
+                            // value={search.location}
+                            onChange={(e) => handleLocationChange(e)}
                         />
                         <br />
                         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -57,13 +66,13 @@ function LandingPageLocation() {
                                 helperText='Date of Trip'
                                 value={search.startDate}
                                 onChange={((newValue) => {
-                                    handleChange(newValue);
+                                    handleDateChange(newValue);
                                 })}
                                 renderInput={(params) => <TextField {...params} />}
                             />
                         </LocalizationProvider>
                         <br />
-                            <Button
+                        <Button
                             type='submit'
                             variant='outlined'
                             sx={{
@@ -71,8 +80,11 @@ function LandingPageLocation() {
                                 margin: 'auto'
                             }}
                         >
-                            Select Vehicle Type
+                            <ScrollLink type='submit' to='vehicleType' spy={true} smooth={true}>
+                                Select Vehicle Type
+                            </ScrollLink>
                         </Button>
+
                     </FormControl>
                 </form>
             </Card>

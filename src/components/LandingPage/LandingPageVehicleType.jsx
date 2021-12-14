@@ -40,12 +40,6 @@ function LandingPageVehicleType() {
                         </Card>
                     </>))}
                 </Stack>
-                <Button
-                    variant='outlined'
-                    endIcon={<SearchIcon />}
-                >
-                    Search For Vehicle
-                </Button>
             </Box>
         </Box>
     </>)
