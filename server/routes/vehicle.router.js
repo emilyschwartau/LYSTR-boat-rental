@@ -1,6 +1,17 @@
 const express = require("express");
 const pool = require("../modules/pool");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+const {
+  uploadFile,
+  getFileStream,
+  deleteFile,
+  // upload,
+} = require("../services/s3.js");
+const fs = require("fs");
+const util = require("util");
+const unlinkFile = util.promisify(fs.unlink);
 
 /**
  * GET route template
