@@ -1,8 +1,11 @@
 import { Box, Stack, Card, Button } from '@mui/material'
 import { useDispatch } from 'react-redux';
+import SearchIcon from '@mui/icons-material/Search';
+import { useHistory } from 'react-router-dom';
 
 function LandingPageVehicleType() {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     //local state for now but will have to pull from vehicle type in db
     const vehicleList = [
@@ -26,6 +29,7 @@ function LandingPageVehicleType() {
                     alignItems='center'
                     sx={{ flexWrap: 'wrap' }}
                 >
+                    {/* Will eventually map over table from database */}
                     {vehicleList?.map(vehicle => (<>
                         <Card
                             key={vehicle.id}
@@ -36,6 +40,12 @@ function LandingPageVehicleType() {
                         </Card>
                     </>))}
                 </Stack>
+                <Button
+                    variant='outlined'
+                    endIcon={<SearchIcon />}
+                >
+                    Search For Vehicle
+                </Button>
             </Box>
         </Box>
     </>)
