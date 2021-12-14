@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState} from 'react';
 import { Box, Card, Typography, Button, TextField, FormControl } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -7,17 +7,23 @@ import DatePicker from '@mui/lab/DatePicker';
 import { format } from 'date-fns';
 
 function LandingPageCard() {
-    const [startDate, setStartDate] = React.useState(new Date());
+    //search input
+    const [search, setSearch] = useState({
+        location: '',
+        //initial search 
+        startDate: (format(new Date(), 'MM/dd/yy')),
+    })
 
+    //handle date selection
     const handleChange = (newValue) => {
         const formattedStartDate = format(newValue, 'MM/dd/yy');
         console.log(`this is format`, formattedStartDate);
-        setStartDate(formattedStartDate)
+        setSearch({...search, startDate: formattedStartDate})
     };
 
-
-
-    console.log(startDate);
+    const handleSubmit = () => {
+        console.log(search)
+    }
 
     return (<>
         <Box sx={{
@@ -31,6 +37,7 @@ function LandingPageCard() {
             }}>
                 <Typography variant='h4'>Find A Boat To Rent Near You!</Typography>
                 <br />
+                <form onSubmit={handleSubmit}>
                 <FormControl
                     fullWidth={true}
                 >
@@ -38,13 +45,15 @@ function LandingPageCard() {
                         placeholder='City, State'
                         helperText='Search Location by City, State'
                         label='Location'
+                        value={search.location}
+                        onChange={(e) => setSearch({...search, location: e.target.value})}
                     />
                     <br />
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DatePicker
                             label='Date of Trip'
                             helperText='Date of Trip'
-                            value={startDate}
+                            value={search.startDate}
                             onChange={((newValue) => {
                                 handleChange(newValue);
                             })}
@@ -53,6 +62,7 @@ function LandingPageCard() {
                     </LocalizationProvider>
                     <br />
                     <Button
+                        type='submit'
                         variant='outlined'
                         endIcon={<SearchIcon />}
                         sx={{
@@ -60,9 +70,10 @@ function LandingPageCard() {
                             margin: 'auto'
                         }}
                     >
-                        Search
+                        Select Vehicle Type
                     </Button>
-                </FormControl>
+                    </FormControl>
+                </form>
             </Card>
         </Box>
     </>)
