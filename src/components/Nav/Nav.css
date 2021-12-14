@@ -40,3 +40,10 @@
 .navLink:hover {
   background-color: #008183;
 }
+
+#profilePicture {
+  display: inline;
+  width: 5%;
+  padding-top: 40px;
+
+}

@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 function RegisterForm() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [profilePhotoURL, setProfilePhotoURL] = useState('');
+
 
 
   const errors = useSelector((store) => store.errors);
@@ -21,7 +22,8 @@ function RegisterForm() {
         username: username,
         password: password,
         firstName: firstName,
-        lastName: lastName
+        lastName: lastName,
+        profilePhotoURL: profilePhotoURL
       },
     });
   }; // end registerUser
@@ -79,6 +81,18 @@ function RegisterForm() {
             value={lastName}
             required
             onChange={(event) => setLastName(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="profilePhotoURL">
+          Profile Photo URL:
+          <input
+            type="profilePhotoURL"
+            name="profilePhotoURL"
+            value={profilePhotoURL}
+            required
+            onChange={(event) => setProfilePhotoURL(event.target.value)}
           />
         </label>
       </div>
