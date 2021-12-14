@@ -91,7 +91,6 @@ function RegisterForm() {
             type="profilePhotoURL"
             name="profilePhotoURL"
             value={profilePhotoURL}
-            required
             onChange={(event) => setProfilePhotoURL(event.target.value)}
           />
         </label>
