@@ -29,7 +29,7 @@ export default function VehicleFeatures({ handleChange }) {
   };
 
   return (
-    <Grid container maxWidth="md" mx="auto">
+    <Grid container maxWidth="md" mx="auto" mb={2}>
       <Grid item xs={12}>
         <Typography component="h2" variant="h5">
           Features

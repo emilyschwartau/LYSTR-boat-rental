@@ -8,10 +8,10 @@ import Typography from "@mui/material/Typography";
 
 export default function VehicleAddress({ handleChange }) {
   return (
-    <Grid container maxWidth="md" mx="auto" direction="column">
+    <Grid container maxWidth="md" mx="auto" direction="column" mb={2}>
       <Grid item>
         <Typography component="h2" variant="h5">
-          Vehicle Address
+          Address
         </Typography>
       </Grid>
       <Grid item>
