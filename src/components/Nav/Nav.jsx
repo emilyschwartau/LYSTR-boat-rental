@@ -21,7 +21,7 @@ function Nav() {
           <Link className="navLink" to="/login">
             Login / Register
           </Link>
-        )}
+        }
 
         {/* If a user is logged in, show these links */}
         {user.id && (
