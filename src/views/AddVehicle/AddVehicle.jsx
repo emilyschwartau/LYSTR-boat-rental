@@ -28,7 +28,7 @@ export default function AddVehicle() {
       <VehicleInfo handleChange={handleChange} />
       <VehicleAddress handleChange={handleChange} />
       <VehicleFeatures />
-      {/* <VehiclePhotos /> */}
+      <VehiclePhotos />
       {/* <VehicleAvailability /> */}
     </>
   );

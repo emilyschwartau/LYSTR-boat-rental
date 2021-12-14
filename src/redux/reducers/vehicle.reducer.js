@@ -48,6 +48,8 @@ const newVehicleInput = (state = newVehicleInitial, action) => {
         (feature) => feature !== action.payload
       );
       return { ...state, features: filteredFeatures };
+    case "ADD_PHOTOS":
+      return { ...state, photos: action.payload };
     default:
       return state;
   }
