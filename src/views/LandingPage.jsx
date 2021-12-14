@@ -1,7 +1,6 @@
 import * as React from 'react';
 import LandingPageLayout from '../components/LandingPage/LandingPageLayout';
-import LandingPageCard from '../components/LandingPage/LandingPageCard';
-import LandingPageInfo from '../components/LandingPage/LandingPageInfo';
+import LandingPageLocation from '../components/LandingPage/LandingPageLocation';
 import LandingPageVehicleType from '../components/LandingPage/LandingPageVehicleType';
 
 const backgroundImage =
@@ -22,10 +21,9 @@ function LandingPage() {
         src={backgroundImage}
         alt='increase priority'
       />
-    <LandingPageCard />
+    <LandingPageLocation/>
     </LandingPageLayout>
-    <LandingPageVehicleType />
-    <LandingPageInfo />
+    <LandingPageVehicleType/>
   </>);
 }
 

@@ -1,6 +1,8 @@
 import { Box, Stack, Card, Button } from '@mui/material'
+import { useDispatch } from 'react-redux';
 
 function LandingPageVehicleType() {
+    const dispatch = useDispatch();
 
     //local state for now but will have to pull from vehicle type in db
     const vehicleList = [
@@ -25,13 +27,15 @@ function LandingPageVehicleType() {
                     sx={{ flexWrap: 'wrap' }}
                 >
                     {vehicleList?.map(vehicle => (<>
-                        <Card key={vehicle.name} sx={{ margin: '1em', height: '20vh', width: '20vw' }}>
+                        <Card
+                            key={vehicle.id}
+                            onClick={() => dispatch({type: 'SET_SEARCH_VEHICLE_TYPE', payload: vehicle.id})}
+                            sx={{ margin: '1em', height: '20vh', width: '20vw' }}>
                             <img src={vehicle.image_url} height='70%' />
                             <p>{vehicle.name}</p>
                         </Card>
                     </>))}
                 </Stack>
-                <Button variant='outlined'>Select Dates</Button>
             </Box>
         </Box>
     </>)
