@@ -103,10 +103,14 @@ function App() {
           </Route>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1216594c3aabb46bb06a317d0bb26542e793057a
           <Route
             exact
             path="/home"
           >
+<<<<<<< HEAD
             {/* {user.id ?
               // If the user is already logged in, 
 =======
@@ -125,6 +129,9 @@ function App() {
 =======
             )}
 >>>>>>> 6029aa2f6038a29f937473243f54c5bfce06357a
+=======
+              <LandingPage />
+>>>>>>> 1216594c3aabb46bb06a317d0bb26542e793057a
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
