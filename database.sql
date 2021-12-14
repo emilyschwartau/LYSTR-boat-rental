@@ -15,7 +15,7 @@ CREATE TABLE "user" (
 );
 
 -- vehicle type table - mainly for generating select options
-CREATE TABLE "vehicle_type" (
+CREATE TABLE "type" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL
 );
@@ -39,7 +39,7 @@ CREATE TABLE "vehicle" (
 );
 
 -- listed vehicles' addresses go here:
-CREATE TABLE "vehicle_address" (
+CREATE TABLE "address" (
     "id" SERIAL PRIMARY KEY,
     "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
     "street" VARCHAR(255) NOT NULL,
