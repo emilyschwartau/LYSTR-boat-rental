@@ -11,7 +11,7 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (255) NOT NULL,
     "last_name" VARCHAR (255) NOT NULL,
-    "profile_picture" VARCHAR (1000) NOT NULL
+    "profile_picture" VARCHAR (1000) 
 );
 
 -- vehicle type table - mainly for generating select options

@@ -39,6 +39,10 @@ function Nav() {
             </Link>
 
             <LogOutButton className="navLink" />
+
+          <Link className="navLink"><img src={user.profile_picture}  id="profilePicture"/></Link>
+            
+            
           </>
         )}
 
