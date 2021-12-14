@@ -1,12 +1,13 @@
 import * as React from 'react';
 import LandingPageLayout from '../components/LandingPage/LandingPageLayout';
-import LandingPageCard from '../components/LandingPage/LandingPageCard';
+import LandingPageLocation from '../components/LandingPage/LandingPageLocation';
+import LandingPageVehicleType from '../components/LandingPage/LandingPageVehicleType';
 
 const backgroundImage =
   '/images/landing_bg.jpg';
 
 function LandingPage() {
-  return (
+  return (<>
     <LandingPageLayout
       sxBackground={{
         backgroundImage: `url(${backgroundImage})`,
@@ -18,11 +19,12 @@ function LandingPage() {
       <img
         style={{ display: 'none' }}
         src={backgroundImage}
-        alt="increase priority"
+        alt='increase priority'
       />
-    <LandingPageCard />
+    <LandingPageLocation/>
     </LandingPageLayout>
-  );
+    <LandingPageVehicleType/>
+  </>);
 }
 
 export default LandingPage;
