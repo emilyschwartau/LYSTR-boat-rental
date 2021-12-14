@@ -2,11 +2,18 @@ import * as React from 'react';
 import LandingPageLayout from '../components/LandingPage/LandingPageLayout';
 import LandingPageLocation from '../components/LandingPage/LandingPageLocation';
 import LandingPageVehicleType from '../components/LandingPage/LandingPageVehicleType';
+import * as Scroll from 'react-scroll';
 
-const backgroundImage =
-  '/images/landing_bg.jpg';
+
+
+//give name to element to scroll to
 
 function LandingPage() {
+  const ScrollElement = Scroll.Element;
+
+  const backgroundImage =
+    '/images/landing_bg.jpg';
+
   return (<>
     <LandingPageLayout
       sxBackground={{
@@ -21,9 +28,11 @@ function LandingPage() {
         src={backgroundImage}
         alt='increase priority'
       />
-    <LandingPageLocation/>
+      <LandingPageLocation />
     </LandingPageLayout>
-    <LandingPageVehicleType/>
+    <ScrollElement name="vehicleType">
+      <LandingPageVehicleType />
+    </ScrollElement>
   </>);
 }
 
