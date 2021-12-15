@@ -14,10 +14,11 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch({ type: "FETCH_VEHICLE_TYPES" });
+    dispatch({ type: "FETCH_TYPE_LIST" });
   }, [dispatch]);
 
-  const { types, vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { types } = useSelector((store) => store.data);
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>

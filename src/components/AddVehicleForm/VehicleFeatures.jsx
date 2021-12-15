@@ -16,7 +16,8 @@ export default function VehicleFeatures({ handleChange, validateNumber }) {
     dispatch({ type: "FETCH_FEATURES_LIST" });
   }, [dispatch]);
 
-  const { features, vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { features } = useSelector((store) => store.data);
 
   const handleSwitch = (e) => {
     console.log(e.target.checked);
