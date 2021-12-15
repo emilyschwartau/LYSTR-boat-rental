@@ -66,7 +66,7 @@ function ListingsTab() {
             // features
             features: ['no seatbelt', 'you break you buy'],
             // JOIN image at id
-            image_url: '/images/kayak.jpeg'
+            image_url: ['/images/kayak.jpeg', '/images/jetski.png']
         },
         {
             id: 2,
