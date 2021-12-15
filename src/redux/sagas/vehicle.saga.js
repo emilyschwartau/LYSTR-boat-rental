@@ -49,9 +49,10 @@ function* addVehicle(action) {
   for (let photo of photos) {
     formData.append("photos", photo);
   }
+  let response;
   try {
     // post a new entry to "vehicle" and get its id for the other table inserts
-    const response = yield axios.post("/api/vehicle", {
+    response = yield axios.post("/api/vehicle", {
       title,
       type,
       make,
@@ -82,6 +83,9 @@ function* addVehicle(action) {
   } catch (error) {
     console.log("error posting new vehicle:", error);
     yield put({ type: "POST_ERROR" });
+    if (response) {
+      yield axios.delete(`/api/vehicle/${response.data[0].id}`);
+    }
   }
 }
 

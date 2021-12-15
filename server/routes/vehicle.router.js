@@ -13,8 +13,8 @@ const fs = require("fs");
 const util = require("util");
 const unlinkFile = util.promisify(fs.unlink);
 
-/**
- * GET route template
+/*
+ * GET routes
  */
 router.get("/types", (req, res) => {
   const query = `SELECT * FROM "type";`;
@@ -37,6 +37,10 @@ router.get("/features", (req, res) => {
       res.sendStatus(500);
     });
 });
+
+/*
+ * POST routes
+ */
 
 router.post("/", (req, res) => {
   console.log(req.body);
@@ -217,11 +221,25 @@ router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
     });
 });
 
-// /**
-//  * POST route template
-//  */
-// router.post("/", (req, res) => {
-//   // POST route code here
-// });
+/*
+ * DELETE routes
+ */
+
+router.delete("/:vehicleId", (req, res) => {
+  const { vehicleId } = req.params;
+
+  const query = `DELETE FROM "vehicle" WHERE "id" = $1 AND "owned_by" = $2;`;
+
+  pool
+    .query(query, [vehicleId, req.user.id])
+    .then((result) => {
+      console.log(`DELETE at /vehicle/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error deleting from "vehicle":`, err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
