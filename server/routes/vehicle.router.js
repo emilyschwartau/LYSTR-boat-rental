@@ -1,23 +1,23 @@
-const express = require("express");
-const pool = require("../modules/pool");
+const express = require('express');
+const pool = require('../modules/pool');
 const router = express.Router();
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const {
   uploadFile,
   getFileStream,
   deleteFile,
   // upload,
-} = require("../services/s3.js");
-const fs = require("fs");
-const util = require("util");
+} = require('../services/s3.js');
+const fs = require('fs');
+const util = require('util');
 const unlinkFile = util.promisify(fs.unlink);
 
 /*
  * GET routes
  */
 
-router.get("/:vehicleId", (req, res) => {
+router.get('/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `
@@ -42,7 +42,7 @@ router.get("/:vehicleId", (req, res) => {
  * POST routes
  */
 
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   console.log(req.body);
   const {
     title,
@@ -66,7 +66,7 @@ router.post("/", (req, res) => {
 
   const query = `
     INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "instructions", "street", "city", "state", "zip")
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+      VALUES ($1, (select "id" from "type" where "name" = $2), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
       RETURNING "id";
   `;
 
@@ -91,16 +91,16 @@ router.post("/", (req, res) => {
       zip,
     ])
     .then((result) => {
-      console.log("POST at /vehicle successful");
+      console.log('POST at /vehicle successful');
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log("Error during POST to vehicle: ", error);
+      console.log('Error during POST to vehicle: ', error);
       res.sendStatus(500);
     });
 });
 
-router.post("/features/:vehicleId", (req, res) => {
+router.post('/features/:vehicleId', (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
 
@@ -128,16 +128,16 @@ router.post("/features/:vehicleId", (req, res) => {
   pool
     .query(query, values)
     .then((result) => {
-      console.log("POST at /vehicle/features successful");
+      console.log('POST at /vehicle/features successful');
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log("Error during POST to vehicle_features: ", error);
+      console.log('Error during POST to vehicle_features: ', error);
       res.sendStatus(500);
     });
 });
 
-router.post("/availability/:vehicleId", (req, res) => {
+router.post('/availability/:vehicleId', (req, res) => {
   const { availability } = req.body;
   const { vehicleId } = req.params;
 
@@ -165,17 +165,17 @@ router.post("/availability/:vehicleId", (req, res) => {
   pool
     .query(query, values)
     .then((result) => {
-      console.log("POST at /vehicle/availability successful");
+      console.log('POST at /vehicle/availability successful');
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log("Error during POST to availability: ", error);
+      console.log('Error during POST to availability: ', error);
       res.sendStatus(500);
     });
 });
 
-router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
-  console.log("req.files:", req.files);
+router.post('/photos/:vehicleId', upload.array('photos'), async (req, res) => {
+  console.log('req.files:', req.files);
   const photos = req.files;
   const { vehicleId } = req.params;
 
@@ -212,7 +212,7 @@ router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
   pool
     .query(queryText, values)
     .then((result) => {
-      console.log("POST at /vehicle/photos successful");
+      console.log('POST at /vehicle/photos successful');
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -225,7 +225,7 @@ router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
  * DELETE routes
  */
 
-router.delete("/:vehicleId", (req, res) => {
+router.delete('/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `DELETE FROM "vehicle" WHERE "id" = $1 AND "owned_by" = $2;`;

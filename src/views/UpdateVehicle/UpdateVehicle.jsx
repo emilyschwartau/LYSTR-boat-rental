@@ -1,23 +1,23 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
-import VehicleInfo from "../../components/AddVehicleForm/VehicleInfo";
-import VehicleAddress from "../../components/AddVehicleForm/VehicleAddress";
-import VehicleFeatures from "../../components/AddVehicleForm/VehicleFeatures";
-import VehiclePhotos from "../../components/AddVehicleForm/VehiclePhotos";
-import VehiclePriceAvailability from "../../components/AddVehicleForm/VehiclePriceAvailability";
+import VehicleInfo from '../../components/AddVehicleForm/VehicleInfo';
+import VehicleAddress from '../../components/AddVehicleForm/VehicleAddress';
+import VehicleFeatures from '../../components/AddVehicleForm/VehicleFeatures';
+import VehiclePhotos from '../../components/AddVehicleForm/VehiclePhotos';
+import VehiclePriceAvailability from '../../components/AddVehicleForm/VehiclePriceAvailability';
 
 export default function UpdateVehicle() {
   const dispatch = useDispatch();
   const { vehicleId } = useParams();
 
   React.useEffect(() => {
-    dispatch({ type: "FETCH_VECHICLE_TO_EDIT", payload: vehicleId });
+    dispatch({ type: 'FETCH_VECHICLE_TO_EDIT', payload: vehicleId });
   }, [vehicleId]);
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
@@ -26,7 +26,7 @@ export default function UpdateVehicle() {
     console.log(e.target.value);
     const { name, value } = e.target;
     dispatch({
-      type: "VEHICLE_FORM_ONCHANGE",
+      type: 'VEHICLE_FORM_ONCHANGE',
       payload: { property: name, value: value },
     });
   };
@@ -36,9 +36,9 @@ export default function UpdateVehicle() {
     const { name, value } = e.target;
     //if the input value is less than 0 then don't change the input value (empty string allowed for backspacing)
     const validValue =
-      value >= 0 || value === "" ? value : vehicleFormInputs[name];
+      value >= 0 || value === '' ? value : vehicleFormInputs[name];
     dispatch({
-      type: "VEHICLE_FORM_ONCHANGE",
+      type: 'VEHICLE_FORM_ONCHANGE',
       payload: { property: name, value: validValue },
     });
   };
@@ -46,7 +46,7 @@ export default function UpdateVehicle() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(vehicleFormInputs);
-    dispatch({ type: "UPDATE_VEHICLE", payload: vehicleFormInputs });
+    dispatch({ type: 'UPDATE_VEHICLE', payload: vehicleFormInputs });
   };
 
   return (

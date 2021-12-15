@@ -1,12 +1,12 @@
-import React from "react";
-import { Calendar, DateObject } from "react-multi-date-picker";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { Calendar, DateObject } from 'react-multi-date-picker';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import FormControl from "@mui/material/FormControl";
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
 
 export default function VehicleAvailability({ validateNumber }) {
   const dispatch = useDispatch();
@@ -23,11 +23,12 @@ export default function VehicleAvailability({ validateNumber }) {
         </Typography>
       </Grid>
       <Grid item alignSelf="center">
-        <Box sx={{ display: "flex", alignItems: "baseline" }}>
+        <Box sx={{ display: 'flex', alignItems: 'baseline' }}>
           <Typography sx={{ mr: 1, my: 0 }}>$</Typography>
           <FormControl margin="normal">
             <TextField
               type="number"
+              value={vehicleFormInputs.dailyRate}
               name="dailyRate"
               variant="standard"
               label="Daily Rate"
@@ -49,9 +50,9 @@ export default function VehicleAvailability({ validateNumber }) {
             onChange={(dates) => {
               setDates(dates);
               dispatch({
-                type: "VEHICLE_FORM_ONCHANGE",
+                type: 'VEHICLE_FORM_ONCHANGE',
                 payload: {
-                  property: "availability",
+                  property: 'availability',
                   value: dates?.map((date) => date.format()),
                 },
               });

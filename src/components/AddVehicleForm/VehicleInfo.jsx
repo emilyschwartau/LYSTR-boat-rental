@@ -1,20 +1,20 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
 
 export default function VehicleInfo({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch({ type: "FETCH_TYPE_LIST" });
+    dispatch({ type: 'FETCH_TYPE_LIST' });
   }, [dispatch]);
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
@@ -51,7 +51,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
             name="type"
           >
             {types?.map((type) => (
-              <MenuItem key={type.name} value={type.id}>
+              <MenuItem key={type.name} value={type.name}>
                 {type.name}
               </MenuItem>
             ))}
