@@ -57,7 +57,7 @@ export default function VehicleInfo({ handleChange }) {
         </FormControl>
       </Grid>
       <Grid item container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="make"
@@ -68,7 +68,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="model"
@@ -79,9 +79,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-      </Grid>
-      <Grid item container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="year"
@@ -92,7 +90,9 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-        <Grid item sm={6}>
+      </Grid>
+      <Grid item container spacing={2}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="length"
@@ -103,9 +103,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-      </Grid>
-      <Grid item container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="capacity"
@@ -116,7 +114,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="horsepower"

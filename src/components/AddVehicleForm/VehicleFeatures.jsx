@@ -37,8 +37,8 @@ export default function VehicleFeatures({ handleChange }) {
         </Typography>
       </Grid>
       <Grid item container justifyContent="space-around">
-        <Grid item sm={4}>
-          <FormControl margin="normal" fullWidth>
+        <Grid item>
+          <FormControl margin="normal">
             <TextField
               type="number"
               name="cabins"
@@ -49,8 +49,8 @@ export default function VehicleFeatures({ handleChange }) {
             />
           </FormControl>
         </Grid>
-        <Grid item sm={4}>
-          <FormControl margin="normal" fullWidth>
+        <Grid item>
+          <FormControl margin="normal">
             <TextField
               type="number"
               name="heads"

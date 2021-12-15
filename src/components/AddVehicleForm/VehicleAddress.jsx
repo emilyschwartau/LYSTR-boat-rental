@@ -11,7 +11,7 @@ export default function VehicleAddress({ handleChange }) {
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
-          Address
+          Location
         </Typography>
       </Grid>
       <Grid item>
@@ -55,6 +55,21 @@ export default function VehicleAddress({ handleChange }) {
               variant="standard"
               label="Zipcode"
               required
+              onChange={handleChange}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
+      <Grid container item justifyContent="center">
+        <Grid item sm={10}>
+          <FormControl margin="normal" fullWidth>
+            <TextField
+              name="instructions"
+              variant="outlined"
+              label="Instructions"
+              required
+              multiline
+              rows={4}
               onChange={handleChange}
             />
           </FormControl>

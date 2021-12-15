@@ -21,7 +21,7 @@ export default function VehicleAvailability({ handleChange }) {
           Price & Availability
         </Typography>
       </Grid>
-      <Grid item>
+      <Grid item alignSelf="center">
         <Box sx={{ display: "flex", alignItems: "baseline" }}>
           <Typography sx={{ mr: 1, my: 0 }}>$</Typography>
           <FormControl margin="normal">
@@ -35,7 +35,7 @@ export default function VehicleAvailability({ handleChange }) {
           </FormControl>
         </Box>
       </Grid>
-      <Grid item>
+      <Grid item alignSelf="center">
         <FormControl margin="normal">
           <Calendar
             multiple
