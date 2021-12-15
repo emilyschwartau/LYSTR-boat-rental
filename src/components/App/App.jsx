@@ -102,36 +102,11 @@ function App() {
             )}
           </Route>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1216594c3aabb46bb06a317d0bb26542e793057a
           <Route
             exact
             path="/home"
           >
-<<<<<<< HEAD
-            {/* {user.id ?
-              // If the user is already logged in, 
-=======
-          <Route exact path="/home">
-            {user.id ? (
-              // If the user is already logged in,
->>>>>>> 6029aa2f6038a29f937473243f54c5bfce06357a
-              // redirect them to the /user page
-              <Redirect to="/user" />
-            ) : (
-              // Otherwise, show the Landing page
               <LandingPage />
-<<<<<<< HEAD
-            } */}
-            <LandingPage />
-=======
-            )}
->>>>>>> 6029aa2f6038a29f937473243f54c5bfce06357a
-=======
-              <LandingPage />
->>>>>>> 1216594c3aabb46bb06a317d0bb26542e793057a
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
