@@ -7,7 +7,7 @@ import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 
 export default function VehicleAddress({ handleChange }) {
-  const { newVehicleInput } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -24,7 +24,7 @@ export default function VehicleAddress({ handleChange }) {
             label="Address"
             required
             onChange={handleChange}
-            value={newVehicleInput.street}
+            value={vehicleFormInputs.street}
           />
         </FormControl>
       </Grid>
@@ -37,7 +37,7 @@ export default function VehicleAddress({ handleChange }) {
               label="City"
               required
               onChange={handleChange}
-              value={newVehicleInput.city}
+              value={vehicleFormInputs.city}
             />
           </FormControl>
         </Grid>
@@ -49,7 +49,7 @@ export default function VehicleAddress({ handleChange }) {
               label="State"
               required
               onChange={handleChange}
-              value={newVehicleInput.state}
+              value={vehicleFormInputs.state}
             />
           </FormControl>
         </Grid>
@@ -61,7 +61,7 @@ export default function VehicleAddress({ handleChange }) {
               label="Zipcode"
               required
               onChange={handleChange}
-              value={newVehicleInput.zip}
+              value={vehicleFormInputs.zip}
             />
           </FormControl>
         </Grid>
@@ -77,7 +77,7 @@ export default function VehicleAddress({ handleChange }) {
               multiline
               rows={4}
               onChange={handleChange}
-              value={newVehicleInput.instructions}
+              value={vehicleFormInputs.instructions}
             />
           </FormControl>
         </Grid>

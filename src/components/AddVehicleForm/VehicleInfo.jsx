@@ -17,7 +17,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
     dispatch({ type: "FETCH_VEHICLE_TYPES" });
   }, [dispatch]);
 
-  const { types, newVehicleInput } = useSelector((store) => store.vehicle);
+  const { types, vehicleFormInputs } = useSelector((store) => store.vehicle);
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -34,7 +34,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
             label="Title"
             required
             onChange={handleChange}
-            value={newVehicleInput.title}
+            value={vehicleFormInputs.title}
           />
         </FormControl>
       </Grid>
@@ -46,7 +46,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
             labelId="type-selector"
             label="Age"
             onChange={handleChange}
-            value={newVehicleInput.type}
+            value={vehicleFormInputs.type}
             name="type"
           >
             {types?.map((type) => (
@@ -66,7 +66,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
               label="Make"
               required
               onChange={handleChange}
-              value={newVehicleInput.make}
+              value={vehicleFormInputs.make}
             />
           </FormControl>
         </Grid>
@@ -78,7 +78,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
               label="Model"
               required
               onChange={handleChange}
-              value={newVehicleInput.model}
+              value={vehicleFormInputs.model}
             />
           </FormControl>
         </Grid>
@@ -90,7 +90,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
               label="Year"
               required
               onChange={handleChange}
-              value={newVehicleInput.year}
+              value={vehicleFormInputs.year}
             />
           </FormControl>
         </Grid>
@@ -106,7 +106,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
               required
               onChange={validateNumber}
               min={0}
-              value={newVehicleInput.length}
+              value={vehicleFormInputs.length}
             />
           </FormControl>
         </Grid>
@@ -120,7 +120,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
               required
               onChange={validateNumber}
               min={0}
-              value={newVehicleInput.capacity}
+              value={vehicleFormInputs.capacity}
             />
           </FormControl>
         </Grid>
@@ -134,7 +134,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
               required
               onChange={validateNumber}
               min={0}
-              value={newVehicleInput.horsepower}
+              value={vehicleFormInputs.horsepower}
             />
           </FormControl>
         </Grid>

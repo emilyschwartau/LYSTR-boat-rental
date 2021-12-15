@@ -16,7 +16,7 @@ export default function VehicleFeatures({ handleChange, validateNumber }) {
     dispatch({ type: "FETCH_FEATURES_LIST" });
   }, [dispatch]);
 
-  const { features, newVehicleInput } = useSelector((store) => store.vehicle);
+  const { features, vehicleFormInputs } = useSelector((store) => store.vehicle);
 
   const handleSwitch = (e) => {
     console.log(e.target.checked);
@@ -47,7 +47,7 @@ export default function VehicleFeatures({ handleChange, validateNumber }) {
               required
               onChange={validateNumber}
               min={0}
-              value={newVehicleInput.cabins}
+              value={vehicleFormInputs.cabins}
             />
           </FormControl>
         </Grid>
@@ -61,7 +61,7 @@ export default function VehicleFeatures({ handleChange, validateNumber }) {
               required
               onChange={validateNumber}
               min={0}
-              value={newVehicleInput.heads}
+              value={vehicleFormInputs.heads}
             />
           </FormControl>
         </Grid>
@@ -76,7 +76,7 @@ export default function VehicleFeatures({ handleChange, validateNumber }) {
                     name={feature.name}
                     onChange={handleSwitch}
                     value={feature.id}
-                    checked={newVehicleInput.features.includes(
+                    checked={vehicleFormInputs.features.includes(
                       feature.id.toString()
                     )}
                   />
