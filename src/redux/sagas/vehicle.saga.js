@@ -79,12 +79,12 @@ function* addVehicle(action) {
       availability,
     });
     // post to "photos"
-    yield axios.post(`/api/vehicle/photo/${response.data[0].id}`, formData);
+    yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
   } catch (error) {
     console.log("error posting new vehicle:", error);
     yield put({ type: "POST_ERROR" });
     if (response) {
-      yield axios.delete(`/api/vehicle/photos/${response.data[0].id}`);
+      yield axios.delete(`/api/vehicle/${response.data[0].id}`);
     }
   }
 }
