@@ -11,11 +11,11 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (255) NOT NULL,
     "last_name" VARCHAR (255) NOT NULL,
-    "profile_picture" VARCHAR (1000) NOT NULL
+    "profile_picture" VARCHAR (1000) 
 );
 
 -- vehicle type table - mainly for generating select options
-CREATE TABLE "vehicle_type" (
+CREATE TABLE "type" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL
 );
@@ -25,6 +25,7 @@ CREATE TABLE "vehicle" (
     "id" SERIAL PRIMARY KEY,
     "owned_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
     "type_id" INTEGER NOT NULL REFERENCES "vehicle_type" ON DELETE CASCADE,
+    "title" VARCHAR(255) NOT NULL,
     "make" VARCHAR(255) NOT NULL,
     "model" VARCHAR(255) NOT NULL,
     "year" VARCHAR(255) NOT NULL,
@@ -38,7 +39,7 @@ CREATE TABLE "vehicle" (
 );
 
 -- listed vehicles' addresses go here:
-CREATE TABLE "vehicle_address" (
+CREATE TABLE "address" (
     "id" SERIAL PRIMARY KEY,
     "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
     "street" VARCHAR(255) NOT NULL,
