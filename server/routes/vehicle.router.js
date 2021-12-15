@@ -87,6 +87,7 @@ router.post("/", (req, res) => {
       zip,
     ])
     .then((result) => {
+      console.log("POST to /vehicle successful");
       res.send(result.rows);
     })
     .catch((error) => {
