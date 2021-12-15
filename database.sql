@@ -82,6 +82,15 @@ CREATE TABLE "rental" (
     "date_id" INTEGER NOT NULL REFERENCES "availability" ON DELETE CASCADE
 );
 
+-- auto fill city table
+CREATE TABLE "cities" (
+    "id" SERIAL PRIMARY KEY,
+    "city_name" VARCHAR(32),
+    "county_name" VARCHAR(32),
+    "state_name" VARCHAR(32),
+    "zip" INTEGER,
+);
+
 -- STRETCH table for messages between users
 CREATE TABLE "messages" (
     "id" SERIAL PRIMARY KEY,
