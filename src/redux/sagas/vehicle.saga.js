@@ -69,8 +69,23 @@ function* addVehicle(action) {
   }
 }
 
+// GET a specific vehicle by ID
+function* fetchVehicleById(action) {
+  const vehicleId = action.payload;
+  try {
+    const vehicle = yield axios.get(`/api/vehicle/${vehicleId}`);
+    // dipatch to a reducer depending on the action that called this function
+    switch (action.type) {
+      case "FETCH_VECHICLE_TO_EDIT":
+        yield put({ type: "SET_VECHICLE_FORM_INPUTS", payload: vehicle.data });
+        break;
+    }
+  } catch (error) {}
+}
+
 function* vehicleSaga() {
   yield takeLatest("ADD_VEHICLE", addVehicle);
+  yield takeLatest("FETCH_VECHICLE_TO_EDIT", fetchVehicleById);
 }
 
 export default vehicleSaga;
