@@ -12,7 +12,7 @@ import Paper from "@mui/material/Paper";
 export default function VehiclePhotos() {
   const dispatch = useDispatch();
 
-  const { newVehicleInput } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
 
   // const [files, setFiles] = React.useState([]);
   const {
@@ -34,7 +34,7 @@ export default function VehiclePhotos() {
         })
       );
       dispatch({
-        type: "ADD_VEHICLE_ONCHANGE",
+        type: "VEHICLE_FORM_ONCHANGE",
         payload: { property: "photos", value: photos },
       });
     },
@@ -42,14 +42,14 @@ export default function VehiclePhotos() {
   React.useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      newVehicleInput.photos.forEach((photos) =>
+      vehicleFormInputs.photos.forEach((photos) =>
         URL.revokeObjectURL(photos.preview)
       );
     },
-    [newVehicleInput.photos]
+    [vehicleFormInputs.photos]
   );
 
-  const filepath = newVehicleInput.photos.map((photo) => (
+  const filepath = vehicleFormInputs.photos.map((photo) => (
     <li key={photo.path}>
       {photo.path} - {photo.size} bytes
     </li>
