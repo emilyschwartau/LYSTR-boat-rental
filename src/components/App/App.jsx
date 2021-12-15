@@ -13,13 +13,15 @@ import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
+
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
-import LandingPage from "../LandingPage/LandingPage";
+import LandingPage from '../../views/LandingPage';
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import AddVehicle from "../../views/AddVehicle/AddVehicle";
+
 
 import "./App.css";
 import "@fontsource/roboto/300.css";
@@ -100,15 +102,11 @@ function App() {
             )}
           </Route>
 
-          <Route exact path="/home">
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to="/user" />
-            ) : (
-              // Otherwise, show the Landing page
+          <Route
+            exact
+            path="/home"
+          >
               <LandingPage />
-            )}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
