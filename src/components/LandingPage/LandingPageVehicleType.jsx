@@ -68,7 +68,13 @@ function LandingPageVehicleType() {
               </Card>
             ))}
           </Stack>
-          <Button variant="outlined">Find {vehicleType} to Rent</Button>
+          <Button 
+          variant="outlined"
+          sx={{
+            width: "20%",
+            margin: "auto",
+          }}
+          >Find {vehicleType} to Rent</Button>
         </Box>
       </Box>
     </>
