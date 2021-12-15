@@ -20,7 +20,7 @@ export default function VehicleInfo({ handleChange }) {
   const { types, newVehicleInput } = useSelector((store) => store.vehicle);
 
   return (
-    <Grid container maxWidth="md" mx="auto" direction="column">
+    <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
           Vehicle Info
@@ -49,7 +49,7 @@ export default function VehicleInfo({ handleChange }) {
             name="type"
           >
             {types?.map((type) => (
-              <MenuItem key={type.name} value={type.name}>
+              <MenuItem key={type.name} value={type.id}>
                 {type.name}
               </MenuItem>
             ))}
@@ -57,7 +57,7 @@ export default function VehicleInfo({ handleChange }) {
         </FormControl>
       </Grid>
       <Grid item container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="make"
@@ -68,7 +68,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="model"
@@ -79,9 +79,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-      </Grid>
-      <Grid item container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="year"
@@ -92,7 +90,9 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-        <Grid item sm={6}>
+      </Grid>
+      <Grid item container spacing={2}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="length"
@@ -103,9 +103,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-      </Grid>
-      <Grid item container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="capacity"
@@ -116,7 +114,7 @@ export default function VehicleInfo({ handleChange }) {
             />
           </FormControl>
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
               name="horsepower"
