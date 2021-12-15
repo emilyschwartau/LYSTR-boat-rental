@@ -38,6 +38,63 @@ router.get("/features", (req, res) => {
     });
 });
 
+router.post("/", (req, res) => {
+  console.log(req.body);
+  const {
+    title,
+    type,
+    make,
+    model,
+    year,
+    length,
+    capacity,
+    horsepower,
+    street,
+    city,
+    state,
+    zip,
+    instructions,
+    cabins,
+    heads,
+    dailyRate,
+  } = req.body;
+  const ownedBy = req.user.id;
+
+  const query = `
+    INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "instructions", "street", "city", "state", "zip")
+      VALUES ($1, (SELECT "id" FROM "type" WHERE "name = $2), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+      RETURNING "id";
+  `;
+
+  pool
+    .query(query, [
+      ownedBy,
+      type,
+      title,
+      make,
+      model,
+      year,
+      capacity,
+      length,
+      horsepower,
+      dailyRate,
+      cabins,
+      heads,
+      instructions,
+      street,
+      city,
+      state,
+      zip,
+    ])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log("Error during POST to vehicle: ", error);
+      res.sendStatus(500);
+    });
+});
+
 // /**
 //  * POST route template
 //  */
