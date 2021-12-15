@@ -76,10 +76,8 @@ export default function VehicleFeatures({ validateNumber }) {
                   <Switch
                     name={feature.name}
                     onChange={handleSwitch}
-                    value={feature.id}
-                    checked={vehicleFormInputs.features.includes(
-                      feature.id.toString()
-                    )}
+                    value={feature.name}
+                    checked={vehicleFormInputs.features?.includes(feature.name)}
                   />
                 }
                 label={feature.name}

@@ -42,7 +42,7 @@ export default function VehicleAvailability({ validateNumber }) {
           <Calendar
             multiple
             numberOfMonths={3}
-            value={vehicleFormInputs.availability.map(
+            value={vehicleFormInputs.availability?.map(
               (date) => new DateObject(date)
             )}
             onChange={setDates}
@@ -52,7 +52,7 @@ export default function VehicleAvailability({ validateNumber }) {
                 type: "VEHICLE_FORM_ONCHANGE",
                 payload: {
                   property: "availability",
-                  value: dates.map((date) => date.format()),
+                  value: dates?.map((date) => date.format()),
                 },
               });
             }}

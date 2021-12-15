@@ -77,7 +77,10 @@ function* fetchVehicleById(action) {
     // dipatch to a reducer depending on the action that called this function
     switch (action.type) {
       case "FETCH_VECHICLE_TO_EDIT":
-        yield put({ type: "SET_VECHICLE_FORM_INPUTS", payload: vehicle.data });
+        yield put({
+          type: "SET_VECHICLE_FORM_INPUTS",
+          payload: vehicle.data[0],
+        });
         break;
     }
   } catch (error) {}
