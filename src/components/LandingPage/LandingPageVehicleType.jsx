@@ -1,11 +1,12 @@
 import { Box, Stack, Card, Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import { useHistory } from "react-router-dom";
 
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const { searchQuery } = useSelector((store) => store.search);
 
   //local state for now but will have to pull from vehicle type in db
   const vehicleList = [
@@ -55,6 +56,7 @@ function LandingPageVehicleType() {
               </Card>
             ))}
           </Stack>
+          {/* <Button variant="outlined">{searchQuery.vehicleType}</Button> */}
         </Box>
       </Box>
     </>
