@@ -31,6 +31,8 @@ const newVehicleInitial = {
   city: "",
   state: "",
   zip: "",
+  cabins: "",
+  heads: "",
   features: [],
   photos: [],
   availability: [],

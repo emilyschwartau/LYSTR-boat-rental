@@ -7,6 +7,7 @@ import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
 
 export default function VehicleFeatures({ handleChange }) {
   const dispatch = useDispatch();
@@ -29,28 +30,56 @@ export default function VehicleFeatures({ handleChange }) {
   };
 
   return (
-    <Grid container maxWidth="md" mx="auto" mb={2}>
-      <Grid item xs={12}>
+    <Grid container maxWidth="md" mx="auto" mb={4}>
+      <Grid item>
         <Typography component="h2" variant="h5">
           Features
         </Typography>
       </Grid>
-      {features?.map((feature) => (
-        <Grid item key={feature.id}>
-          <FormControl>
-            <FormControlLabel
-              control={
-                <Switch
-                  name={feature.name}
-                  onChange={handleSwitch}
-                  value={feature.id}
-                />
-              }
-              label={feature.name}
+      <Grid item container justifyContent="space-around">
+        <Grid item sm={4}>
+          <FormControl margin="normal" fullWidth>
+            <TextField
+              type="number"
+              name="cabins"
+              variant="standard"
+              label="Cabins"
+              required
+              onChange={handleChange}
             />
           </FormControl>
         </Grid>
-      ))}
+        <Grid item sm={4}>
+          <FormControl margin="normal" fullWidth>
+            <TextField
+              type="number"
+              name="heads"
+              variant="standard"
+              label="Heads"
+              required
+              onChange={handleChange}
+            />
+          </FormControl>
+        </Grid>
+      </Grid>
+      <Grid container item mt={2}>
+        {features?.map((feature) => (
+          <Grid item key={feature.id}>
+            <FormControl>
+              <FormControlLabel
+                control={
+                  <Switch
+                    name={feature.name}
+                    onChange={handleSwitch}
+                    value={feature.id}
+                  />
+                }
+                label={feature.name}
+              />
+            </FormControl>
+          </Grid>
+        ))}
+      </Grid>
     </Grid>
   );
 }

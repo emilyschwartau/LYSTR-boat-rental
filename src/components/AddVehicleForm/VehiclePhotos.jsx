@@ -28,12 +28,15 @@ export default function VehiclePhotos() {
     // noClick: true,
     noKeyboard: true,
     onDrop: (acceptedFiles) => {
-      const files = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
+      const photos = acceptedFiles.map((photo) =>
+        Object.assign(photo, {
+          preview: URL.createObjectURL(photo),
         })
       );
-      dispatch({ type: "ADD_PHOTOS", payload: files });
+      dispatch({
+        type: "ADD_VEHICLE_ONCHANGE",
+        payload: { property: "photos", value: photos },
+      });
     },
   });
   React.useEffect(
@@ -53,7 +56,7 @@ export default function VehiclePhotos() {
   ));
 
   return (
-    <Grid container maxWidth="md" mx="auto" direction="column" mb={2}>
+    <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
           Photos

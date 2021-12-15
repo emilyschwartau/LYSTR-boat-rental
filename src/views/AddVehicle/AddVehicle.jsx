@@ -10,7 +10,7 @@ import VehicleInfo from "../../components/AddVehicleForm/VehicleInfo";
 import VehicleAddress from "../../components/AddVehicleForm/VehicleAddress";
 import VehicleFeatures from "../../components/AddVehicleForm/VehicleFeatures";
 import VehiclePhotos from "../../components/AddVehicleForm/VehiclePhotos";
-import VehicleAvailability from "../../components/AddVehicleForm/VehicleAvailability";
+import VehiclePriceAvailability from "../../components/AddVehicleForm/VehiclePriceAvailability";
 
 export default function AddVehicle() {
   const dispatch = useDispatch();
@@ -27,9 +27,9 @@ export default function AddVehicle() {
     <>
       <VehicleInfo handleChange={handleChange} />
       <VehicleAddress handleChange={handleChange} />
-      <VehicleFeatures />
+      <VehicleFeatures handleChange={handleChange} />
       <VehiclePhotos />
-      {/* <VehicleAvailability /> */}
+      <VehiclePriceAvailability handleChange={handleChange} />
     </>
   );
 }

@@ -20,7 +20,7 @@ export default function VehicleInfo({ handleChange }) {
   const { types, newVehicleInput } = useSelector((store) => store.vehicle);
 
   return (
-    <Grid container maxWidth="md" mx="auto" direction="column" mb={2}>
+    <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
           Vehicle Info
