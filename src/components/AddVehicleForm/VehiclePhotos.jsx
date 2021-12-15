@@ -69,34 +69,32 @@ export default function VehiclePhotos() {
           noValidate
           autoComplete="off"
         >
-          <div className="container">
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                border: isDragActive
-                  ? "2px dashed green"
-                  : "2px dashed lightgray",
-                width: "600px",
-                height: "100px",
-                backgroundColor: "#ededed",
-                mx: "auto",
-              }}
-              {...getRootProps()}
-            >
-              <input required {...getInputProps()} />
-              <Typography component="p" variant="body1" align="center">
-                Drag 'n' drop some files here, or click to select files
-              </Typography>
-              {/* <button type="button" onClick={open}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              border: isDragActive
+                ? "2px dashed green"
+                : "2px dashed lightgray",
+              width: "600px",
+              height: "100px",
+              backgroundColor: "#ededed",
+              mx: "auto",
+            }}
+            {...getRootProps()}
+          >
+            <input required {...getInputProps()} />
+            <Typography component="p" variant="body1" align="center">
+              Drag 'n' drop some files here, or click to select files
+            </Typography>
+            {/* <button type="button" onClick={open}>
                 Open File Dialog
               </button> */}
-            </Box>
-            <aside>
-              <ul>{filepath}</ul>
-            </aside>
-          </div>
+          </Box>
+          <aside>
+            <ul>{filepath}</ul>
+          </aside>
           {/* {loading && <LinearProgress />} */}
 
           {/* <Button variant="contained" onClick={handleUpload}>Upload</Button> */}

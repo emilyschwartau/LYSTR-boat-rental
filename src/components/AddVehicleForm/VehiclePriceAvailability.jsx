@@ -45,8 +45,11 @@ export default function VehicleAvailability({ handleChange }) {
             onChange={(dates) => {
               setDates(dates);
               dispatch({
-                type: "ADD_AVAILABILITY",
-                payload: dates.map((date) => date.format()),
+                type: "ADD_VEHICLE_ONCHANGE",
+                payload: {
+                  property: "availability",
+                  value: dates.map((date) => date.format()),
+                },
               });
             }}
             // mapDays={({ date }) => {

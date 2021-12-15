@@ -21,9 +21,34 @@ function* fetchFeaturesList() {
   }
 }
 
+function* addVehicle(action) {
+  const {
+    title,
+    type,
+    make,
+    model,
+    year,
+    length,
+    capacity,
+    horsepower,
+    street,
+    city,
+    state,
+    zip,
+    cabins,
+    heads,
+    features,
+    photos,
+    availability,
+  } = action.payload;
+  try {
+  } catch (error) {}
+}
+
 function* vehicleSaga() {
   yield takeLatest("FETCH_VEHICLE_TYPES", fetchVehicleTypes);
   yield takeLatest("FETCH_FEATURES_LIST", fetchFeaturesList);
+  yield takeLatest("ADD_VEHICLE", addVehicle);
 }
 
 export default vehicleSaga;
