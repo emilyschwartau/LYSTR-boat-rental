@@ -9,7 +9,7 @@ router.get("/:search", (req, res) => {
 
   const locationKeyword = req.params.search
   const startDate = req.params.startDate
-  const endDate = req.params.endDate
+  
   
 
   const query = `SELECT * FROM "vehicle_address";` 
