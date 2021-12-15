@@ -10,14 +10,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
-export default function VehicleInfo({ handleChange }) {
+export default function VehicleInfo({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch({ type: "FETCH_VEHICLE_TYPES" });
   }, [dispatch]);
 
-  const { types, newVehicleInput } = useSelector((store) => store.vehicle);
+  const { types, vehicleFormInputs } = useSelector((store) => store.vehicle);
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -34,6 +34,7 @@ export default function VehicleInfo({ handleChange }) {
             label="Title"
             required
             onChange={handleChange}
+            value={vehicleFormInputs.title}
           />
         </FormControl>
       </Grid>
@@ -45,7 +46,7 @@ export default function VehicleInfo({ handleChange }) {
             labelId="type-selector"
             label="Age"
             onChange={handleChange}
-            value={newVehicleInput.type}
+            value={vehicleFormInputs.type}
             name="type"
           >
             {types?.map((type) => (
@@ -65,6 +66,7 @@ export default function VehicleInfo({ handleChange }) {
               label="Make"
               required
               onChange={handleChange}
+              value={vehicleFormInputs.make}
             />
           </FormControl>
         </Grid>
@@ -76,6 +78,7 @@ export default function VehicleInfo({ handleChange }) {
               label="Model"
               required
               onChange={handleChange}
+              value={vehicleFormInputs.model}
             />
           </FormControl>
         </Grid>
@@ -87,6 +90,7 @@ export default function VehicleInfo({ handleChange }) {
               label="Year"
               required
               onChange={handleChange}
+              value={vehicleFormInputs.year}
             />
           </FormControl>
         </Grid>
@@ -96,32 +100,41 @@ export default function VehicleInfo({ handleChange }) {
           <FormControl margin="normal" fullWidth>
             <TextField
               name="length"
+              type="number"
               variant="standard"
               label="Length (ft)"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
+              min={0}
+              value={vehicleFormInputs.length}
             />
           </FormControl>
         </Grid>
         <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
+              type="number"
               name="capacity"
               variant="standard"
               label="Capacity"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
+              min={0}
+              value={vehicleFormInputs.capacity}
             />
           </FormControl>
         </Grid>
         <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
+              type="number"
               name="horsepower"
               variant="standard"
               label="Horsepower"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
+              min={0}
+              value={vehicleFormInputs.horsepower}
             />
           </FormControl>
         </Grid>
