@@ -9,7 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
-export default function VehicleFeatures({ handleChange }) {
+export default function VehicleFeatures({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -45,7 +45,7 @@ export default function VehicleFeatures({ handleChange }) {
               variant="standard"
               label="Cabins"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
               min={0}
               value={newVehicleInput.cabins}
             />
@@ -59,7 +59,7 @@ export default function VehicleFeatures({ handleChange }) {
               variant="standard"
               label="Heads"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
               min={0}
               value={newVehicleInput.heads}
             />

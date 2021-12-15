@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 
-export default function VehicleAvailability({ handleChange }) {
+export default function VehicleAvailability({ validateNumber }) {
   const dispatch = useDispatch();
   const [dates, setDates] = React.useState([]);
 
@@ -26,11 +26,12 @@ export default function VehicleAvailability({ handleChange }) {
           <Typography sx={{ mr: 1, my: 0 }}>$</Typography>
           <FormControl margin="normal">
             <TextField
+              type="number"
               name="dailyRate"
               variant="standard"
               label="Daily Rate"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
             />
           </FormControl>
         </Box>

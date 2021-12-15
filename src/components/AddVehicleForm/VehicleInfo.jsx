@@ -10,7 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 
-export default function VehicleInfo({ handleChange }) {
+export default function VehicleInfo({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
@@ -104,7 +104,7 @@ export default function VehicleInfo({ handleChange }) {
               variant="standard"
               label="Length (ft)"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
               min={0}
               value={newVehicleInput.length}
             />
@@ -118,7 +118,7 @@ export default function VehicleInfo({ handleChange }) {
               variant="standard"
               label="Capacity"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
               min={0}
               value={newVehicleInput.capacity}
             />
@@ -132,7 +132,7 @@ export default function VehicleInfo({ handleChange }) {
               variant="standard"
               label="Horsepower"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
               min={0}
               value={newVehicleInput.horsepower}
             />

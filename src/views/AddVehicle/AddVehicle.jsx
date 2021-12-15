@@ -30,14 +30,17 @@ export default function AddVehicle() {
     });
   };
 
-  // // set a min and max for the input (not used with rating input)
-  // const validateNumber = (e) => {
-  //   const value = e.target.value;
-  //   //if the input value is less than 1 or greater than 6, then don't change the input value (empty string allowed for backspacing)
-  //   const setValue =
-  //     (value >= 1 && value <= 6) || value === "" ? value : feelingFeedback;
-  //   setFeelingFeedback(setValue);
-  // };
+  // set a min for number inputs
+  const validateNumber = (e) => {
+    const { name, value } = e.target;
+    //if the input value is less than 0 then don't change the input value (empty string allowed for backspacing)
+    const validValue =
+      value >= 0 || value === "" ? value : newVehicleInput[name];
+    dispatch({
+      type: "ADD_VEHICLE_ONCHANGE",
+      payload: { property: name, value: validValue },
+    });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,11 +51,17 @@ export default function AddVehicle() {
   return (
     <Container component="main">
       <Box component="form" onSubmit={handleSubmit}>
-        <VehicleInfo handleChange={handleChange} />
+        <VehicleInfo
+          handleChange={handleChange}
+          validateNumber={validateNumber}
+        />
         <VehicleAddress handleChange={handleChange} />
-        <VehicleFeatures handleChange={handleChange} />
+        <VehicleFeatures
+          handleChange={handleChange}
+          validateNumber={validateNumber}
+        />
         <VehiclePhotos />
-        <VehiclePriceAvailability handleChange={handleChange} />
+        <VehiclePriceAvailability validateNumber={validateNumber} />
         <Box display="flex" justifyContent="flex-end">
           <Button type="submit" variant="contained" size="large">
             Add Vehicle
