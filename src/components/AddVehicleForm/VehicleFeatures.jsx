@@ -46,6 +46,8 @@ export default function VehicleFeatures({ handleChange }) {
               label="Cabins"
               required
               onChange={handleChange}
+              min={0}
+              value={newVehicleInput.cabins}
             />
           </FormControl>
         </Grid>
@@ -58,6 +60,8 @@ export default function VehicleFeatures({ handleChange }) {
               label="Heads"
               required
               onChange={handleChange}
+              min={0}
+              value={newVehicleInput.heads}
             />
           </FormControl>
         </Grid>
@@ -72,6 +76,9 @@ export default function VehicleFeatures({ handleChange }) {
                     name={feature.name}
                     onChange={handleSwitch}
                     value={feature.id}
+                    checked={newVehicleInput.features.includes(
+                      feature.id.toString()
+                    )}
                   />
                 }
                 label={feature.name}

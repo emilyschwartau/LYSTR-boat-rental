@@ -30,6 +30,15 @@ export default function AddVehicle() {
     });
   };
 
+  // // set a min and max for the input (not used with rating input)
+  // const validateNumber = (e) => {
+  //   const value = e.target.value;
+  //   //if the input value is less than 1 or greater than 6, then don't change the input value (empty string allowed for backspacing)
+  //   const setValue =
+  //     (value >= 1 && value <= 6) || value === "" ? value : feelingFeedback;
+  //   setFeelingFeedback(setValue);
+  // };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(newVehicleInput);

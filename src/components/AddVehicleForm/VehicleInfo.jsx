@@ -34,6 +34,7 @@ export default function VehicleInfo({ handleChange }) {
             label="Title"
             required
             onChange={handleChange}
+            value={newVehicleInput.title}
           />
         </FormControl>
       </Grid>
@@ -65,6 +66,7 @@ export default function VehicleInfo({ handleChange }) {
               label="Make"
               required
               onChange={handleChange}
+              value={newVehicleInput.make}
             />
           </FormControl>
         </Grid>
@@ -76,6 +78,7 @@ export default function VehicleInfo({ handleChange }) {
               label="Model"
               required
               onChange={handleChange}
+              value={newVehicleInput.model}
             />
           </FormControl>
         </Grid>
@@ -87,6 +90,7 @@ export default function VehicleInfo({ handleChange }) {
               label="Year"
               required
               onChange={handleChange}
+              value={newVehicleInput.year}
             />
           </FormControl>
         </Grid>
@@ -96,32 +100,41 @@ export default function VehicleInfo({ handleChange }) {
           <FormControl margin="normal" fullWidth>
             <TextField
               name="length"
+              type="number"
               variant="standard"
               label="Length (ft)"
               required
               onChange={handleChange}
+              min={0}
+              value={newVehicleInput.length}
             />
           </FormControl>
         </Grid>
         <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
+              type="number"
               name="capacity"
               variant="standard"
               label="Capacity"
               required
               onChange={handleChange}
+              min={0}
+              value={newVehicleInput.capacity}
             />
           </FormControl>
         </Grid>
         <Grid item sm={4}>
           <FormControl margin="normal" fullWidth>
             <TextField
+              type="number"
               name="horsepower"
               variant="standard"
               label="Horsepower"
               required
               onChange={handleChange}
+              min={0}
+              value={newVehicleInput.horsepower}
             />
           </FormControl>
         </Grid>
