@@ -18,6 +18,12 @@ function LandingPageVehicleType() {
     { id: 5, name: "Canoe / Kayak", image_url: "/images/kayak.jpeg" },
   ];
 
+  const handleClick = () => {
+    dispatch({ type: "FETCH_VEHICLES", payload: { location: location, startDate: startDate, vehicleType: vehicleType } })
+    history.push('/gallery')
+  }
+
+
   const checkId = () => {
     if (vehicleListId === undefined) {
       vehicleType = 'Boats'
@@ -68,12 +74,13 @@ function LandingPageVehicleType() {
               </Card>
             ))}
           </Stack>
-          <Button 
-          variant="outlined"
-          sx={{
-            width: "20%",
-            margin: "auto",
-          }}
+          <Button
+            variant="outlined"
+            sx={{
+              width: "20%",
+              margin: "auto",
+            }}
+            onClick={() => handleClick}
           >Find {vehicleType} to Rent</Button>
         </Box>
       </Box>
