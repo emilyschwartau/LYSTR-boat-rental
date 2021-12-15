@@ -6,8 +6,11 @@ import { useHistory } from "react-router-dom";
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const vehicleListId = useSelector((store) => store.search.vehicleType);
-  let vehicleType = ""
+  const vehicleTypeId = useSelector((store) => store.search.vehicleType);
+  const startDate = useSelector((store) => store.search.startDate);
+  const location = useSelector((store) => store.search.location);
+
+  let buttonText = ""
 
   //local state for now but will have to pull from vehicle type in db
   const vehicleList = [
@@ -18,22 +21,24 @@ function LandingPageVehicleType() {
     { id: 5, name: "Canoe / Kayak", image_url: "/images/kayak.jpeg" },
   ];
 
-  const handleClick = () => {
-    dispatch({ type: "FETCH_VEHICLES", payload: { location: location, startDate: startDate, vehicleType: vehicleType } })
+  const handleSearch = () => {
+    dispatch({ 
+      type: "FETCH_VEHICLES",
+      payload: { location: location, startDate: startDate, vehicleType: vehicleTypeId } })
     history.push('/gallery')
   }
 
 
   const checkId = () => {
-    if (vehicleListId === undefined) {
-      vehicleType = 'Boats'
+    if (vehicleTypeId === undefined) {
+      buttonText = 'Boats'
     } else {
-      vehicleType = vehicleList[vehicleListId - 1].name + 's'
+      buttonText = vehicleList[vehicleTypeId - 1].name + 's'
     }
   }
 
   checkId()
-  console.log('button text:', vehicleType, typeof (vehicleListId))
+  // console.log('button text:', buttonText, typeof (vehicleTypeId))
 
   return (
     <>
@@ -80,8 +85,9 @@ function LandingPageVehicleType() {
               width: "20%",
               margin: "auto",
             }}
-            onClick={() => handleClick}
-          >Find {vehicleType} to Rent</Button>
+            onClick={() => handleSearch}
+          >Find {buttonText} to Rent
+          </Button>
         </Box>
       </Box>
     </>
