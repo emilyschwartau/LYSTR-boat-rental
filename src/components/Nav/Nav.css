@@ -46,3 +46,9 @@
   width: 50px;
 
 } 
+
+#logo {
+  width: 250px;
+  padding: 10px;
+  padding-left: 0px;
+}
