@@ -40,9 +40,11 @@ const newVehicleInitial = {
   availability: [],
 };
 
-const newVehicleInput = (state = newVehicleInitial, action) => {
+const vehicleFormInputs = (state = newVehicleInitial, action) => {
   switch (action.type) {
-    case "ADD_VEHICLE_ONCHANGE":
+    case "SET_VECHICLE_FORM_INPUTS":
+      return action.payload;
+    case "VEHICLE_FORM_ONCHANGE":
       return { ...state, [action.payload.property]: action.payload.value };
     case "ADD_FEATURE":
       state.features.push(action.payload);
@@ -61,6 +63,6 @@ const newVehicleInput = (state = newVehicleInitial, action) => {
 
 export default combineReducers({
   types,
-  newVehicleInput,
+  vehicleFormInputs,
   features,
 });

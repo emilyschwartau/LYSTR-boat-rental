@@ -9,14 +9,14 @@ import FormControl from "@mui/material/FormControl";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 
-export default function VehicleFeatures({ handleChange }) {
+export default function VehicleFeatures({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
     dispatch({ type: "FETCH_FEATURES_LIST" });
   }, [dispatch]);
 
-  const { features, newVehicleInput } = useSelector((store) => store.vehicle);
+  const { features, vehicleFormInputs } = useSelector((store) => store.vehicle);
 
   const handleSwitch = (e) => {
     console.log(e.target.checked);
@@ -45,7 +45,9 @@ export default function VehicleFeatures({ handleChange }) {
               variant="standard"
               label="Cabins"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
+              min={0}
+              value={vehicleFormInputs.cabins}
             />
           </FormControl>
         </Grid>
@@ -57,7 +59,9 @@ export default function VehicleFeatures({ handleChange }) {
               variant="standard"
               label="Heads"
               required
-              onChange={handleChange}
+              onChange={validateNumber}
+              min={0}
+              value={vehicleFormInputs.heads}
             />
           </FormControl>
         </Grid>
@@ -72,6 +76,9 @@ export default function VehicleFeatures({ handleChange }) {
                     name={feature.name}
                     onChange={handleSwitch}
                     value={feature.id}
+                    checked={vehicleFormInputs.features.includes(
+                      feature.id.toString()
+                    )}
                   />
                 }
                 label={feature.name}
