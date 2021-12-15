@@ -1,5 +1,5 @@
 import React from "react";
-import DatePicker, { DateObject, Calendar } from "react-multi-date-picker";
+import { Calendar } from "react-multi-date-picker";
 import { useDispatch, useSelector } from "react-redux";
 
 import Grid from "@mui/material/Grid";
