@@ -63,12 +63,7 @@ export default function VehiclePhotos() {
         </Typography>
       </Grid>
       <Grid item>
-        <Box
-          component="form"
-          enctype="multipart/form-data"
-          noValidate
-          autoComplete="off"
-        >
+        <Box>
           <Box
             sx={{
               display: "flex",

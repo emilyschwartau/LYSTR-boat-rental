@@ -49,7 +49,7 @@ export default function VehicleInfo({ handleChange }) {
             name="type"
           >
             {types?.map((type) => (
-              <MenuItem key={type.name} value={type.name}>
+              <MenuItem key={type.name} value={type.id}>
                 {type.name}
               </MenuItem>
             ))}

@@ -70,20 +70,15 @@ function* addVehicle(action) {
       dailyRate,
     });
     // post to "vehicle_features"
-    yield axios.post("/api/vehicle/features", {
+    yield axios.post(`/api/vehicle/features/${response.data[0].id}`, {
       features,
-      vehicleId: response.data[0].id,
     });
     // post to "availability"
-    yield axios.post("/api/vehicle/availability", {
+    yield axios.post(`/api/vehicle/availability/${response.data[0].id}`, {
       availability,
-      vehicleId: response.data[0].id,
     });
     // post to "photos"
-    yield axios.post("/api/vehicle/photos", {
-      formData,
-      vehicleId: response.data[0].id,
-    });
+    yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
   } catch (error) {
     console.log("error posting new vehicle:", error);
     yield put({ type: "POST_ERROR" });

@@ -33,6 +33,7 @@ export default function AddVehicle() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(newVehicleInput);
+    dispatch({ type: "ADD_VEHICLE", payload: newVehicleInput });
   };
 
   return (
