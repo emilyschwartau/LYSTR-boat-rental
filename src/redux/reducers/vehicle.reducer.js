@@ -18,10 +18,42 @@ const features = (state = [], action) => {
   }
 };
 
-const newVehicleInput = (state = { type: "" }, action) => {
+const newVehicleInitial = {
+  title: "",
+  type: "",
+  make: "",
+  model: "",
+  year: "",
+  length: "",
+  capacity: "",
+  horsepower: "",
+  street: "",
+  city: "",
+  state: "",
+  zip: "",
+  instructions: "",
+  cabins: "",
+  heads: "",
+  dailyRate: "",
+  features: [],
+  photos: [],
+  availability: [],
+};
+
+const newVehicleInput = (state = newVehicleInitial, action) => {
   switch (action.type) {
     case "ADD_VEHICLE_ONCHANGE":
       return { ...state, [action.payload.property]: action.payload.value };
+    case "ADD_FEATURE":
+      state.features.push(action.payload);
+      return { ...state };
+    case "REMOVE_FEATURE":
+      const filteredFeatures = state.features.filter(
+        (feature) => feature !== action.payload
+      );
+      return { ...state, features: filteredFeatures };
+    case "ADD_PHOTOS":
+      return { ...state, photos: action.payload };
     default:
       return state;
   }
