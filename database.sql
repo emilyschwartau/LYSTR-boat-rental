@@ -20,11 +20,14 @@ CREATE TABLE "type" (
     "name" VARCHAR(255) NOT NULL
 );
 
+INSERT INTO "type" ("name")
+VALUES ('Pontoon'), ('Runabout'), ('Fishing'), ('Jetski'), ('Kayak/Canoe'), 
+
 -- listed vehicles go here:
 CREATE TABLE "vehicle" (
     "id" SERIAL PRIMARY KEY,
     "owned_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    "type_id" INTEGER NOT NULL REFERENCES "vehicle_type" ON DELETE CASCADE,
+    "type_id" INTEGER NOT NULL REFERENCES "type" ON DELETE CASCADE,
     "title" VARCHAR(255) NOT NULL,
     "make" VARCHAR(255) NOT NULL,
     "model" VARCHAR(255) NOT NULL,
@@ -35,17 +38,11 @@ CREATE TABLE "vehicle" (
     "daily_rate" INTEGER NOT NULL,
     "cabins" INTEGER NOT NULL,
     "heads" INTEGER NOT NULL,
-    "instructions" VARCHAR(1000)
-);
-
--- listed vehicles' addresses go here:
-CREATE TABLE "address" (
-    "id" SERIAL PRIMARY KEY,
-    "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
     "street" VARCHAR(255) NOT NULL,
     "city" VARCHAR(255) NOT NULL,
     "state" VARCHAR(255) NOT NULL,
-    "zip" VARCHAR(255) NOT NULL
+    "zip" VARCHAR(255) NOT NULL,
+    "instructions" VARCHAR(1000)
 );
 
 -- photos for each vehicle
@@ -61,6 +58,9 @@ CREATE TABLE "features" (
     "name" VARCHAR(255) NOT NULL
 );
 
+INSERT INTO "features" ("name")
+VALUES ('Radar'), ('Sonar'), ('GPS'), ('Depth Finder'), ('Fish Finder'), ('Trolling Motor'), ('Anchor'), ('Live Well'), ('Life Jackets'), ('Fire Extinguisher'), ('EPIRB'), ('First Aid Kit'), ('Stereo System'), ('Towels'), ('Wake-board Tower and Board'), ('Water Skis'), ('Towable Tube'), ('Tow Rope'), ('Fishing Rod');
+
 -- junction table
 CREATE TABLE "vehicle_features" (
     "id" SERIAL PRIMARY KEY,
@@ -72,8 +72,7 @@ CREATE TABLE "vehicle_features" (
 CREATE TABLE "availability" (
     "id" SERIAL PRIMARY KEY,
     "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
-    "date" DATE NOT NULL,
-    "is_rented" BOOLEAN DEFAULT FALSE
+    "date_available" DATE NOT NULL
 );
 
 -- holds rental apointments
