@@ -65,6 +65,33 @@ router.get('/photos/:vehicleId', (req, res) => {
     });
 });
 
+// GET ALL VEHICLES LISTED BY OWNER
+router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
+  const { userId } = req.params;
+  const query = `
+  SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
+    (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
+    (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id"),
+    (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id") FROM "vehicle" 
+  JOIN "type" ON "vehicle"."type_id" = "type"."id" 
+  JOIN "user" ON "vehicle"."owned_by" = "user"."id"
+  WHERE "user"."id" = $1;
+  `;
+
+  pool
+    .query(query, [userId])
+    .then((result) => {
+      console.log(`GET at /vehicle/allVehiclesListed/${userId} successful`);
+      console.log(result.rows);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log(`Error getting vehicle info`, err);
+      res.sendStatus(500);
+    });
+});
+
+
 router.get('/uploads/:key', (req, res) => {
   console.log('getting S3');
   const { key } = req.params;

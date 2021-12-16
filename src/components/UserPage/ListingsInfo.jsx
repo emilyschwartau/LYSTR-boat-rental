@@ -3,12 +3,12 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
 
-function ListingsInfo({ row }) {
+function ListingsInfo({ vehicle }) {
 
     const [imageIndex, setImageIndex] = useState(0);
 
     const handleNext = () => {
-        if (imageIndex != (row.image_url.length - 1)) {
+        if (imageIndex != (vehicle?.photos.length - 1)) {
             setImageIndex(imageIndex + 1);
         }
         else {
@@ -18,20 +18,18 @@ function ListingsInfo({ row }) {
 
     const handleBack = () => {
         if (imageIndex == 0) {
-            setImageIndex(row.image_url.length - 1)
+            setImageIndex(vehicle?.photos.length - 1)
         }
         else {
             setImageIndex(imageIndex - 1);
         }
     }
-
-
-    console.log(imageIndex)
+    
     return (<>
         <Box sx={{margin: 'auto', padding: '1em', width: '80%' }}>
-            <Stack direction={row} divider={<Divider orientation='vertical' flexItem />} justifyContent="space-around">
+            <Stack direction='row' divider={<Divider orientation='vertical' flexItem />} justifyContent="space-around">
                 <Box sx={{ width: '45%', textAlign: 'center' }}>
-                    <Card><img src={row.image_url[imageIndex]} height={'200vh'} /></Card><br />
+                    <Card><img src={vehicle?.photos[imageIndex]} height={'200vh'} /></Card><br />
                     <IconButton variant='outlined' onClick={() => handleBack()}>
                         <ArrowBackIosNewIcon />
                     </IconButton>
@@ -41,14 +39,12 @@ function ListingsInfo({ row }) {
                     </IconButton>
                 </Box>
                 <Box sx={{ border: 'black solid 1px', width: '45%', padding: '1em' }}>
-                    <p>BOAT DETAIL WILL BE POPULATED HERE</p>
-                    <p>Address: {`${row.street} ${row.city}, ${row.state} ${row.zip}`}</p>
+                    <p>Address: {`${vehicle?.street} ${vehicle?.city}, ${vehicle?.state} ${vehicle?.zip}`}</p>
 
-
-                    <p>Features</p>
+                    <p>Features:</p>
                     <ul>
-                        {row.features?.map(feature => (<>
-                            <li>{feature}</li>
+                        {vehicle?.features?.map((feature, i) => (<>
+                            <li key={i}>{feature}</li>
                         </>))}
                     </ul>
 

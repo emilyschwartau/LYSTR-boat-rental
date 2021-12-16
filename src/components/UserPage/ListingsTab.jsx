@@ -9,8 +9,11 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material'
+import { useSelector } from 'react-redux';
 
 function ListingsTab() {
+    const ownerListingList = useSelector(store => store.vehicle.listedVehiclesByOwner);
+
     const dummyOwnerListingList = [
         {
             id: 1,
@@ -71,7 +74,7 @@ function ListingsTab() {
                 <TableHead>
                     <TableRow>
                         <TableCell />
-                        <TableCell>TITLE</TableCell>
+                        <TableCell>Listing Title</TableCell>
                         <TableCell align="right">Year,&nbsp; Make,&nbsp; Model</TableCell>
                         <TableCell align="right">Vehicle Type</TableCell>
                         <TableCell align="right">Currently Rented By</TableCell>
@@ -79,8 +82,8 @@ function ListingsTab() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {dummyOwnerListingList?.map((row) => (
-                        <ListingsRow key={row.id} row={row} />
+                    {ownerListingList?.map((vehicle) => (
+                        <ListingsRow key={vehicle?.vehicleId} vehicle={vehicle} />
                     ))}
                 </TableBody>
             </Table>
