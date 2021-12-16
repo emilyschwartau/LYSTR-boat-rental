@@ -45,6 +45,8 @@ CREATE TABLE "vehicle" (
     "instructions" VARCHAR(1000)
 );
 
+INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "street", "city", "state", "zip")
+
 -- photos for each vehicle
 CREATE TABLE "photos" (
     "id" SERIAL PRIMARY KEY,

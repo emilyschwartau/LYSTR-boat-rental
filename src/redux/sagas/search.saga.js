@@ -8,11 +8,11 @@ function* fetchVehicles({payload}) {
   const location = payload.location
   const startDate = payload.startDate
   const vehicleType = payload.vehicleType
-  
+
   console.log('in fetchVehicles payload:', location, startDate, vehicleType)
   try {
     const types = yield axios.get(`/api/search/${location}/${startDate}/${vehicleType}`);
-    yield put({ type: "SET_VEHICLES", payload: types.data });
+    yield put({ type: "SET_GALLERY", payload: types.data });
   } catch (error) {
     console.log("error getting search results:", error);
     yield put({ type: "GET_ERROR" });
