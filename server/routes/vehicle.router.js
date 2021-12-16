@@ -1,48 +1,84 @@
-const express = require("express");
-const pool = require("../modules/pool");
+const express = require('express');
+const pool = require('../modules/pool');
 const router = express.Router();
-const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 const {
   uploadFile,
   getFileStream,
   deleteFile,
   // upload,
-} = require("../services/s3.js");
-const fs = require("fs");
-const util = require("util");
+} = require('../services/s3.js');
+const fs = require('fs');
+const util = require('util');
 const unlinkFile = util.promisify(fs.unlink);
 
 /*
  * GET routes
  */
-router.get("/types", (req, res) => {
-  const query = `SELECT * FROM "type";`;
+
+router.get('/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+
+  const query = `
+    SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
+	    (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
+	    (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id"),
+	    (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id")
+    FROM "vehicle" JOIN "type" ON "vehicle"."type_id" = "type"."id" JOIN "user" ON "vehicle"."owned_by" = "user"."id"
+    WHERE "vehicle"."id" = $1;
+  `;
+
   pool
-    .query(query)
-    .then((result) => res.send(result.rows))
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`GET at /vehicle/${vehicleId} successful`);
+      res.send(result.rows);
+    })
     .catch((err) => {
-      console.log(`Error making query ${queryText}`, err);
+      console.log(`Error getting vehicle info`, err);
       res.sendStatus(500);
     });
 });
 
-router.get("/features", (req, res) => {
-  const query = `SELECT * FROM "features";`;
+router.get('/photos/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+
+  const query = `
+    SELECT "id", "image_path" AS "path" FROM "photos"
+    WHERE "vehicle_id" = $1;
+  `;
+
   pool
-    .query(query)
-    .then((result) => res.send(result.rows))
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`GET at /vehicle/photos/${vehicleId} successful`);
+      res.send(result.rows);
+    })
     .catch((err) => {
-      console.log(`Error making query ${queryText}`, err);
+      console.log(`Error getting vehicle photos`, err);
       res.sendStatus(500);
     });
+});
+
+router.get('/uploads/:key', (req, res) => {
+  console.log('getting S3');
+  const { key } = req.params;
+  // create a read stream for the image in the S3 bucket
+  const readStream = getFileStream(key);
+  // handle errors
+  readStream.on('error', (error) => {
+    res.sendStatus(500);
+  });
+  // pipe the read stream to the client
+  readStream.pipe(res);
 });
 
 /*
  * POST routes
  */
 
-router.post("/", (req, res) => {
+router.post('/', (req, res) => {
   console.log(req.body);
   const {
     title,
@@ -66,7 +102,7 @@ router.post("/", (req, res) => {
 
   const query = `
     INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "instructions", "street", "city", "state", "zip")
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+      VALUES ($1, (select "id" from "type" where "name" = $2), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
       RETURNING "id";
   `;
 
@@ -91,16 +127,16 @@ router.post("/", (req, res) => {
       zip,
     ])
     .then((result) => {
-      console.log("POST at /vehicle successful");
+      console.log('POST at /vehicle successful');
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log("Error during POST to vehicle: ", error);
+      console.log('Error during POST to vehicle: ', error);
       res.sendStatus(500);
     });
 });
 
-router.post("/features/:vehicleId", (req, res) => {
+router.post('/features/:vehicleId', (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
 
@@ -113,7 +149,7 @@ router.post("/features/:vehicleId", (req, res) => {
   // build the query string
   for (let i = 0; i < features.length; i++) {
     // start at $2 since $1 will be used for vehicleId
-    query += ` ($1, $${i + 2})`;
+    query += ` ($1, (select "id" from "features" where "name" = $${i + 2}))`;
     // push the featureId into values
     values.push(features[i]);
     // add a comma or semi-colon depending on if we are at the last interation or not
@@ -128,16 +164,16 @@ router.post("/features/:vehicleId", (req, res) => {
   pool
     .query(query, values)
     .then((result) => {
-      console.log("POST at /vehicle/features successful");
+      console.log('POST at /vehicle/features successful');
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log("Error during POST to vehicle_features: ", error);
+      console.log('Error during POST to vehicle_features: ', error);
       res.sendStatus(500);
     });
 });
 
-router.post("/availability/:vehicleId", (req, res) => {
+router.post('/availability/:vehicleId', (req, res) => {
   const { availability } = req.body;
   const { vehicleId } = req.params;
 
@@ -165,17 +201,17 @@ router.post("/availability/:vehicleId", (req, res) => {
   pool
     .query(query, values)
     .then((result) => {
-      console.log("POST at /vehicle/availability successful");
+      console.log('POST at /vehicle/availability successful');
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log("Error during POST to availability: ", error);
+      console.log('Error during POST to availability: ', error);
       res.sendStatus(500);
     });
 });
 
-router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
-  console.log("req.files:", req.files);
+router.post('/photos/:vehicleId', upload.array('photos'), async (req, res) => {
+  console.log('req.files:', req.files);
   const photos = req.files;
   const { vehicleId } = req.params;
 
@@ -185,7 +221,7 @@ router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
   for (const photo of photos) {
     // capture the photo's Key sent back from S3
     const result = await uploadFile(photo);
-    imagePaths.push(`/vehicle/photos/${result.Key}`);
+    imagePaths.push(`/api/vehicle/uploads/${result.Key}`);
     // remove them from server
     await unlinkFile(photo.path);
   }
@@ -212,7 +248,7 @@ router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
   pool
     .query(queryText, values)
     .then((result) => {
-      console.log("POST at /vehicle/photos successful");
+      console.log('POST at /vehicle/photos successful');
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -225,7 +261,7 @@ router.post("/photos/:vehicleId", upload.array("photos"), async (req, res) => {
  * DELETE routes
  */
 
-router.delete("/:vehicleId", (req, res) => {
+router.delete('/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `DELETE FROM "vehicle" WHERE "id" = $1 AND "owned_by" = $2;`;
@@ -238,6 +274,109 @@ router.delete("/:vehicleId", (req, res) => {
     })
     .catch((err) => {
       console.log(`Error deleting from "vehicle":`, err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/features/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+
+  const query = `DELETE FROM "vehicle_features" WHERE "vehicle_id" = $1;`;
+
+  pool
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`DELETE at /vehicle/features/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error deleting from "vehicle_features":`, err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/availability/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+  // only delete a date if there isn't a rental booked
+  const query = `
+    DELETE FROM "availability" 
+    WHERE NOT EXISTS (
+      SELECT FROM "rental"
+      WHERE "rental"."date_id" = "availability"."id"
+      ) 
+    AND "vehicle_id" = $1;`;
+
+  pool
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`DELETE at /vehicle/availability/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error deleting from "availability":`, err);
+      res.sendStatus(500);
+    });
+});
+
+/*
+ * PUT routes
+ */
+
+router.put('/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+  const {
+    title,
+    type,
+    make,
+    model,
+    year,
+    length,
+    capacity,
+    horsepower,
+    street,
+    city,
+    state,
+    zip,
+    instructions,
+    cabins,
+    heads,
+    dailyRate,
+  } = req.body;
+
+  let values = [
+    vehicleId,
+    type,
+    title,
+    make,
+    model,
+    year,
+    capacity,
+    length,
+    horsepower,
+    dailyRate,
+    cabins,
+    heads,
+    instructions,
+    street,
+    city,
+    state,
+    zip,
+  ];
+
+  let query = `
+    UPDATE "vehicle" SET ("type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "instructions", "street", "city", "state", "zip") = 
+      ((select "id" from "type" where "name" = $2), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+      WHERE "id" = $1;
+  `;
+
+  pool
+    .query(query, values)
+    .then((result) => {
+      console.log(`PUT at /vehicle/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error updating vehicle:`, err);
       res.sendStatus(500);
     });
 });

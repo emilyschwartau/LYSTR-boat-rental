@@ -15,13 +15,12 @@ function Nav() {
       <div>
         {/* If no user is logged in, show these links */}
 
-        {(user.id === undefined || user.id === null) &&
-
+        {(user.id === undefined || user.id === null) && (
           // If there's no user, show login/registration links
           <Link className="navLink" to="/login">
             Login / Register
           </Link>
-        }
+        )}
 
         {/* If a user is logged in, show these links */}
         {user.id && (
@@ -34,15 +33,15 @@ function Nav() {
               Info Page
             </Link>
 
-            <Link className="navLink" to="/add">
+            <Link className="navLink" to="/add-vehicle">
               Add Vehicle
             </Link>
 
             <LogOutButton className="navLink" />
 
-          <Link className="navLink"><img src={user.profile_picture}  id="profilePicture"/></Link>
-            
-            
+            <Link className="navLink">
+              <img src={user.profile_picture} id="profilePicture" />
+            </Link>
           </>
         )}
 
