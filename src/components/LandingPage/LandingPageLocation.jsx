@@ -28,7 +28,7 @@ function LandingPageLocation() {
 
   //handle date selection
   const handleDateChange = (newValue) => {
-    const formattedStartDate = format(newValue, "MM/dd/yy");
+    const formattedStartDate = format(newValue, "MM-dd-yy");
     console.log(`this is format`, formattedStartDate);
     setSearch({ ...search, startDate: formattedStartDate });
     dispatch({ type: "SET_SEARCH_DATE", payload: formattedStartDate });

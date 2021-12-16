@@ -14,7 +14,7 @@ router.get("/:location/:startDate/:vehicleType", (req, res) => {
     console.log(locationKeyword, startDate, vehicleType)
 
     const query = `
-    select count(*)
+    select *
     from vehicle
     WHERE city = $1
     and type_id = $2
