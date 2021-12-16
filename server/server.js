@@ -11,7 +11,7 @@ const passport = require("./strategies/user.strategy");
 const userRouter = require("./routes/user.router");
 const vehicleRouter = require("./routes/vehicle.router");
 const dataRouter = require("./routes/data.router");
-const searchRouter = router("./routes/search.router")
+const searchRouter = require("./routes/search.router")
 
 // Body parser middleware
 app.use(bodyParser.json());
