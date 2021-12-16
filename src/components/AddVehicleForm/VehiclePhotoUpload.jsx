@@ -80,7 +80,7 @@ export default function VehiclePhotoUpload() {
             }}
             {...getRootProps()}
           >
-            <input required {...getInputProps()} />
+            <input {...getInputProps()} />
             <Typography component="p" variant="body1" align="center">
               Drag 'n' drop some files here, or click to select files
             </Typography>
