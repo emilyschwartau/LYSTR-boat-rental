@@ -54,7 +54,17 @@ const photos = (state = [], action) => {
   }
 };
 
+const listedVehiclesByOwner = (state = [], action) => {
+  switch (action.type) {
+    case `SET_LISTED_VEHICLES_BY_OWNER`:
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   vehicleFormInputs,
   photos,
+  listedVehiclesByOwner,
 });
