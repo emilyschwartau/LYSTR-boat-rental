@@ -1,31 +1,32 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Switch from '@mui/material/Switch';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
 
-export default function VehicleFeatures({ handleChange, validateNumber }) {
+export default function VehicleFeatures({ validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch({ type: "FETCH_FEATURES_LIST" });
+    dispatch({ type: 'FETCH_FEATURES_LIST' });
   }, [dispatch]);
 
-  const { features, vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { features } = useSelector((store) => store.data);
 
   const handleSwitch = (e) => {
     console.log(e.target.checked);
     console.log(e.target.value);
     const featureId = e.target.value;
     if (e.target.checked) {
-      dispatch({ type: "ADD_FEATURE", payload: featureId });
+      dispatch({ type: 'ADD_FEATURE', payload: featureId });
     } else if (!e.target.checked) {
-      dispatch({ type: "REMOVE_FEATURE", payload: featureId });
+      dispatch({ type: 'REMOVE_FEATURE', payload: featureId });
     }
   };
 
@@ -75,10 +76,8 @@ export default function VehicleFeatures({ handleChange, validateNumber }) {
                   <Switch
                     name={feature.name}
                     onChange={handleSwitch}
-                    value={feature.id}
-                    checked={vehicleFormInputs.features.includes(
-                      feature.id.toString()
-                    )}
+                    value={feature.name}
+                    checked={vehicleFormInputs.features?.includes(feature.name)}
                   />
                 }
                 label={feature.name}

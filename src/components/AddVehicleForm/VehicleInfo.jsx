@@ -1,23 +1,24 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import TextField from "@mui/material/TextField";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import Typography from "@mui/material/Typography";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Typography from '@mui/material/Typography';
 
 export default function VehicleInfo({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch({ type: "FETCH_VEHICLE_TYPES" });
+    dispatch({ type: 'FETCH_TYPE_LIST' });
   }, [dispatch]);
 
-  const { types, vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { types } = useSelector((store) => store.data);
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -42,7 +43,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
         <FormControl fullWidth margin="normal">
           <InputLabel id="type-selector">Type</InputLabel>
           <Select
-            defaultValue=""
+            // defaultValue=""
             labelId="type-selector"
             label="Age"
             onChange={handleChange}
@@ -50,7 +51,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
             name="type"
           >
             {types?.map((type) => (
-              <MenuItem key={type.name} value={type.id}>
+              <MenuItem key={type.name} value={type.name}>
                 {type.name}
               </MenuItem>
             ))}
