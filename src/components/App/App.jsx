@@ -13,15 +13,14 @@ import Footer from "../Footer/Footer";
 
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-
 import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
-import LandingPage from '../../views/LandingPage';
+import LandingPage from "../../views/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 import AddVehicle from "../../views/AddVehicle/AddVehicle";
-
+import UpdateVehicle from "../../views/UpdateVehicle/UpdateVehicle";
 
 import "./App.css";
 import "@fontsource/roboto/300.css";
@@ -56,9 +55,14 @@ function App() {
           </Route>
 
           {/* Add Vehicle */}
-          <Route exact path="/add">
+          <ProtectedRoute exact path="/add-vehicle">
             <AddVehicle />
-          </Route>
+          </ProtectedRoute>
+
+          {/* Update Vehicle */}
+          <ProtectedRoute exact path="/update-vehicle/:vehicleId">
+            <UpdateVehicle />
+          </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -102,11 +106,8 @@ function App() {
             )}
           </Route>
 
-          <Route
-            exact
-            path="/home"
-          >
-              <LandingPage />
+          <Route exact path="/home">
+            <LandingPage />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
