@@ -16,7 +16,7 @@ function LandingPageVehicleType() {
   const vehicleList = [
     { id: 1, name: "Pontoon", image_url: "/images/pontoon.jpeg" },
     { id: 2, name: "Runabout", image_url: "/images/runabout.png" },
-    { id: 3, name: "Fishing Boat", image_url: "/images/fishingboat.jpeg" },
+    { id: 3, name: "Fishing", image_url: "/images/fishingboat.jpeg" },
     { id: 4, name: "Jet Ski", image_url: "/images/jetski.png" },
     { id: 5, name: "Canoe / Kayak", image_url: "/images/kayak.jpeg" },
   ];
@@ -33,7 +33,7 @@ function LandingPageVehicleType() {
     if (vehicleTypeId === undefined) {
       buttonText = 'Boats'
     } else {
-      buttonText = vehicleList[vehicleTypeId - 1].name + 's'
+      buttonText = vehicleTypeId + 's'
     }
   }
 
@@ -71,7 +71,7 @@ function LandingPageVehicleType() {
                 onClick={() =>
                   dispatch({
                     type: "SET_SEARCH_VEHICLE_TYPE",
-                    payload: vehicle.id,
+                    payload: vehicle.name,
                   })
                 }
                 sx={{ margin: "1em", height: "20vh", width: "20vw" }}
