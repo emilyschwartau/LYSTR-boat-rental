@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
@@ -10,13 +11,17 @@ import VehicleAddress from '../../components/AddVehicleForm/VehicleAddress';
 import VehicleFeatures from '../../components/AddVehicleForm/VehicleFeatures';
 import VehiclePhotoUpload from '../../components/AddVehicleForm/VehiclePhotoUpload';
 import VehiclePriceAvailability from '../../components/AddVehicleForm/VehiclePriceAvailability';
+import PhotoGallery from '../../components/PhotoGallery/PhotoGallery';
 
-export default function AddVehicle() {
+export default function UpdateVehicle() {
   const dispatch = useDispatch();
+  const { vehicleId } = useParams();
+
+  React.useEffect(() => {
+    dispatch({ type: 'FETCH_VECHICLE_TO_EDIT', payload: vehicleId });
+  }, [vehicleId]);
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
-
-  React.useEffect(() => dispatch({ type: 'CLEAR_VEHICLE_FORM' }), [dispatch]);
 
   const handleChange = (e) => {
     console.log(e.target.value);
@@ -42,7 +47,7 @@ export default function AddVehicle() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(vehicleFormInputs);
-    dispatch({ type: 'ADD_VEHICLE', payload: vehicleFormInputs });
+    dispatch({ type: 'UPDATE_VEHICLE', payload: vehicleFormInputs });
   };
 
   return (
@@ -58,10 +63,11 @@ export default function AddVehicle() {
           validateNumber={validateNumber}
         />
         <VehiclePhotoUpload />
+        <PhotoGallery vehicleId={vehicleId} />
         <VehiclePriceAvailability validateNumber={validateNumber} />
         <Box display="flex" justifyContent="flex-end">
           <Button type="submit" variant="contained" size="large">
-            Add Vehicle
+            Update Vehicle
           </Button>
         </Box>
       </Box>

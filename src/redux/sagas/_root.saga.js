@@ -19,5 +19,6 @@ export default function* rootSaga() {
     searchSaga(),
     userSaga(),
     vehicleSaga(),
+    dataSaga(),
   ]);
 }

@@ -1,32 +1,26 @@
-import { useState } from "react";
-import {
-  Box,
-  Card,
-  Typography,
-  Button,
-  TextField,
-  FormControl,
-} from "@mui/material";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
-import { format } from "date-fns";
-import { useDispatch } from "react-redux";
-import * as Scroll from "react-scroll";
+import { useState } from 'react';
+import { Box, Card, Typography, Button, TextField, FormControl } from '@mui/material';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
+import { format } from 'date-fns';
+import { useDispatch } from 'react-redux';
+import * as Scroll from 'react-scroll';
+
 
 function LandingPageLocation() {
-  const ScrollLink = Scroll.Link;
+    const ScrollLink = Scroll.Link;
 
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  //search input
-  const [search, setSearch] = useState({
-    location: "",
-    //initial search
-    startDate: null,
-  });
+    //search input
+    const [search, setSearch] = useState({
+        location: '',
+        //initial search 
+        startDate: null,
+    })
 
-  //handle date selection
+    //handle date selection
   const handleDateChange = (newValue) => {
     const formattedStartDate = format(newValue, "MM-dd-yy");
     console.log(`this is format`, formattedStartDate);
@@ -34,10 +28,10 @@ function LandingPageLocation() {
     dispatch({ type: "SET_SEARCH_DATE", payload: formattedStartDate });
   };
 
-  const handleLocationChange = (e) => {
-    setSearch({ ...search, location: e.target.value });
-    dispatch({ type: "SET_SEARCH_LOCATION", payload: e.target.value });
-  };
+    const handleLocationChange = (e) => {
+        setSearch({ ...search, location: e.target.value })
+        dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
+    }
 
   // const handleSubmit = () => {
   //   dispatch({ type: "SET_SEARCH", payload: search });
