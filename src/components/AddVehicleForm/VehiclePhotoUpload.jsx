@@ -1,15 +1,15 @@
-import React from "react";
-import { useDropzone } from "react-dropzone";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDropzone } from 'react-dropzone';
+import { useDispatch, useSelector } from 'react-redux';
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
-import LinearProgress from "@mui/material/LinearProgress";
-import Button from "@mui/material/Button";
-import Paper from "@mui/material/Paper";
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import LinearProgress from '@mui/material/LinearProgress';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
 
-export default function VehiclePhotos() {
+export default function VehiclePhotoUpload() {
   const dispatch = useDispatch();
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
@@ -24,7 +24,7 @@ export default function VehiclePhotos() {
     acceptedFiles,
     open,
   } = useDropzone({
-    accept: "image/*",
+    accept: 'image/*',
     // noClick: true,
     noKeyboard: true,
     onDrop: (acceptedFiles) => {
@@ -34,22 +34,22 @@ export default function VehiclePhotos() {
         })
       );
       dispatch({
-        type: "VEHICLE_FORM_ONCHANGE",
-        payload: { property: "photos", value: photos },
+        type: 'VEHICLE_FORM_ONCHANGE',
+        payload: { property: 'photos', value: photos },
       });
     },
   });
   React.useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      vehicleFormInputs.photos.forEach((photos) =>
+      vehicleFormInputs.photos?.forEach((photos) =>
         URL.revokeObjectURL(photos.preview)
       );
     },
     [vehicleFormInputs.photos]
   );
 
-  const filepath = vehicleFormInputs.photos.map((photo) => (
+  const filepath = vehicleFormInputs.photos?.map((photo) => (
     <li key={photo.path}>
       {photo.path} - {photo.size} bytes
     </li>
@@ -66,16 +66,16 @@ export default function VehiclePhotos() {
         <Box>
           <Box
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
               border: isDragActive
-                ? "2px dashed green"
-                : "2px dashed lightgray",
-              width: "600px",
-              height: "100px",
-              backgroundColor: "#ededed",
-              mx: "auto",
+                ? '2px dashed green'
+                : '2px dashed lightgray',
+              width: '600px',
+              height: '100px',
+              backgroundColor: '#ededed',
+              mx: 'auto',
             }}
             {...getRootProps()}
           >
