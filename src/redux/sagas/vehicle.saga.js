@@ -170,11 +170,25 @@ function* fetchVehiclePhotos(action) {
   }
 }
 
+// DELETE a vehicle's photo
+function* deletePhoto(action) {
+  const { photoId, vehicleId } = action.payload;
+  try {
+    yield axios.delete(`/api/vehicle/photos/${photoId}`);
+    console.log('photo deleted!');
+    yield put({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId });
+  } catch (error) {
+    console.log('error deleting vehicle photo:', error);
+    yield put({ type: 'DELETE_ERROR' });
+  }
+}
+
 function* vehicleSaga() {
   yield takeLatest('ADD_VEHICLE', addVehicle);
   yield takeLatest('FETCH_VECHICLE_TO_EDIT', fetchVehicleById);
   yield takeLatest('UPDATE_VEHICLE', updateVehicle);
   yield takeLatest('FETCH_VEHICLE_PHOTOS', fetchVehiclePhotos);
+  yield takeLatest('DELETE_PHOTO', deletePhoto);
 }
 
 export default vehicleSaga;

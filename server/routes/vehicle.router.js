@@ -49,7 +49,7 @@ router.get('/photos/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `
-    SELECT "id", "image_path" AS "path" FROM "photos"
+    SELECT "id", "vehicle_id" AS "vehicleId", "image_path" AS "path" FROM "photos"
     WHERE "vehicle_id" = $1;
   `;
 

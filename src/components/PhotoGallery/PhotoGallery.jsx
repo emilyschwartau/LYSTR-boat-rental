@@ -11,7 +11,7 @@ export default function PhotoGallery({ vehicleId }) {
 
   React.useEffect(
     () => dispatch({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId }),
-    [dispatch]
+    []
   );
 
   const { photos } = useSelector((store) => store.vehicle);
