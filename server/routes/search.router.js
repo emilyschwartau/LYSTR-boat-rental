@@ -5,34 +5,41 @@ const router = express.Router();
 /**
  * GET route template
  */
-router.get("/:search", (req, res) => {
+router.get("/:location/:startDate/:vehicleType", (req, res) => {
 
-  const locationKeyword = req.params.search
-  const startDate = req.params.startDate
-  
-  
+    const locationKeyword = req.params.location
+    const startDate = req.params.startDate
+    const vehicleType = req.params.vehicleType
 
-  const query = `SELECT * FROM "vehicle_address";` 
+    console.log(locationKeyword, startDate, vehicleType)
 
+    const query = `
+    select count(*)
+    from vehicle
+    WHERE city = $1
+    and type_id = $2
+    ;`
 
-  pool
-    .query(query)
-    .then((result) => res.send(result.rows))
-    .catch((err) => {
-      console.log(`Error making query`, err);
-      res.sendStatus(500);
-    });
+    const values = [locationKeyword,vehicleType]
+
+    pool
+        .query(query,values)
+        .then((result) => res.send(result.rows))
+        .catch((err) => {
+            console.log(`Error making query`, err);
+            res.sendStatus(500);
+        });
 });
 
 router.get("/features", (req, res) => {
-  const query = `SELECT * FROM "features";`;
-  pool
-    .query(query)
-    .then((result) => res.send(result.rows))
-    .catch((err) => {
-      console.log(`Error making query `, err);
-      res.sendStatus(500);
-    });
+    const query = `SELECT * FROM "features";`;
+    pool
+        .query(query)
+        .then((result) => res.send(result.rows))
+        .catch((err) => {
+            console.log(`Error making query `, err);
+            res.sendStatus(500);
+        });
 });
 
 // /**
