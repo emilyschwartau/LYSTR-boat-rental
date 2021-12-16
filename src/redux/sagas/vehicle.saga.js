@@ -92,9 +92,54 @@ function* fetchVehicleById(action) {
 }
 
 function* updateVehicle(action) {
-  const { vehicleId } = action.payload;
+  const {
+    vehicleId,
+    title,
+    type,
+    make,
+    model,
+    year,
+    length,
+    capacity,
+    horsepower,
+    street,
+    city,
+    state,
+    zip,
+    instructions,
+    cabins,
+    heads,
+    dailyRate,
+    features,
+    availability,
+  } = action.payload;
   try {
-    yield axios.put(`/api/vehicle/${vehicleId}`, action.payload);
+    yield axios.put(`/api/vehicle/${vehicleId}`, {
+      title,
+      type,
+      make,
+      model,
+      year,
+      length,
+      capacity,
+      horsepower,
+      street,
+      city,
+      state,
+      zip,
+      instructions,
+      cabins,
+      heads,
+      dailyRate,
+    });
+    yield axios.delete(`/api/vehicle/features/${vehicleId}`);
+    yield axios.post(`/api/vehicle/features/${vehicleId}`, {
+      features,
+    });
+    yield axios.delete(`/api/vehicle/availability/${vehicleId}`);
+    yield axios.post(`/api/vehicle/availability/${vehicleId}`, {
+      availability,
+    });
   } catch (error) {
     console.log('error updating vehicle:', error);
     yield put({ type: 'PUT_ERROR' });
@@ -104,6 +149,7 @@ function* updateVehicle(action) {
 function* vehicleSaga() {
   yield takeLatest('ADD_VEHICLE', addVehicle);
   yield takeLatest('FETCH_VECHICLE_TO_EDIT', fetchVehicleById);
+  yield takeLatest('UPDATE_VEHICLE', updateVehicle);
 }
 
 export default vehicleSaga;

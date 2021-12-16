@@ -21,7 +21,7 @@ router.get('/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `
-    SELECT "vehicle"."id" AS "vehicleID", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
+    SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
 	    (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
 	    (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id"),
 	    (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id")
@@ -238,6 +238,109 @@ router.delete('/:vehicleId', (req, res) => {
     })
     .catch((err) => {
       console.log(`Error deleting from "vehicle":`, err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/features/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+
+  const query = `DELETE FROM "vehicle_features" WHERE "vehicle_id" = $1;`;
+
+  pool
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`DELETE at /vehicle/features/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error deleting from "vehicle_features":`, err);
+      res.sendStatus(500);
+    });
+});
+
+router.delete('/availability/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+  // only delete a date if there isn't a rental booked
+  const query = `
+    DELETE FROM "availability" 
+    WHERE NOT EXISTS (
+      SELECT FROM "rental"
+      WHERE "rental"."date_id" = "availability"."id"
+      ) 
+    AND "vehicle_id" = $1;`;
+
+  pool
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`DELETE at /vehicle/availability/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error deleting from "availability":`, err);
+      res.sendStatus(500);
+    });
+});
+
+/*
+ * PUT routes
+ */
+
+router.put('/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+  const {
+    title,
+    type,
+    make,
+    model,
+    year,
+    length,
+    capacity,
+    horsepower,
+    street,
+    city,
+    state,
+    zip,
+    instructions,
+    cabins,
+    heads,
+    dailyRate,
+  } = req.body;
+
+  let values = [
+    vehicleId,
+    type,
+    title,
+    make,
+    model,
+    year,
+    capacity,
+    length,
+    horsepower,
+    dailyRate,
+    cabins,
+    heads,
+    instructions,
+    street,
+    city,
+    state,
+    zip,
+  ];
+
+  let query = `
+    UPDATE "vehicle" SET ("type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "instructions", "street", "city", "state", "zip") = 
+      ((select "id" from "type" where "name" = $2), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
+      WHERE "id" = $1;
+  `;
+
+  pool
+    .query(query, values)
+    .then((result) => {
+      console.log(`PUT at /vehicle/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error updating vehicle:`, err);
       res.sendStatus(500);
     });
 });
