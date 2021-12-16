@@ -72,7 +72,8 @@ CREATE TABLE "vehicle_features" (
 CREATE TABLE "availability" (
     "id" SERIAL PRIMARY KEY,
     "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
-    "date_available" DATE NOT NULL
+    "date_available" DATE NOT NULL,
+    "is_rented" BOOLEAN DEFAULT FALSE
 );
 
 -- holds rental apointments
