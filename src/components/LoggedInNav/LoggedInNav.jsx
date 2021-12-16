@@ -20,8 +20,8 @@ function LoggedInNav() {
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
 
-    const settings = [<Link className="userDropdown">User Dashboard</Link>, <Link className="userDropdown" to="/about">About LYSTR</Link>, <p id="signOut" onClick={() => dispatch({ type: 'LOGOUT' })}>Sign Out</p>];
-    const pages = [<Link className="rentTheme" >Rent</Link>, <Link to="/add" className="listTheme">List Your Stuff</Link> ];
+    const settings = [<div className="userDropdown">User Dashboard</div>, <Link className="userDropdown" to="/about">About LYSTR</Link>, <p id="signOut" onClick={() => dispatch({ type: 'LOGOUT' })}>Sign Out</p>];
+    const pages = [<p className="rentTheme" >Rent</p>, <Link to="/add-vehicle" className="listTheme">List Your Stuff</Link> ];
 
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
