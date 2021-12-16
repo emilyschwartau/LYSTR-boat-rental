@@ -9,18 +9,18 @@ import * as Scroll from 'react-scroll';
 
 
 function LandingPageLocation() {
-    const ScrollLink = Scroll.Link;
+  const ScrollLink = Scroll.Link;
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    //search input
-    const [search, setSearch] = useState({
-        location: '',
-        //initial search 
-        startDate: null,
-    })
+  //search input
+  const [search, setSearch] = useState({
+    location: '',
+    //initial search 
+    startDate: null,
+  })
 
-    //handle date selection
+  //handle date selection
   const handleDateChange = (newValue) => {
     const formattedStartDate = format(newValue, "yyyy-MM-dd");
     console.log(`this is format`, formattedStartDate);
@@ -28,10 +28,10 @@ function LandingPageLocation() {
     dispatch({ type: "SET_SEARCH_DATE", payload: formattedStartDate });
   };
 
-    const handleLocationChange = (e) => {
-        setSearch({ ...search, location: e.target.value })
-        dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
-    }
+  const handleLocationChange = (e) => {
+    setSearch({ ...search, location: e.target.value })
+    dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
+  }
 
   // const handleSubmit = () => {
   //   dispatch({ type: "SET_SEARCH", payload: search });
@@ -55,9 +55,10 @@ function LandingPageLocation() {
           <Typography variant="h4">Find A Boat To Rent Near You!</Typography>
           <br />
           {/* <form onSubmit={() => handleSubmit()}> */}
-            <form>
+          <form>
             <FormControl fullWidth={true}>
               <TextField
+                required
                 placeholder="City, State"
                 helperText="Search Location by City, State"
                 label="Location"
@@ -67,6 +68,7 @@ function LandingPageLocation() {
               <br />
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
+                  required
                   label="Date of Trip"
                   helperText="Date of Trip"
                   value={search.startDate}
