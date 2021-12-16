@@ -1,0 +1,15 @@
+#logo {
+    width: 250px;
+    padding: 10px;
+    padding-left: 0px;
+    cursor:pointer
+}
+
+/* #logoDiv {
+    border-radius: 25px;
+    
+} */
+
+#logoDiv:hover {
+    cursor: pointer;
+}
