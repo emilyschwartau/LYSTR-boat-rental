@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import TabPanel from './TabPanel';
 import ListingsTab from './ListingsTab';
@@ -8,10 +8,18 @@ import { useSelector } from 'react-redux';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import { useDispatch } from 'react-redux';
 
 function UserPage() {
-  // this component doesn't do much to start, just renders some user reducer info to the DOM
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  
+  useEffect(() => {
+    dispatch({ type: `FETCH_LISTED_VEHICLES_BY_OWNER`, payload: user.id });
+  }, [user.id])
+  
+  // this component doesn't do much to start, just renders some user reducer info to the DOM
+
 
 
   const [value, setValue] = useState(0);
