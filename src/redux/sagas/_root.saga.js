@@ -4,6 +4,7 @@ import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
 import vehicleSaga from "./vehicle.saga";
 import searchSaga from "./search.saga";
+import dataSaga from "./data.saga"
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
