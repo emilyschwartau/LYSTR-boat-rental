@@ -1,11 +1,16 @@
 import { Box, Stack, Card, Button } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchIcon from "@mui/icons-material/Search";
 import { useHistory } from "react-router-dom";
 
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
+  const vehicleTypeId = useSelector((store) => store.search.vehicleType);
+  const startDate = useSelector((store) => store.search.startDate);
+  const location = useSelector((store) => store.search.location);
+
+  let buttonText = ""
 
   //local state for now but will have to pull from vehicle type in db
   const vehicleList = [
@@ -15,6 +20,27 @@ function LandingPageVehicleType() {
     { id: 4, name: "Jet Ski", image_url: "/images/jetski.png" },
     { id: 5, name: "Canoe / Kayak", image_url: "/images/kayak.jpeg" },
   ];
+
+  const handleSearch = () => {
+    dispatch({ 
+      type: "FETCH_VEHICLES",
+      payload: { location: location, startDate: startDate, vehicleType: vehicleTypeId } })
+    history.push('/gallery')
+  }
+
+
+  const checkId = () => {
+    if (vehicleTypeId === undefined) {
+      buttonText = 'Boats'
+    } else {
+      buttonText = vehicleList[vehicleTypeId - 1].name + 's'
+    }
+  }
+
+  // changes value of button text
+  // checks store reducer value after boat type is selected
+  checkId()
+ 
 
   return (
     <>
@@ -55,6 +81,15 @@ function LandingPageVehicleType() {
               </Card>
             ))}
           </Stack>
+          <Button
+            variant="outlined"
+            sx={{
+              width: "20%",
+              margin: "auto",
+            }}
+            onClick={ handleSearch }
+          >Find {buttonText} to Rent
+          </Button>
         </Box>
       </Box>
     </>

@@ -11,7 +11,7 @@ export default function PhotoGallery({ vehicleId }) {
 
   React.useEffect(
     () => dispatch({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId }),
-    [dispatch]
+    []
   );
 
   const { photos } = useSelector((store) => store.vehicle);
@@ -19,7 +19,7 @@ export default function PhotoGallery({ vehicleId }) {
   return (
     <Grid container maxWidth="md" mx="auto" mb={4}>
       {photos?.map((photo) => (
-        <Grid item key={photo}>
+        <Grid item key={photo.id}>
           <PhotoGalleryItem photo={photo} />
         </Grid>
       ))}
