@@ -82,7 +82,6 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
     .query(query, [userId])
     .then((result) => {
       console.log(`GET at /vehicle/allVehiclesListed/${userId} successful`);
-      console.log(result.rows);
       res.send(result.rows);
     })
     .catch((err) => {

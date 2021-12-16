@@ -43,7 +43,7 @@ function ListingsInfo({ vehicle }) {
 
                     <p>Features:</p>
                     <ul>
-                        {vehicle?.features?.map((feature, i) => (<>
+                        {vehicle?.features.map((feature, i) => (<>
                             <li key={i}>{feature}</li>
                         </>))}
                     </ul>
