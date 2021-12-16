@@ -114,7 +114,13 @@ function* updateVehicle(action) {
     dailyRate,
     features,
     availability,
+    photos,
   } = action.payload;
+  // append the photo files to a FormData for multer upload
+  const formData = new FormData();
+  for (let photo of photos) {
+    formData.append('photos', photo);
+  }
   try {
     yield axios.put(`/api/vehicle/${vehicleId}`, {
       title,
@@ -134,6 +140,8 @@ function* updateVehicle(action) {
       heads,
       dailyRate,
     });
+    yield axios.post(`/api/vehicle/photos/${vehicleId}`, formData);
+
     yield axios.delete(`/api/vehicle/features/${vehicleId}`);
     yield axios.post(`/api/vehicle/features/${vehicleId}`, {
       features,
@@ -142,6 +150,7 @@ function* updateVehicle(action) {
     yield axios.post(`/api/vehicle/availability/${vehicleId}`, {
       availability,
     });
+    console.log('Vehicle Updated!');
   } catch (error) {
     console.log('error updating vehicle:', error);
     yield put({ type: 'PUT_ERROR' });

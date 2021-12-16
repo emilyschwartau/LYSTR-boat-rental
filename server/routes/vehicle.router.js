@@ -12,22 +12,26 @@ const {
 const fs = require('fs');
 const util = require('util');
 const unlinkFile = util.promisify(fs.unlink);
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 
 /*
  * GET routes
  */
 
-router.get('/:vehicleId', (req, res) => {
+router.get('/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `
     SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
-	    (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
+	    
 	    (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id"),
 	    (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id")
     FROM "vehicle" JOIN "type" ON "vehicle"."type_id" = "type"."id" JOIN "user" ON "vehicle"."owned_by" = "user"."id"
     WHERE "vehicle"."id" = $1;
   `;
+  // (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
 
   pool
     .query(query, [vehicleId])
@@ -78,7 +82,7 @@ router.get('/uploads/:key', (req, res) => {
  * POST routes
  */
 
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   console.log(req.body);
   const {
     title,
@@ -136,7 +140,7 @@ router.post('/', (req, res) => {
     });
 });
 
-router.post('/features/:vehicleId', (req, res) => {
+router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
 
@@ -173,7 +177,7 @@ router.post('/features/:vehicleId', (req, res) => {
     });
 });
 
-router.post('/availability/:vehicleId', (req, res) => {
+router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { availability } = req.body;
   const { vehicleId } = req.params;
 
@@ -210,58 +214,64 @@ router.post('/availability/:vehicleId', (req, res) => {
     });
 });
 
-router.post('/photos/:vehicleId', upload.array('photos'), async (req, res) => {
-  console.log('req.files:', req.files);
-  const photos = req.files;
-  const { vehicleId } = req.params;
+router.post(
+  '/photos/:vehicleId',
+  rejectUnauthenticated,
+  upload.array('photos'),
+  async (req, res) => {
+    console.log('req.files:', req.files);
+    const photos = req.files;
+    const { vehicleId } = req.params;
 
-  let imagePaths = [];
+    let imagePaths = [];
 
-  // loop over the photos and upload them to S3
-  for (const photo of photos) {
-    // capture the photo's Key sent back from S3
-    const result = await uploadFile(photo);
-    imagePaths.push(`/api/vehicle/uploads/${result.Key}`);
-    // remove them from server
-    await unlinkFile(photo.path);
-  }
-  let queryText = `INSERT INTO "photos" ("vehicle_id", "image_path") VALUES`;
-
-  let values = [vehicleId];
-
-  // build the query string
-  for (let i = 0; i < imagePaths.length; i++) {
-    // start at $2 since $1 will be used for vehicleId
-    queryText += ` ($1, $${i + 2})`;
-    // push the imagePath to values array for query
-    values.push(imagePaths[i]);
-    // add a comma or semi-colon depending on if we are at the last interation or not
-    if (i === imagePaths.length - 1) {
-      // if last iteration, add semicolon
-      queryText += `;`;
-    } else {
-      // otherwise, add comma
-      queryText += `,`;
+    // loop over the photos and upload them to S3
+    for (const photo of photos) {
+      // capture the photo's Key sent back from S3
+      const result = await uploadFile(photo);
+      imagePaths.push(`/api/vehicle/uploads/${result.Key}`);
+      // remove them from server
+      await unlinkFile(photo.path);
     }
-  }
+    let queryText = `INSERT INTO "photos" ("vehicle_id", "image_path") VALUES`;
 
-  pool
-    .query(queryText, values)
-    .then((result) => {
-      console.log('POST at /vehicle/photos successful');
-      res.sendStatus(201);
-    })
-    .catch((err) => {
-      console.log(`Error uploading/posting to "photos":`, err);
-      res.sendStatus(500);
-    });
-});
+    let values = [vehicleId];
+
+    // build the query string
+    for (let i = 0; i < imagePaths.length; i++) {
+      // start at $2 since $1 will be used for vehicleId
+      queryText += ` ($1, $${i + 2})`;
+      // push the imagePath to values array for query
+      values.push(imagePaths[i]);
+      // add a comma or semi-colon depending on if we are at the last interation or not
+      if (i === imagePaths.length - 1) {
+        // if last iteration, add semicolon
+        queryText += `;`;
+      } else {
+        // otherwise, add comma
+        queryText += `,`;
+      }
+    }
+
+    pool
+      .query(queryText, values)
+      .then((result) => {
+        console.log('POST at /vehicle/photos successful');
+        res.sendStatus(201);
+      })
+      .catch((err) => {
+        console.log(`Error uploading/posting to "photos":`, err);
+        res.sendStatus(500);
+      });
+  }
+);
 
 /*
  * DELETE routes
  */
 
-router.delete('/:vehicleId', (req, res) => {
+// vehicle
+router.delete('/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `DELETE FROM "vehicle" WHERE "id" = $1 AND "owned_by" = $2;`;
@@ -278,7 +288,8 @@ router.delete('/:vehicleId', (req, res) => {
     });
 });
 
-router.delete('/features/:vehicleId', (req, res) => {
+// features
+router.delete('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `DELETE FROM "vehicle_features" WHERE "vehicle_id" = $1;`;
@@ -295,7 +306,8 @@ router.delete('/features/:vehicleId', (req, res) => {
     });
 });
 
-router.delete('/availability/:vehicleId', (req, res) => {
+// availability
+router.delete('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
   // only delete a date if there isn't a rental booked
   const query = `
@@ -318,11 +330,30 @@ router.delete('/availability/:vehicleId', (req, res) => {
     });
 });
 
+// photos
+router.delete('/photos/:photoId', rejectUnauthenticated, (req, res) => {
+  const { photoId } = req.params;
+
+  const query = `DELETE FROM "photos" WHERE "id" = $1 RETURNING "image_path";`;
+
+  pool
+    .query(query, [photoId])
+    .then((result) => {
+      const path = result.rows[0].image_path;
+      deleteFile(path.split('/')[4]);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error deleting at /vehicle/photos/${photoId}:`, err);
+      res.sendStatus(500);
+    });
+});
+
 /*
  * PUT routes
  */
 
-router.put('/:vehicleId', (req, res) => {
+router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
   const {
     title,
