@@ -14,7 +14,7 @@ export default function VehiclePhotoUpload() {
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
 
-  const [files, setFiles] = React.useState([]);
+  // const [files, setFiles] = React.useState([]);
   const {
     getRootProps,
     getInputProps,
@@ -28,31 +28,30 @@ export default function VehiclePhotoUpload() {
     // noClick: true,
     noKeyboard: true,
     onDrop: (acceptedFiles) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
+      const photos = acceptedFiles.map((photo) =>
+        Object.assign(photo, {
+          preview: URL.createObjectURL(photo),
+        })
       );
       dispatch({
         type: 'VEHICLE_FORM_ONCHANGE',
-        payload: { property: 'photos', value: files },
+        payload: { property: 'photos', value: photos },
       });
     },
   });
-
   React.useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      files.forEach((file) => URL.revokeObjectURL(file.preview));
+      vehicleFormInputs.photos?.forEach((photos) =>
+        URL.revokeObjectURL(photos.preview)
+      );
     },
-    [files]
+    [vehicleFormInputs.photos]
   );
 
-  const filepath = files.map((file) => (
-    <li key={file.path}>
-      {file.path} - {file.size} bytes
+  const filepath = vehicleFormInputs.photos?.map((photo) => (
+    <li key={photo.path}>
+      {photo.path} - {photo.size} bytes
     </li>
   ));
 
@@ -80,7 +79,7 @@ export default function VehiclePhotoUpload() {
             }}
             {...getRootProps()}
           >
-            <input {...getInputProps()} />
+            <input required {...getInputProps()} />
             <Typography component="p" variant="body1" align="center">
               Drag 'n' drop some files here, or click to select files
             </Typography>
