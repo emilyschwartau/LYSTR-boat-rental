@@ -92,6 +92,20 @@ function* fetchVehicleById(action) {
   }
 }
 
+// GET listed vehicles by Owner
+function* fetchListedVehiclesByOwner(action) {
+  const userId = action.payload;
+  console.log(userId);
+  try {
+    const vehiclesListed = yield axios.get(`/api/vehicle/allVehiclesListed/${userId}`);
+    yield put({ type: `SET_LISTED_VEHICLES_BY_OWNER`, payload: vehiclesListed.data });
+  }
+  catch (error) {
+    console.log('Error getting all listed vehicles by owner id', error)
+    yield put({ type: 'FETCH_LISTED_VEHICLES_BY_OWNER_ERROR' });
+  }
+}
+
 // UPDATE a vehicle
 function* updateVehicle(action) {
   const {
@@ -189,6 +203,7 @@ function* vehicleSaga() {
   yield takeLatest('UPDATE_VEHICLE', updateVehicle);
   yield takeLatest('FETCH_VEHICLE_PHOTOS', fetchVehiclePhotos);
   yield takeLatest('DELETE_PHOTO', deletePhoto);
+  yield takeLatest('FETCH_LISTED_VEHICLES_BY_OWNER', fetchListedVehiclesByOwner);
 }
 
 export default vehicleSaga;
