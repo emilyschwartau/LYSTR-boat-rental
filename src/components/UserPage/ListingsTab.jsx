@@ -8,6 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material'
 
 
 function createData(name, calories, fat, carbs, protein, price) {
@@ -66,7 +67,7 @@ function ListingsTab() {
             // features
             features: ['no seatbelt', 'you break you buy'],
             // JOIN image at id
-            image_url: ['/images/kayak.jpeg', '/images/jetski.png']
+            image_url: ['/images/kayak.jpeg', '/images/jetski.png', '/images/fishingboat.jpeg', '/images/pontoon.jpeg', '/images/runabout.png']
         },
         {
             id: 2,
@@ -89,14 +90,14 @@ function ListingsTab() {
             // add column to table REF user_id. JOIN ON user.id and get first Name
             currentlyRentedBy: 'jackie',
             // JOIN image at id
-            image_url: '/images/jetski.png'
+            image_url: ['/images/jetski.png']
         },
     ];
 
 
 
     return (<>
-        <h1>LISTING</h1>
+        <Typography variant='h2'>My Vehicle Listings</Typography>
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
                 <TableHead>

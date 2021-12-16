@@ -23,22 +23,22 @@ function UserPage() {
 
 
   return (<>
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '90%', border: '1px solid black', margin: '1em auto'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value}
           onChange={handleChange}
           textColor="secondary"
           indicatorColor="secondary"
           aria-label="secondary tabs example">
-          <Tab label="Item One"/>
-          <Tab label="Item Two" />
+          <Tab label="My Reservations"/>
+          <Tab label="My listings" />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
-        <ListingsTab />
+        <ReservationsTab />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <ReservationsTab />
+        <ListingsTab />
       </TabPanel>
     </Box>
 
