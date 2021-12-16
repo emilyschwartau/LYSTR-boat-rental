@@ -9,8 +9,9 @@ import Box from '@mui/material/Box';
 import VehicleInfo from '../../components/AddVehicleForm/VehicleInfo';
 import VehicleAddress from '../../components/AddVehicleForm/VehicleAddress';
 import VehicleFeatures from '../../components/AddVehicleForm/VehicleFeatures';
-import VehiclePhotos from '../../components/AddVehicleForm/VehiclePhotos';
+import VehiclePhotoUpload from '../../components/AddVehicleForm/VehiclePhotoUpload';
 import VehiclePriceAvailability from '../../components/AddVehicleForm/VehiclePriceAvailability';
+import PhotoGallery from '../../components/PhotoGallery/PhotoGallery';
 
 export default function UpdateVehicle() {
   const dispatch = useDispatch();
@@ -61,7 +62,8 @@ export default function UpdateVehicle() {
           handleChange={handleChange}
           validateNumber={validateNumber}
         />
-        {/* <VehiclePhotos /> */}
+        <VehiclePhotoUpload />
+        <PhotoGallery vehicleId={vehicleId} />
         <VehiclePriceAvailability validateNumber={validateNumber} />
         <Box display="flex" justifyContent="flex-end">
           <Button type="submit" variant="contained" size="large">

@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
+// POST a new vehicle
 function* addVehicle(action) {
   const {
     title,
@@ -91,6 +92,7 @@ function* fetchVehicleById(action) {
   }
 }
 
+// UPDATE a vehicle
 function* updateVehicle(action) {
   const {
     vehicleId,
@@ -146,10 +148,24 @@ function* updateVehicle(action) {
   }
 }
 
+// GET a vehicle's photos
+function* fetchVehiclePhotos(action) {
+  const vehicleId = action.payload;
+  try {
+    const photos = yield axios.get(`/api/vehicle/photos/${vehicleId}`);
+    console.log('photos GET success');
+    yield put({ type: 'SET_PHOTOS', payload: photos.data });
+  } catch (error) {
+    console.log('error getting vehicle photos:', error);
+    yield put({ type: 'GET_ERROR' });
+  }
+}
+
 function* vehicleSaga() {
   yield takeLatest('ADD_VEHICLE', addVehicle);
   yield takeLatest('FETCH_VECHICLE_TO_EDIT', fetchVehicleById);
   yield takeLatest('UPDATE_VEHICLE', updateVehicle);
+  yield takeLatest('FETCH_VEHICLE_PHOTOS', fetchVehiclePhotos);
 }
 
 export default vehicleSaga;

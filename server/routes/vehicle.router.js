@@ -31,9 +31,32 @@ router.get('/:vehicleId', (req, res) => {
 
   pool
     .query(query, [vehicleId])
-    .then((result) => res.send(result.rows))
+    .then((result) => {
+      console.log(`GET at /vehicle/${vehicleId} successful`);
+      res.send(result.rows);
+    })
     .catch((err) => {
       console.log(`Error getting vehicle info`, err);
+      res.sendStatus(500);
+    });
+});
+
+router.get('/photos/:vehicleId', (req, res) => {
+  const { vehicleId } = req.params;
+
+  const query = `
+    SELECT "id", "image_path" AS "path" FROM "photos"
+    WHERE "vehicle_id" = $1;
+  `;
+
+  pool
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`GET at /vehicle/photos/${vehicleId} successful`);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log(`Error getting vehicle photos`, err);
       res.sendStatus(500);
     });
 });

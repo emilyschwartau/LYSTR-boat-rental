@@ -45,6 +45,16 @@ const vehicleFormInputs = (state = newVehicleInitial, action) => {
   }
 };
 
+const photos = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_PHOTOS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   vehicleFormInputs,
+  photos,
 });

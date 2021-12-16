@@ -43,7 +43,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
         <FormControl fullWidth margin="normal">
           <InputLabel id="type-selector">Type</InputLabel>
           <Select
-            defaultValue=""
+            // defaultValue=""
             labelId="type-selector"
             label="Age"
             onChange={handleChange}
