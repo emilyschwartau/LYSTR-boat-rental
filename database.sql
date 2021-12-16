@@ -45,6 +45,8 @@ CREATE TABLE "vehicle" (
     "instructions" VARCHAR(1000)
 );
 
+INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "street", "city", "state", "zip")
+
 -- photos for each vehicle
 CREATE TABLE "photos" (
     "id" SERIAL PRIMARY KEY,
@@ -81,6 +83,15 @@ CREATE TABLE "rental" (
     "id" SERIAL PRIMARY KEY,
     "rented_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
     "date_id" INTEGER NOT NULL REFERENCES "availability" ON DELETE CASCADE
+);
+
+-- auto fill city table
+CREATE TABLE "cities" (
+    "id" SERIAL PRIMARY KEY,
+    "city_name" VARCHAR(32),
+    "county_name" VARCHAR(32),
+    "state_name" VARCHAR(32),
+    "zip" INTEGER,
 );
 
 -- STRETCH table for messages between users
