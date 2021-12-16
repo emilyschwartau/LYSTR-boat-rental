@@ -8,7 +8,7 @@ export default function PhotoGalleryItem({ photo }) {
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia component="img" height="140" image={photo.path} />
       <CardActions>
-        <Button size="small">Make Primary</Button>
+        {/* <Button size="small">Make Primary</Button> */}
         <Button size="small">Delete</Button>
       </CardActions>
     </Card>

@@ -61,6 +61,19 @@ router.get('/photos/:vehicleId', (req, res) => {
     });
 });
 
+router.get('/uploads/:key', (req, res) => {
+  console.log('getting S3');
+  const { key } = req.params;
+  // create a read stream for the image in the S3 bucket
+  const readStream = getFileStream(key);
+  // handle errors
+  readStream.on('error', (error) => {
+    res.sendStatus(500);
+  });
+  // pipe the read stream to the client
+  readStream.pipe(res);
+});
+
 /*
  * POST routes
  */
@@ -208,7 +221,7 @@ router.post('/photos/:vehicleId', upload.array('photos'), async (req, res) => {
   for (const photo of photos) {
     // capture the photo's Key sent back from S3
     const result = await uploadFile(photo);
-    imagePaths.push(`/vehicle/photos/${result.Key}`);
+    imagePaths.push(`/api/vehicle/uploads/${result.Key}`);
     // remove them from server
     await unlinkFile(photo.path);
   }
