@@ -1,0 +1,22 @@
+#profilePicture {
+    width: 70px;
+    height: 70px;
+  
+  } 
+  
+#logo {
+    width: 250px;
+    padding: 10px;
+    padding-left: 0px;
+  }
+  
+#signOut {
+    padding: 0px;
+    margin: 0px;
+  }
+
+#logoDiv {
+    border-radius: 25px;
+    
+}
+
