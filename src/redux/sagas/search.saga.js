@@ -3,12 +3,13 @@ import axios from "axios";
 
 function* fetchVehicles({payload}) {
 
-  console.log('in fetchVehicles payload:', payload)
+  
 
-  const location = location.location
-  const startDate = startDate.startDate
-  const vehicleType = vehicleType.vehicleType
-
+  const location = payload.location
+  const startDate = payload.startDate
+  const vehicleType = payload.vehicleType
+  
+  console.log('in fetchVehicles payload:', location, startDate, vehicleType)
   try {
     const types = yield axios.get(`/api/search/${location}/${startDate}/${vehicleType}`);
     yield put({ type: "SET_VEHICLES", payload: types.data });

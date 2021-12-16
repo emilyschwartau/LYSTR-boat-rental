@@ -85,7 +85,7 @@ function LandingPageVehicleType() {
               width: "20%",
               margin: "auto",
             }}
-            onClick={() => handleSearch}
+            onClick={ handleSearch }
           >Find {buttonText} to Rent
           </Button>
         </Box>

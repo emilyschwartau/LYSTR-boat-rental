@@ -39,9 +39,9 @@ function LandingPageLocation() {
     dispatch({ type: "SET_SEARCH_LOCATION", payload: e.target.value });
   };
 
-  const handleSubmit = () => {
-    dispatch({ type: "SET_SEARCH", payload: search });
-  };
+  // const handleSubmit = () => {
+  //   dispatch({ type: "SET_SEARCH", payload: search });
+  // };
 
   return (
     <>
@@ -60,7 +60,8 @@ function LandingPageLocation() {
         >
           <Typography variant="h4">Find A Boat To Rent Near You!</Typography>
           <br />
-          <form onSubmit={() => handleSubmit()}>
+          {/* <form onSubmit={() => handleSubmit()}> */}
+            <form>
             <FormControl fullWidth={true}>
               <TextField
                 placeholder="City, State"
