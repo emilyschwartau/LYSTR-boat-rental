@@ -62,8 +62,8 @@ export default function UpdateVehicle() {
           handleChange={handleChange}
           validateNumber={validateNumber}
         />
-        <VehiclePhotoUpload />
-        <PhotoGallery vehicleId={vehicleId} />
+        {/* <VehiclePhotoUpload /> */}
+        {/* <PhotoGallery vehicleId={vehicleId} /> */}
         <VehiclePriceAvailability validateNumber={validateNumber} />
         <Box display="flex" justifyContent="flex-end">
           <Button type="submit" variant="contained" size="large">

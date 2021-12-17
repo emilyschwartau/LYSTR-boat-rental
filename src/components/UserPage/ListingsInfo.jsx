@@ -3,6 +3,8 @@ import {
   Divider,
   Stack,
   Card,
+  CardMedia,
+  CardActionArea,
   Button,
   Typography,
   IconButton,
@@ -11,8 +13,11 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
 
+import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
+
 function ListingsInfo({ vehicle }) {
   const [imageIndex, setImageIndex] = useState(0);
+  const [open, setOpen] = useState(false);
 
   const handleNext = () => {
     if (imageIndex != vehicle?.photos.length - 1) {
@@ -29,7 +34,7 @@ function ListingsInfo({ vehicle }) {
       setImageIndex(imageIndex - 1);
     }
   };
-
+  console.log('listings info');
   return (
     <>
       <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
@@ -40,7 +45,14 @@ function ListingsInfo({ vehicle }) {
         >
           <Box sx={{ width: '45%', textAlign: 'center' }}>
             <Card>
-              <img src={vehicle?.photos[imageIndex]} height={'200vh'} />
+              <CardActionArea onClick={() => setOpen(true)}>
+                <CardMedia
+                  component="img"
+                  height={'200vh'}
+                  image={vehicle?.photos[imageIndex]}
+                />
+              </CardActionArea>
+              {/* <img src={vehicle?.photos[imageIndex]} height={'200vh'} /> */}
             </Card>
             <br />
             <IconButton variant="outlined" onClick={() => handleBack()}>
@@ -67,6 +79,11 @@ function ListingsInfo({ vehicle }) {
             </ul>
           </Box>
         </Stack>
+        <PhotoGalleryModal
+          open={open}
+          setOpen={setOpen}
+          vehicleId={vehicle.vehicleId}
+        />
       </Box>
     </>
   );

@@ -9,10 +9,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
-export default function VehiclePhotoUpload() {
+export default function VehiclePhotoUpload(props) {
   const dispatch = useDispatch();
 
-  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs, photoGalleryInput } = useSelector(
+    (store) => store.vehicle
+  );
 
   // const [files, setFiles] = React.useState([]);
   const {
@@ -33,27 +35,44 @@ export default function VehiclePhotoUpload() {
           preview: URL.createObjectURL(photo),
         })
       );
-      dispatch({
-        type: 'VEHICLE_FORM_ONCHANGE',
-        payload: { property: 'photos', value: photos },
-      });
+      if (props.galleryMode) {
+        dispatch({
+          type: 'ADD_PHOTOS',
+          payload: photos,
+        });
+      } else {
+        dispatch({
+          type: 'VEHICLE_FORM_ONCHANGE',
+          payload: { property: 'photos', value: photos },
+        });
+      }
     },
   });
   React.useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      vehicleFormInputs.photos?.forEach((photos) =>
-        URL.revokeObjectURL(photos.preview)
-      );
+      props.galleryMode
+        ? photoGalleryInput.photos?.forEach((photos) =>
+            URL.revokeObjectURL(photos.preview)
+          )
+        : vehicleFormInputs.photos?.forEach((photos) =>
+            URL.revokeObjectURL(photos.preview)
+          );
     },
     [vehicleFormInputs.photos]
   );
 
-  const filepath = vehicleFormInputs.photos?.map((photo) => (
-    <li key={photo.path}>
-      {photo.path} - {photo.size} bytes
-    </li>
-  ));
+  const filepath = props.galleryMode
+    ? photoGalleryInput.photos?.map((photo) => (
+        <li key={photo.path}>
+          {photo.path} - {photo.size} bytes
+        </li>
+      ))
+    : vehicleFormInputs.photos?.map((photo) => (
+        <li key={photo.path}>
+          {photo.path} - {photo.size} bytes
+        </li>
+      ));
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -79,7 +98,7 @@ export default function VehiclePhotoUpload() {
             }}
             {...getRootProps()}
           >
-            <input required {...getInputProps()} />
+            <input {...getInputProps()} />
             <Typography component="p" variant="body1" align="center">
               Drag 'n' drop some files here, or click to select files
             </Typography>
@@ -92,7 +111,22 @@ export default function VehiclePhotoUpload() {
           </aside>
           {/* {loading && <LinearProgress />} */}
 
-          {/* <Button variant="contained" onClick={handleUpload}>Upload</Button> */}
+          {props.galleryMode && (
+            <Button
+              variant="contained"
+              onClick={() =>
+                dispatch({
+                  type: 'UPLOAD_IMAGES_FROM_GALLERY',
+                  payload: {
+                    photos: photoGalleryInput.photos,
+                    vehicleId: props.vehicleId,
+                  },
+                })
+              }
+            >
+              Upload
+            </Button>
+          )}
         </Box>
       </Grid>
     </Grid>
