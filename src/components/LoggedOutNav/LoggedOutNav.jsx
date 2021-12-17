@@ -14,7 +14,7 @@ import "./LoggedOutNav.css"
 
 function LoggedOutNav() {
     
-    const pages = [<Link className="navLink" to="/about">About LYSTR</Link>, <Link to="/add-vehicle" className="listTheme">List Your Stuff</Link>, <Link to="/login" className="navLink">Sign in</Link>];
+    const pages = [<Link className="navLink" to="/about">About LYSTR</Link>, <Link className="rentTheme" to="/home">Rent</Link>, <Link to="/add-vehicle" className="listTheme">List Your Stuff</Link>, <Link to="/login" className="navLink">Sign in</Link>];
 
     const [anchorElNav, setAnchorElNav] = React.useState(null);
 

@@ -11,7 +11,7 @@ const LandingPageLayoutRoot = styled('section')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
     [theme.breakpoints.up('sm')]: {
-        height: '90vh',
+        height: '80vh',
         minHeight: 500,
         maxHeight: 1300,
     },

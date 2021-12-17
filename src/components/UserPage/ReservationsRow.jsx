@@ -12,7 +12,6 @@ import TableCell from '@mui/material/TableCell';
 
 
 function ReservationsRow({ row }) {
-    // const { row } = props;
     const [open, setOpen] = useState(false);
 
     return (
