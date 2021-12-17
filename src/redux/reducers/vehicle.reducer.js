@@ -72,9 +72,19 @@ const listedVehiclesByOwner = (state = [], action) => {
   }
 };
 
+const vehicleInfo = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_VEHICLE_INFO':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   vehicleFormInputs,
   photos,
   listedVehiclesByOwner,
   photoGalleryInput,
+  vehicleInfo,
 });

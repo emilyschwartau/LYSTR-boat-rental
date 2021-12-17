@@ -22,7 +22,7 @@ export default function UpdateVehicle() {
   const location = useLocation();
 
   React.useEffect(() => {
-    dispatch({ type: 'FETCH_VECHICLE_TO_EDIT', payload: vehicleId });
+    dispatch({ type: 'FETCH_VEHICLE_TO_EDIT', payload: vehicleId });
   }, [vehicleId]);
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);

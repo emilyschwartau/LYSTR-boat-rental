@@ -84,11 +84,14 @@ function* fetchVehicleById(action) {
     const vehicle = yield axios.get(`/api/vehicle/${vehicleId}`);
     // dipatch to a reducer depending on the action that called this function
     switch (action.type) {
-      case 'FETCH_VECHICLE_TO_EDIT':
+      case 'FETCH_VEHICLE_TO_EDIT':
         yield put({
           type: 'SET_VECHICLE_FORM_INPUTS',
           payload: vehicle.data[0],
         });
+        break;
+      case 'FETCH_VEHICLE_BY_ID':
+        yield put({ type: 'SET_VEHICLE_INFO', payload: vehicle.data[0] });
         break;
     }
   } catch (error) {
@@ -226,7 +229,8 @@ function* deletePhoto(action) {
 
 function* vehicleSaga() {
   yield takeLatest('ADD_VEHICLE', addVehicle);
-  yield takeLatest('FETCH_VECHICLE_TO_EDIT', fetchVehicleById);
+  yield takeLatest('FETCH_VEHICLE_TO_EDIT', fetchVehicleById);
+  yield takeLatest('FETCH_VEHICLE_BY_ID', fetchVehicleById);
   yield takeLatest('UPDATE_VEHICLE', updateVehicle);
   yield takeLatest('FETCH_VEHICLE_PHOTOS', fetchVehiclePhotos);
   yield takeLatest('DELETE_PHOTO', deletePhoto);
