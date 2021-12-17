@@ -77,7 +77,6 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
   JOIN "user" ON "vehicle"."owned_by" = "user"."id"
   WHERE "user"."id" = $1;
   `;
-
   pool
     .query(query, [userId])
     .then((result) => {
@@ -89,6 +88,36 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+
+// GET ALL RESERVATIONS BY USER ID
+router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
+  const { userId } = req.params;
+
+  const query = `
+    SELECT "rental"."id", "availability"."date_available" AS "dateRented", "vehicle"."id", "vehicle"."title", "vehicle"."make", "vehicle"."model", "vehicle"."year", "vehicle"."capacity", "vehicle"."length", "vehicle"."horsepower", "vehicle"."daily_rate" AS "dailyRate", "vehicle"."cabins", "vehicle"."heads", "vehicle"."street", "vehicle"."city", "vehicle"."state", "vehicle"."zip", "vehicle"."instructions",
+    (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
+    (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id"),
+    "user"."first_name" AS "rentedBy" FROM "user"
+    JOIN "rental" ON "rental"."rented_by" = "user"."id"
+    JOIN "availability" ON "availability"."id" = "rental"."date_id"
+    JOIN "vehicle" ON "vehicle"."id" = "availability"."vehicle_id"
+    JOIN "type" ON "type"."id" = "vehicle"."type_id"
+    WHERE "rental"."rented_by" = $1;
+  `;
+  console.log(`in allreservations`);
+  pool
+    .query(query, [userId])
+    .then((result) => {
+      console.log(`GET at /allReservations/${userId} successful`);
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log(`Error getting user reservations info`, err);
+      res.sendStatus(500);
+    });
+});
+
 
 router.get('/uploads/:key', (req, res) => {
   console.log('getting S3');

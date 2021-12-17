@@ -115,6 +115,20 @@ function* fetchListedVehiclesByOwner(action) {
   }
 }
 
+// GET all reservations info by user id
+function* fetchAllReservationsById(action) {
+  const userId = action.payload;
+  try {
+    console.log(`in fetch Reservation saga`)
+    let reservationsList = yield axios.get(`/api/vehicle/allReservations/${userId}`);
+    console.log(`this is reservationsList`, reservationsList);
+  }
+  catch (error) {
+    console.log(`ERROR getting reservations info by user ID`, error);
+    yield put({type: `FETCH_ALL_RESERVATIONS_BY_ID_ERROR`})
+  }
+}
+
 // UPDATE a vehicle
 function* updateVehicle(action) {
   const {
@@ -230,10 +244,8 @@ function* vehicleSaga() {
   yield takeLatest('UPDATE_VEHICLE', updateVehicle);
   yield takeLatest('FETCH_VEHICLE_PHOTOS', fetchVehiclePhotos);
   yield takeLatest('DELETE_PHOTO', deletePhoto);
-  yield takeLatest(
-    'FETCH_LISTED_VEHICLES_BY_OWNER',
-    fetchListedVehiclesByOwner
-  );
+  yield takeLatest('FETCH_LISTED_VEHICLES_BY_OWNER',fetchListedVehiclesByOwner);
+  yield takeLatest('FETCH_ALL_RESERVATIONS_BY_ID', fetchAllReservationsById);
   yield takeLatest('UPLOAD_IMAGES_FROM_GALLERY', uploadPhotos);
 }
 
