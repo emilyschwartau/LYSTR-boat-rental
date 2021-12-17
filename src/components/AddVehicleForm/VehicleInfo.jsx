@@ -21,7 +21,7 @@ export default function VehicleInfo({ handleChange, validateNumber }) {
   const { types } = useSelector((store) => store.data);
 
   return (
-    <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
+    <Grid container maxWidth="md" mx="auto" direction="column" my={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
           Vehicle Info

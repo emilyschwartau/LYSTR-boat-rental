@@ -23,8 +23,8 @@
 
 .navLink {
   display: inline-block;
-  color: #f2f2f2;
-  background-color: #00acb0;
+  color: black;
+  /* background-color: #00acb0; */
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -36,13 +36,89 @@
   border: none;
   cursor: pointer;
   outline: 0;
+  /* border-radius: 25px; */
 }
 
 .navLink:hover {
-  background-color: #008183;
+  cursor: pointer;
+  color: gray;
+  /* background-color: white; */
 }
 
-#profilePicture {
+/* #profilePicture {
   width: 50px;
 
 } 
+
+#logo {
+  width: 250px;
+  padding: 10px;
+  padding-left: 0px;
+}
+
+#signOut {
+  padding: 0px;
+  margin: 0px;
+} */
+
+.listTheme {
+  display: inline-block;
+  color: blue;
+  /* background-color: #00acb0; */
+  text-align: center;
+  /* padding: 24px 10px; */
+  text-decoration: none;
+  font-size: 15px;
+  width: fit-content;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+  border-radius: 25px;
+}
+
+.listTheme:hover {
+  color: navy;
+}
+
+.rentTheme {
+  display: inline-block;
+  color: green;
+  /* background-color: #00acb0; */
+  text-align: center;
+  /* padding: 24px 10px; */
+  text-decoration: none;
+  font-size: 15px;
+  width: fit-content;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+  border-radius: 25px;
+}
+
+.rentTheme:hover {
+  color: darkgreen;
+}
+
+.userDropdown {
+  display: inline-block;
+  color: black;
+  /* background-color: #00acb0; */
+  text-align: center;
+  padding: 0px;
+  text-decoration: none;
+  font-size: 15px;
+  width: fit-content;
+
+  /* these last two make the logout button in
+  the nav bar look like another link */
+  border: none;
+  cursor: pointer;
+  outline: 0;
+  /* border-radius: 25px; */
+}
