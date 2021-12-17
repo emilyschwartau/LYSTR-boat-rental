@@ -13,7 +13,7 @@ function* fetchVehicles({payload}) {
   try {
     const types = yield axios.get(`/api/search/${location}/${startDate}/${vehicleType}`);
     console.log('in searchSaga fetchVehicles response types:',types)
-    yield put({ type: "SET_GALLERY", payload: types.data });
+    yield put({ type: "SET_SEARCH_RESULTS", payload: types.data });
   } catch (error) {
     console.log("error getting search results:", error);
     yield put({ type: "GET_ERROR" });
