@@ -21,9 +21,22 @@ function* fetchFeaturesList() {
   }
 }
 
+function* fetchOwnerByVehicleId() {
+  const vehicleId = action.payload;
+
+  try {
+    const owner = yield axios.get(`/api/data/vehicleOwner/${vehicleId}`);
+    yield put({ type: "SET_OWNER_BY_VEHICLE_ID", payload: features.data });
+  } catch (error) {
+    console.log("error getting features list:", error);
+    yield put({ type: "GET_ERROR" });
+  }
+}
+
 function* dataSaga() {
   yield takeLatest("FETCH_TYPE_LIST", fetchTypeList);
   yield takeLatest("FETCH_FEATURES_LIST", fetchFeaturesList);
+  yield takeLatest("FETCH_OWNER_BY_VEHICLE_ID", fetchOwnerByVehicleId);
 }
 
 export default dataSaga;

@@ -119,9 +119,18 @@ function* fetchListedVehiclesByOwner(action) {
 function* fetchAllReservationsById(action) {
   const userId = action.payload;
   try {
-    console.log(`in fetch Reservation saga`)
+    //getting reservations by user id w/o vehicle owner info
     let reservationsList = yield axios.get(`/api/vehicle/allReservations/${userId}`);
-    console.log(`this is reservationsList`, reservationsList);
+    //getting owner name by using vehicle id from reservations list
+    for (let i in reservationsList.data) {
+      let rental = reservationsList.data[i];
+      const ownerName = yield axios.get(`/api/data/vehicleOwner/${rental.vehicleId}`);
+      reservationsList.data[i] = { ...rental, ownerFirstName: ownerName.data[0].firstName, ownerLastName: ownerName.data[0].lastName };
+    }
+
+    yield put({ type: `SET_ALL_RESERVATIONS_BY_ID`, payload: reservationsList.data });
+
+    console.log(`new reservation list`, reservationsList.data);
   }
   catch (error) {
     console.log(`ERROR getting reservations info by user ID`, error);

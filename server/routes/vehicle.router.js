@@ -95,7 +95,7 @@ router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
   const { userId } = req.params;
 
   const query = `
-    SELECT "rental"."id", "availability"."date_available" AS "dateRented", "vehicle"."id", "vehicle"."title", "vehicle"."make", "vehicle"."model", "vehicle"."year", "vehicle"."capacity", "vehicle"."length", "vehicle"."horsepower", "vehicle"."daily_rate" AS "dailyRate", "vehicle"."cabins", "vehicle"."heads", "vehicle"."street", "vehicle"."city", "vehicle"."state", "vehicle"."zip", "vehicle"."instructions",
+    SELECT "rental"."id", "availability"."date_available" AS "dateRented", "vehicle"."id" AS "vehicleId", "vehicle"."title", "vehicle"."make", "vehicle"."model", "vehicle"."year", "vehicle"."capacity", "vehicle"."length", "vehicle"."horsepower", "vehicle"."daily_rate" AS "dailyRate", "vehicle"."cabins", "vehicle"."heads", "vehicle"."street", "vehicle"."city", "vehicle"."state", "vehicle"."zip", "vehicle"."instructions",
     (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
     (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id"),
     "user"."first_name" AS "rentedBy" FROM "user"
