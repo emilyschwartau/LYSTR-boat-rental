@@ -15,7 +15,7 @@ const searchQuery = (state = {}, action) => {
 
 const searchResults = (state ={} , action ) => {
     switch (action.type){
-        case 'SET_SEARCH_RESUTLS':
+        case 'SET_SEARCH_RESULTS':
             return { ...action, searchResults: action.payload };
         default:
             return state;
