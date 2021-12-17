@@ -14,58 +14,6 @@ import { useSelector } from 'react-redux';
 function ListingsTab() {
     const ownerListingList = useSelector(store => store.vehicle.listedVehiclesByOwner);
 
-    const dummyOwnerListingList = [
-        {
-            id: 1,
-            type: 'Kayak',
-            title: 'Come kayak pls',
-            make: 'make $0',
-            model: 'instagram',
-            year: '2021',
-            capacity: 'minimal',
-            length: 'metric or imperial',
-            horsepower: 'yes',
-            dailyRate: '$9999',
-            cabins: 'would be nice',
-            heads: 'wat is this attribute',
-            instructions: 'send halp',
-            street: '1600 Pennsylvania Ave',
-            city: 'Minneapolis',
-            state: 'MN',
-            zip: '90210',
-            // add column to table REF user_id. JOIN ON user.id and get first Name
-            currentlyRentedBy: 'jackie',
-            // features
-            features: ['no seatbelt', 'you break you buy'],
-            // JOIN image at id
-            image_url: ['/images/kayak.jpeg', '/images/jetski.png', '/images/fishingboat.jpeg', '/images/pontoon.jpeg', '/images/runabout.png']
-        },
-        {
-            id: 2,
-            type: 'Jetski',
-            title: 'Jetskrrrrr',
-            make: 'make $0',
-            model: 'instagram',
-            year: '2021',
-            capacity: 'minimal',
-            length: 'metric or imperial',
-            horsepower: 'yes',
-            dailyRate: '$9999',
-            cabins: 'would be nice',
-            heads: 'wat is this attribute',
-            instructions: 'send halp',
-            street: 'smart',
-            city: 'twin cities',
-            state: 'depression',
-            zip: 'shhhh',
-            // add column to table REF user_id. JOIN ON user.id and get first Name
-            currentlyRentedBy: 'jackie',
-            // JOIN image at id
-            image_url: ['/images/jetski.png']
-        },
-    ];
-
-
 
     return (<>
         <Typography variant='h2'>My Vehicle Listings</Typography>

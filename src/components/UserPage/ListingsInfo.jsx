@@ -24,29 +24,45 @@ function ListingsInfo({ vehicle }) {
             setImageIndex(imageIndex - 1);
         }
     }
-    
+
     return (<>
-        <Box sx={{margin: 'auto', padding: '1em', width: '80%' }}>
-            <Stack direction='row' divider={<Divider orientation='vertical' flexItem />} justifyContent="space-around">
+        <Box sx={{ margin: 'auto', width: '90%' }}>
+            <Stack direction='row' divider={<Divider orientation='vertical' flexItem />} justifyContent="space-between">
                 <Box sx={{ width: '45%', textAlign: 'center' }}>
                     <Card><img src={vehicle?.photos[imageIndex]} height={'200vh'} /></Card><br />
-                    <IconButton variant='outlined' onClick={() => handleBack()}>
-                        <ArrowBackIosNewIcon />
-                    </IconButton>
-                    <Typography variant='caption' sx={{margin: '0 1em'}}>Click to navigate through images</Typography>
-                    <IconButton variant='outlined' onClick={() => handleNext()}>
-                        <ArrowForwardIosIcon />
-                    </IconButton>
+                    {(vehicle?.photos.length > 1) ? <>
+                        <IconButton variant='outlined' onClick={() => handleBack()}>
+                            <ArrowBackIosNewIcon />
+                        </IconButton>
+                        <Typography variant='caption' sx={{ margin: '0 1em' }}>Click to navigate through images</Typography>
+                        <IconButton variant='outlined' onClick={() => handleNext()}>
+                            <ArrowForwardIosIcon />
+                        </IconButton>
+                    </>
+                        : ''}
                 </Box>
                 <Box sx={{ border: 'black solid 1px', width: '45%', padding: '1em' }}>
-                    <p>Address: {`${vehicle?.street} ${vehicle?.city}, ${vehicle?.state} ${vehicle?.zip}`}</p>
+                    <Typography variant='body1'><u>Address:</u><br /> {`${vehicle?.street} ${vehicle?.city}, ${vehicle?.state} ${vehicle?.zip}`}</Typography><br />
 
-                    <p>Features:</p>
-                    <ul>
-                        {vehicle?.features.map((feature, i) => (<>
+                    <Typography variant='body1' sx={{}}>
+                        <u>Vehicle Info</u><br />
+                        Capacity: {vehicle?.capacity}<br />
+                        Length: {vehicle?.length}ft <br />
+                        Horsepower: {vehicle?.horsepower} hp <br />
+                        Cabins: {vehicle?.cabins} <br />
+                        Heads: {vehicle?.heads}<br />
+                    </Typography><br />
+
+                    <Typography variant='body1'><u>Features:</u></Typography>
+                    <ul style={{ columns: 2 }}>
+                        {vehicle?.features.map((feature, i) => (
                             <li key={i}>{feature}</li>
-                        </>))}
+                        ))}
                     </ul>
+                    <Typography variant='body1'>
+                        <u>Instructions:</u><br />
+                        {vehicle?.instructions}
+                    </Typography>
 
                 </Box>
             </Stack>

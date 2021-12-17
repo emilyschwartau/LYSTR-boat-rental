@@ -20,7 +20,7 @@ function LoggedInNav() {
     const user = useSelector((store) => store.user);
     const dispatch = useDispatch();
 
-    const settings = [<div className="userDropdown">User Dashboard</div>, <Link className="userDropdown" to="/about">About LYSTR</Link>, <p id="signOut" onClick={() => dispatch({ type: 'LOGOUT' })}>Sign Out</p>];
+    const settings = [<Link className="userDropdown" to="/user">User Dashboard</Link>, <Link className="userDropdown" to="/about">About LYSTR</Link>, <p id="signOut" onClick={() => dispatch({ type: 'LOGOUT' })}>Sign Out</p>];
     const pages = [<p className="rentTheme" >Rent</p>, <Link to="/add-vehicle" className="listTheme">List Your Stuff</Link> ];
 
 
