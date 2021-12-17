@@ -8,7 +8,7 @@ function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
   const vehicleList = useSelector((store) => store.data.types);
-  const vehicleType = useSelector((store) => store.search.vehicleType);
+  const vehicleType = useSelector((store) => store.search.searchQuery.vehicleType);
   const startDate = useSelector((store) => store.search.startDate);
   const location = useSelector((store) => store.search.location);
 
@@ -43,6 +43,7 @@ function LandingPageVehicleType() {
   // changes value of button text
   // checks store reducer value after boat type is selected
   checkId();
+  console.log('vehicle type:' , vehicleType)
 
   React.useEffect(() => {
     dispatch({
