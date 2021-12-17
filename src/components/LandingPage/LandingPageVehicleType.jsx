@@ -9,8 +9,8 @@ function LandingPageVehicleType() {
   const history = useHistory();
   const vehicleList = useSelector((store) => store.data.types);
   const vehicleType = useSelector((store) => store.search.searchQuery.vehicleType);
-  const startDate = useSelector((store) => store.search.startDate);
-  const location = useSelector((store) => store.search.location);
+  const startDate = useSelector((store) => store.search.searchQuery.startDate);
+  const location = useSelector((store) => store.search.searchQuery.location);
 
   let buttonText = '';
 
