@@ -27,6 +27,7 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import ResultsGalleryPage from "../../views/ResultsGalleryPage/ResultsGalleryPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -62,6 +63,11 @@ function App() {
           {/* Update Vehicle */}
           <ProtectedRoute exact path="/update-vehicle/:vehicleId">
             <UpdateVehicle />
+          </ProtectedRoute>
+
+          {/* Results Gallery Page */}
+          <ProtectedRoute exact path="/gallery">
+            <ResultsGalleryPage />
           </ProtectedRoute>
 
           {/* For protected routes, the view could show one of several things on the same route.
