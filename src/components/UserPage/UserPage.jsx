@@ -16,6 +16,7 @@ function UserPage() {
   
   useEffect(() => {
     dispatch({ type: `FETCH_LISTED_VEHICLES_BY_OWNER`, payload: user.id });
+    dispatch({ type: `FETCH_ALL_RESERVATIONS_BY_ID`, payload: user.id });
   }, [user.id])
   
   // this component doesn't do much to start, just renders some user reducer info to the DOM
