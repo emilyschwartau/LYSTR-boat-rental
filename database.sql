@@ -17,11 +17,14 @@ CREATE TABLE "user" (
 -- vehicle type table - mainly for generating select options
 CREATE TABLE "type" (
     "id" SERIAL PRIMARY KEY,
-    "name" VARCHAR(255) NOT NULL
+    "name" VARCHAR(255) NOT NULL,
+    "image" VARCHAR(255) NOT NULL
 );
 
-INSERT INTO "type" ("name")
-VALUES ('Pontoon'), ('Runabout'), ('Fishing'), ('Jetski'), ('Kayak/Canoe'), 
+INSERT INTO "type" ("name", "image")
+VALUES ('Pontoon', "/images/pontoon.jpeg" ), ('Runabout', "/images/runabout.png"), ('Fishing', "/images/fishingboat.jpeg"), ('Jetski', "/images/jetski.png"), ('Kayak/Canoe', "/images/kayak.jpeg") 
+
+
 
 -- listed vehicles go here:
 CREATE TABLE "vehicle" (
