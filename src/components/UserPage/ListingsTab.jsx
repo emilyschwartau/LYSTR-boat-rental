@@ -77,7 +77,7 @@ function ListingsTab() {
                         <TableCell>Listing Title</TableCell>
                         <TableCell align="right">Year,&nbsp; Make,&nbsp; Model</TableCell>
                         <TableCell align="right">Vehicle Type</TableCell>
-                        <TableCell align="right">Currently Rented By</TableCell>
+                        {/* <TableCell align="right">Currently Rented By</TableCell> */}
                         <TableCell align="right">Daily Rate</TableCell>
                     </TableRow>
                 </TableHead>
