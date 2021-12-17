@@ -7,10 +7,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 
 import ReservationsRow from './ReservationsRow';
 
 function ReservationsTab() {
+  const reservationsList = useSelector(
+    (store) => store.vehicle.allReservationsById
+  );
+
+  console.log(`this is reservation list`, reservationsList);
   const dummyOwnerListingList = [
     {
       id: 1,
@@ -85,8 +91,8 @@ function ReservationsTab() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {dummyOwnerListingList?.map((row) => (
-              <ReservationsRow key={row.id} row={row} />
+            {reservationsList?.map((rental) => (
+              <ReservationsRow key={rental.id} rental={rental} />
             ))}
           </TableBody>
         </Table>

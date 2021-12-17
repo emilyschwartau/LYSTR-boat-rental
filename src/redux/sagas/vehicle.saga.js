@@ -121,16 +121,16 @@ function* fetchAllReservationsById(action) {
   try {
     //getting reservations by user id w/o vehicle owner info
     let reservationsList = yield axios.get(`/api/vehicle/allReservations/${userId}`);
-    //getting owner name by using vehicle id from reservations list
+
     for (let i in reservationsList.data) {
       let rental = reservationsList.data[i];
+      // getting owner name from db by vehicle id
       const ownerName = yield axios.get(`/api/data/vehicleOwner/${rental.vehicleId}`);
+      // adding owner names into reservations
       reservationsList.data[i] = { ...rental, ownerFirstName: ownerName.data[0].firstName, ownerLastName: ownerName.data[0].lastName };
     }
-
+    // setting reservations list into reducer
     yield put({ type: `SET_ALL_RESERVATIONS_BY_ID`, payload: reservationsList.data });
-
-    console.log(`new reservation list`, reservationsList.data);
   }
   catch (error) {
     console.log(`ERROR getting reservations info by user ID`, error);
