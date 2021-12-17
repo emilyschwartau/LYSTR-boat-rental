@@ -25,13 +25,16 @@ function* addVehicle(action) {
     availability,
   } = action.payload;
 
+  console.log(photos);
   // append the photo files to a FormData for multer upload
   const formData = new FormData();
-  for (let photo of photos) {
+  for (const photo of photos) {
+    console.log(photo);
     formData.append('photos', photo);
   }
   let response;
   try {
+    yield put({ type: 'START_LOADING' });
     // post a new entry to "vehicle" and get its id for the other table inserts
     response = yield axios.post('/api/vehicle', {
       title,
@@ -61,8 +64,10 @@ function* addVehicle(action) {
     });
     // post to "photos"
     yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
+    yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Added!');
     yield put({ type: 'CLEAR_VEHICLE_FORM' });
+    yield put({ type: 'OPEN_SUCCESS' });
   } catch (error) {
     console.log('error posting new vehicle:', error);
     yield put({ type: 'POST_ERROR' });
@@ -97,11 +102,15 @@ function* fetchListedVehiclesByOwner(action) {
   const userId = action.payload;
   console.log(userId);
   try {
-    const vehiclesListed = yield axios.get(`/api/vehicle/allVehiclesListed/${userId}`);
-    yield put({ type: `SET_LISTED_VEHICLES_BY_OWNER`, payload: vehiclesListed.data });
-  }
-  catch (error) {
-    console.log('Error getting all listed vehicles by owner id', error)
+    const vehiclesListed = yield axios.get(
+      `/api/vehicle/allVehiclesListed/${userId}`
+    );
+    yield put({
+      type: `SET_LISTED_VEHICLES_BY_OWNER`,
+      payload: vehiclesListed.data,
+    });
+  } catch (error) {
+    console.log('Error getting all listed vehicles by owner id', error);
     yield put({ type: 'FETCH_LISTED_VEHICLES_BY_OWNER_ERROR' });
   }
 }
@@ -128,14 +137,10 @@ function* updateVehicle(action) {
     dailyRate,
     features,
     availability,
-    photos,
   } = action.payload;
-  // append the photo files to a FormData for multer upload
-  const formData = new FormData();
-  for (let photo of photos) {
-    formData.append('photos', photo);
-  }
+
   try {
+    yield put({ type: 'START_LOADING' });
     yield axios.put(`/api/vehicle/${vehicleId}`, {
       title,
       type,
@@ -154,7 +159,6 @@ function* updateVehicle(action) {
       heads,
       dailyRate,
     });
-    yield axios.post(`/api/vehicle/photos/${vehicleId}`, formData);
 
     yield axios.delete(`/api/vehicle/features/${vehicleId}`);
     yield axios.post(`/api/vehicle/features/${vehicleId}`, {
@@ -164,7 +168,9 @@ function* updateVehicle(action) {
     yield axios.post(`/api/vehicle/availability/${vehicleId}`, {
       availability,
     });
+    yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Updated!');
+    yield put({ type: 'OPEN_SUCCESS' });
   } catch (error) {
     console.log('error updating vehicle:', error);
     yield put({ type: 'PUT_ERROR' });
@@ -181,6 +187,27 @@ function* fetchVehiclePhotos(action) {
   } catch (error) {
     console.log('error getting vehicle photos:', error);
     yield put({ type: 'GET_ERROR' });
+  }
+}
+
+// POST a vehicle photo
+function* uploadPhotos(action) {
+  const { vehicleId, photos } = action.payload;
+  console.log('payload.photos', photos);
+  const formData = new FormData();
+  for (const photo of photos) {
+    console.log(photo);
+    formData.append('photos', photo);
+  }
+  try {
+    yield put({ type: 'START_LOADING' });
+    yield axios.post(`/api/vehicle/photos/${vehicleId}`, formData);
+    yield put({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId });
+    yield put({ type: 'CLEAR_PHOTO_GALLERY_INPUT' });
+    yield put({ type: 'STOP_LOADING' });
+  } catch (error) {
+    console.log('error posting photos:', error);
+    yield put({ type: 'POST_ERROR' });
   }
 }
 
@@ -203,7 +230,11 @@ function* vehicleSaga() {
   yield takeLatest('UPDATE_VEHICLE', updateVehicle);
   yield takeLatest('FETCH_VEHICLE_PHOTOS', fetchVehiclePhotos);
   yield takeLatest('DELETE_PHOTO', deletePhoto);
-  yield takeLatest('FETCH_LISTED_VEHICLES_BY_OWNER', fetchListedVehiclesByOwner);
+  yield takeLatest(
+    'FETCH_LISTED_VEHICLES_BY_OWNER',
+    fetchListedVehiclesByOwner
+  );
+  yield takeLatest('UPLOAD_IMAGES_FROM_GALLERY', uploadPhotos);
 }
 
 export default vehicleSaga;
