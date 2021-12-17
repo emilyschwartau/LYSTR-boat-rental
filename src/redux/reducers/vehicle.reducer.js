@@ -36,10 +36,19 @@ const vehicleFormInputs = (state = newVehicleInitial, action) => {
         (feature) => feature !== action.payload
       );
       return { ...state, features: filteredFeatures };
-    case 'ADD_PHOTOS':
-      return { ...state, photos: action.payload };
     case 'CLEAR_VEHICLE_FORM':
       return newVehicleInitial;
+    default:
+      return state;
+  }
+};
+
+const photoGalleryInput = (state = { photos: [] }, action) => {
+  switch (action.type) {
+    case 'ADD_PHOTOS':
+      return { photos: action.payload };
+    case 'CLEAR_PHOTO_GALLERY_INPUT':
+      return { photos: [] };
     default:
       return state;
   }
@@ -61,10 +70,11 @@ const listedVehiclesByOwner = (state = [], action) => {
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   vehicleFormInputs,
   photos,
   listedVehiclesByOwner,
+  photoGalleryInput,
 });

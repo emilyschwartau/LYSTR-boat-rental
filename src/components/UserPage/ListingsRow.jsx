@@ -10,8 +10,6 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
 
-
-
 function ListingsRow({vehicle}) {
     const [open, setOpen] = useState(false);
 

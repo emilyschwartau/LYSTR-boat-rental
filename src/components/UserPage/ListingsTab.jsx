@@ -8,12 +8,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material'
+import { Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 function ListingsTab() {
-    const ownerListingList = useSelector(store => store.vehicle.listedVehiclesByOwner);
-
+  const ownerListingList = useSelector(
+    (store) => store.vehicle.listedVehiclesByOwner
+  );
 
     return (<>
         <Typography variant='h2'>My Vehicle Listings</Typography>

@@ -1,9 +1,10 @@
-import { combineReducers } from "redux";
-import errors from "./errors.reducer";
-import user from "./user.reducer";
-import search from "./search.reducer";
-import vehicle from "./vehicle.reducer";
-import data from "./data.reducer";
+import { combineReducers } from 'redux';
+import errors from './errors.reducer';
+import user from './user.reducer';
+import search from './search.reducer';
+import vehicle from './vehicle.reducer';
+import data from './data.reducer';
+import loading from './loading.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   search,
   vehicle,
   data,
+  loading,
 });
 
 export default rootReducer;

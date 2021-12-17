@@ -9,10 +9,12 @@ import LinearProgress from '@mui/material/LinearProgress';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
-export default function VehiclePhotoUpload() {
+export default function VehiclePhotoUpload(props) {
   const dispatch = useDispatch();
 
-  const { vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { vehicleFormInputs, photoGalleryInput } = useSelector(
+    (store) => store.vehicle
+  );
 
   // const [files, setFiles] = React.useState([]);
   const {
@@ -33,37 +35,54 @@ export default function VehiclePhotoUpload() {
           preview: URL.createObjectURL(photo),
         })
       );
-      dispatch({
-        type: 'VEHICLE_FORM_ONCHANGE',
-        payload: { property: 'photos', value: photos },
-      });
+      if (props.galleryMode) {
+        dispatch({
+          type: 'ADD_PHOTOS',
+          payload: photos,
+        });
+      } else {
+        dispatch({
+          type: 'VEHICLE_FORM_ONCHANGE',
+          payload: { property: 'photos', value: photos },
+        });
+      }
     },
   });
   React.useEffect(
     () => () => {
       // Make sure to revoke the data uris to avoid memory leaks
-      vehicleFormInputs.photos?.forEach((photos) =>
-        URL.revokeObjectURL(photos.preview)
-      );
+      props.galleryMode
+        ? photoGalleryInput.photos?.forEach((photos) =>
+            URL.revokeObjectURL(photos.preview)
+          )
+        : vehicleFormInputs.photos?.forEach((photos) =>
+            URL.revokeObjectURL(photos.preview)
+          );
     },
-    [vehicleFormInputs.photos]
+    [vehicleFormInputs.photos, photoGalleryInput.photos]
   );
 
-  const filepath = vehicleFormInputs.photos?.map((photo) => (
-    <li key={photo.path}>
-      {photo.path} - {photo.size} bytes
-    </li>
-  ));
+  const filepath = props.galleryMode
+    ? photoGalleryInput.photos?.map((photo) => (
+        <li key={photo.path}>
+          {photo.path} - {photo.size} bytes
+        </li>
+      ))
+    : vehicleFormInputs.photos?.map((photo) => (
+        <li key={photo.path}>
+          {photo.path} - {photo.size} bytes
+        </li>
+      ));
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
-          Photos
+          Photo Upload
         </Typography>
       </Grid>
-      <Grid item>
-        <Box>
+      <Grid container item>
+        <Grid item xs={12}>
           <Box
             sx={{
               display: 'flex',
@@ -76,10 +95,11 @@ export default function VehiclePhotoUpload() {
               height: '100px',
               backgroundColor: '#ededed',
               mx: 'auto',
+              mt: 2,
             }}
             {...getRootProps()}
           >
-            <input required {...getInputProps()} />
+            <input {...getInputProps()} />
             <Typography component="p" variant="body1" align="center">
               Drag 'n' drop some files here, or click to select files
             </Typography>
@@ -87,13 +107,33 @@ export default function VehiclePhotoUpload() {
                 Open File Dialog
               </button> */}
           </Box>
+        </Grid>
+        <Grid item xs={12}>
           <aside>
             <ul>{filepath}</ul>
           </aside>
-          {/* {loading && <LinearProgress />} */}
+        </Grid>
 
-          {/* <Button variant="contained" onClick={handleUpload}>Upload</Button> */}
-        </Box>
+        {/* {loading && <LinearProgress />} */}
+
+        {props.galleryMode && (
+          <Grid container item justifyContent="flex-end">
+            <Button
+              variant="contained"
+              onClick={() =>
+                dispatch({
+                  type: 'UPLOAD_IMAGES_FROM_GALLERY',
+                  payload: {
+                    photos: photoGalleryInput.photos,
+                    vehicleId: props.vehicleId,
+                  },
+                })
+              }
+            >
+              Upload
+            </Button>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );
