@@ -8,9 +8,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import TableRow from '@mui/material/TableRow';
 import TableCell from '@mui/material/TableCell';
+import { format } from 'date-fns';
 
-function ReservationsRow({ row }) {
-  // const { row } = props;
+function ReservationsRow({ rental }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -27,20 +27,20 @@ function ReservationsRow({ row }) {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.title}
+          {rental?.title}
         </TableCell>
-        <TableCell align="right">{`${row.year} ${row.make} ${row.model}`}</TableCell>
-        <TableCell align="right">{row.type}</TableCell>
-        <TableCell align="right">{row.currentlyRentedBy}</TableCell>
-        <TableCell align="right">{row.currentlyRentedBy}</TableCell>
-        <TableCell align="right">{row.dailyRate}</TableCell>
+        <TableCell align="right">{`${rental?.year} ${rental?.make} ${rental?.model}`}</TableCell>
+        <TableCell align="right">{rental?.vehicleType}</TableCell>
+        <TableCell align="right">{format(new Date(rental?.dateRented), 'MM/dd/yyyy')}</TableCell>
+        <TableCell align="right">{`${rental?.ownerFirstName} ${rental?.ownerLastName}`}</TableCell>
+        <TableCell align="right">{rental?.dailyRate}</TableCell>
       </TableRow>
       {/* ACTUAL TABLE ROW END */}
       {/* INFO ROW START */}
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <ReservationsInfo row={row} />
+            <ReservationsInfo rental={rental} />
           </Collapse>
         </TableCell>
       </TableRow>

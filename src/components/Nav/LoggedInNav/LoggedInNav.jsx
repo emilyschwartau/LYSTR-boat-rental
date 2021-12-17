@@ -31,7 +31,9 @@ function LoggedInNav() {
     </p>,
   ];
   const pages = [
-    <p className="rentTheme">Rent</p>,
+    <Link to ="/home" className="rentTheme">
+        Rent
+    </Link>,
     <Link to="/add-vehicle" className="listTheme">
       List Your Stuff
     </Link>,
@@ -119,7 +121,6 @@ function LoggedInNav() {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
           >
-            {/* LOGO */}
           </Typography>
 
           {/* LINK OPTIONS LARGE SCREEN */}
