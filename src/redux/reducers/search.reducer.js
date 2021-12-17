@@ -1,3 +1,5 @@
+import { combineReducers } from "redux";
+
 const searchQuery = (state = {}, action) => {
     switch (action.type) {
         case 'SET_SEARCH_LOCATION':
@@ -11,4 +13,16 @@ const searchQuery = (state = {}, action) => {
     }
 }
 
-export default searchQuery;
+const searchResults = (state ={} , action ) => {
+    switch (action.type){
+        case 'SET_SEARCH_RESUTLS':
+            return { ...action, searchResults: action.payload };
+        default:
+            return state;
+    }
+}
+
+export default combineReducers({
+    searchQuery,
+    searchResults
+});
