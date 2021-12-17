@@ -1,8 +1,8 @@
 import React from "react";
 import "./Nav.css";
 import { useSelector } from "react-redux";
-import LoggedInNav from "../LoggedInNav/LoggedInNav";
-import LoggedOutNav from "../LoggedOutNav/LoggedOutNav";
+import LoggedInNav from "./LoggedInNav/LoggedInNav";
+import LoggedOutNav from "./LoggedInNav/LoggedOutNav/LoggedOutNav";
 
 function Nav() {
 
