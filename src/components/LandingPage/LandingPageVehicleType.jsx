@@ -33,6 +33,8 @@ function LandingPageVehicleType() {
   const checkId = () => {
     if (vehicleType === undefined) {
       buttonText = 'Boats';
+    } else if (vehicleType === 'Fishing') {
+      buttonText = 'Fishing Boats';
     } else {
       buttonText = vehicleType + 's';
     }
