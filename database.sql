@@ -22,8 +22,7 @@ CREATE TABLE "type" (
 );
 
 INSERT INTO "type" ("name", "image")
-VALUES ('Pontoon', "/images/pontoon.jpeg" ), ('Runabout', "/images/runabout.png"), ('Fishing', "/images/fishingboat.jpeg"), ('Jetski', "/images/jetski.png"), ('Kayak/Canoe', "/images/kayak.jpeg") 
-
+VALUES ('Pontoon', '/images/pontoon.jpeg' ), ('Runabout', '/images/runabout.png'), ('Fishing', '/images/fishingboat.jpeg'), ('Jetski', '/images/jetski.png'), ('Kayak/Canoe', '/images/kayak.jpeg') ;
 
 
 -- listed vehicles go here:
@@ -47,8 +46,6 @@ CREATE TABLE "vehicle" (
     "zip" VARCHAR(255) NOT NULL,
     "instructions" VARCHAR(1000)
 );
-
-INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "street", "city", "state", "zip")
 
 -- photos for each vehicle
 CREATE TABLE "photos" (
@@ -94,7 +91,7 @@ CREATE TABLE "cities" (
     "city_name" VARCHAR(32),
     "county_name" VARCHAR(32),
     "state_name" VARCHAR(32),
-    "zip" INTEGER,
+    "zip" INTEGER
 );
 
 -- STRETCH table for messages between users
@@ -103,4 +100,9 @@ CREATE TABLE "messages" (
     "sent_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
     "received_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
     "msg" VARCHAR(1000) NOT NULL
-)
+);
+
+
+-- END COPY PASTE HERE
+
+INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "street", "city", "state", "zip");
