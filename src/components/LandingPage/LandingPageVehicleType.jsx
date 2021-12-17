@@ -43,7 +43,6 @@ function LandingPageVehicleType() {
   // changes value of button text
   // checks store reducer value after boat type is selected
   checkId();
-  console.log('vehicle type:' , vehicleType)
 
   React.useEffect(() => {
     dispatch({
