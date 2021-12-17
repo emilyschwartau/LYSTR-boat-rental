@@ -25,6 +25,7 @@ INSERT INTO "type" ("name", "image")
 VALUES ('Pontoon', '/images/pontoon.jpeg' ), ('Runabout', '/images/runabout.png'), ('Fishing', '/images/fishingboat.jpeg'), ('Jetski', '/images/jetski.png'), ('Kayak/Canoe', '/images/kayak.jpeg') ;
 
 
+
 -- listed vehicles go here:
 CREATE TABLE "vehicle" (
     "id" SERIAL PRIMARY KEY,

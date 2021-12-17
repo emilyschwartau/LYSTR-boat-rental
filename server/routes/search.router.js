@@ -21,8 +21,6 @@ router.get("/:location/:startDate/:vehicleType", (req, res) => {
     FROM "vehicle" JOIN "type" ON "vehicle"."type_id" = "type"."id" JOIN "user" ON "vehicle"."owned_by" = "user"."id";  
     ;`
 
-    const values = [locationKeyword, vehicleType]
-
     pool
         .query(query)
 
