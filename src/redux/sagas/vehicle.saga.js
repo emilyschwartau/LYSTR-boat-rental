@@ -100,7 +100,6 @@ function* fetchVehicleById(action) {
 // GET listed vehicles by Owner
 function* fetchListedVehiclesByOwner(action) {
   const userId = action.payload;
-  console.log(userId);
   try {
     const vehiclesListed = yield axios.get(
       `/api/vehicle/allVehiclesListed/${userId}`

@@ -103,7 +103,8 @@ router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
     JOIN "availability" ON "availability"."id" = "rental"."date_id"
     JOIN "vehicle" ON "vehicle"."id" = "availability"."vehicle_id"
     JOIN "type" ON "type"."id" = "vehicle"."type_id"
-    WHERE "rental"."rented_by" = $1;
+    WHERE "rental"."rented_by" = $1
+    ORDER BY "dateRented" DESC;
   `;
   console.log(`in allreservations`);
   pool
