@@ -20,7 +20,9 @@ function LoggedInNav() {
   const dispatch = useDispatch();
 
   const settings = [
-    <div className="userDropdown">User Dashboard</div>,
+    <Link className="userDropdown" to="/user">
+      User Dashboard
+    </Link>,
     <Link className="userDropdown" to="/about">
       About LYSTR
     </Link>,
@@ -102,9 +104,9 @@ function LoggedInNav() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page, i) => (
+                <MenuItem key={i} onClick={handleCloseNavMenu}>
+                  {page}
                 </MenuItem>
               ))}
             </Menu>
@@ -128,9 +130,9 @@ function LoggedInNav() {
               justifyContent: 'flex-end',
             }}
           >
-            {pages.map((page) => (
+            {pages.map((page, i) => (
               <Button
-                key={page}
+                key={i}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
@@ -166,8 +168,8 @@ function LoggedInNav() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting, i) => (
-                <MenuItem key={i} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={i} onClick={handleCloseUserMenu}>
+                  {setting}
                 </MenuItem>
               ))}
             </Menu>

@@ -90,7 +90,6 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
     });
 });
 
-
 router.get('/uploads/:key', (req, res) => {
   console.log('getting S3');
   const { key } = req.params;
@@ -245,9 +244,9 @@ router.post(
   rejectUnauthenticated,
   upload.array('photos'),
   async (req, res) => {
-    console.log('req.files:', req.files);
     const photos = req.files;
     const { vehicleId } = req.params;
+    console.log(`/photos/${vehicleId} req.files:`, req.files);
 
     let imagePaths = [];
 
@@ -278,6 +277,7 @@ router.post(
         queryText += `,`;
       }
     }
+    console.log('photo post query:', queryText);
 
     pool
       .query(queryText, values)
