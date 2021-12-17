@@ -12,12 +12,14 @@ import {
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
 
 function ListingsInfo({ vehicle }) {
   const [imageIndex, setImageIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const history = useHistory();
 
   const handleNext = () => {
     if (imageIndex != vehicle?.photos.length - 1) {
@@ -65,10 +67,17 @@ function ListingsInfo({ vehicle }) {
               <ArrowForwardIosIcon />
             </IconButton>
           </Box>
-          <Box sx={{ border: 'black solid 1px', width: '45%', padding: '1em' }}>
+          <Box
+            sx={{
+              border: 'gray solid 1px',
+              borderRadius: 2,
+              width: '45%',
+              padding: '1em',
+            }}
+          >
             <p>
               Address:{' '}
-              {`${vehicle?.street} ${vehicle?.city}, ${vehicle?.state} ${vehicle?.zip}`}
+              {`${vehicle?.street}, ${vehicle?.city}, ${vehicle?.state} ${vehicle?.zip}`}
             </p>
 
             <p>Features:</p>
@@ -79,6 +88,14 @@ function ListingsInfo({ vehicle }) {
             </ul>
           </Box>
         </Stack>
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
+          <Button
+            variant="outlined"
+            onClick={() => history.push(`/update-vehicle/${vehicle.vehicleId}`)}
+          >
+            Update
+          </Button>
+        </Box>
         <PhotoGalleryModal
           open={open}
           setOpen={setOpen}

@@ -168,7 +168,7 @@ function LoggedInNav() {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting, i) => (
-                <MenuItem key={i} onClick={handleCloseNavMenu}>
+                <MenuItem key={i} onClick={handleCloseUserMenu}>
                   {setting}
                 </MenuItem>
               ))}

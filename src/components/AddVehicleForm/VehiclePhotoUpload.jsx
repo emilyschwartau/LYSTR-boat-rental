@@ -59,7 +59,7 @@ export default function VehiclePhotoUpload(props) {
             URL.revokeObjectURL(photos.preview)
           );
     },
-    [vehicleFormInputs.photos]
+    [vehicleFormInputs.photos, photoGalleryInput.photos]
   );
 
   const filepath = props.galleryMode
@@ -78,11 +78,11 @@ export default function VehiclePhotoUpload(props) {
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
-          Photos
+          Photo Upload
         </Typography>
       </Grid>
-      <Grid item>
-        <Box>
+      <Grid container item>
+        <Grid item xs={12}>
           <Box
             sx={{
               display: 'flex',
@@ -95,6 +95,7 @@ export default function VehiclePhotoUpload(props) {
               height: '100px',
               backgroundColor: '#ededed',
               mx: 'auto',
+              mt: 2,
             }}
             {...getRootProps()}
           >
@@ -106,12 +107,17 @@ export default function VehiclePhotoUpload(props) {
                 Open File Dialog
               </button> */}
           </Box>
+        </Grid>
+        <Grid item xs={12}>
           <aside>
             <ul>{filepath}</ul>
           </aside>
-          {/* {loading && <LinearProgress />} */}
+        </Grid>
 
-          {props.galleryMode && (
+        {/* {loading && <LinearProgress />} */}
+
+        {props.galleryMode && (
+          <Grid container item justifyContent="flex-end">
             <Button
               variant="contained"
               onClick={() =>
@@ -126,8 +132,8 @@ export default function VehiclePhotoUpload(props) {
             >
               Upload
             </Button>
-          )}
-        </Box>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

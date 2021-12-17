@@ -31,7 +31,7 @@ export default function VehicleFeatures({ validateNumber }) {
   };
 
   return (
-    <Grid container maxWidth="md" mx="auto" mb={4}>
+    <Grid container maxWidth="md" mx="auto" mt={4}>
       <Grid item>
         <Typography component="h2" variant="h5">
           Features

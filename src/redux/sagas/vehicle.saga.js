@@ -34,6 +34,7 @@ function* addVehicle(action) {
   }
   let response;
   try {
+    yield put({ type: 'START_LOADING' });
     // post a new entry to "vehicle" and get its id for the other table inserts
     response = yield axios.post('/api/vehicle', {
       title,
@@ -63,8 +64,10 @@ function* addVehicle(action) {
     });
     // post to "photos"
     yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
+    yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Added!');
     yield put({ type: 'CLEAR_VEHICLE_FORM' });
+    yield put({ type: 'OPEN_SUCCESS' });
   } catch (error) {
     console.log('error posting new vehicle:', error);
     yield put({ type: 'POST_ERROR' });
@@ -137,6 +140,7 @@ function* updateVehicle(action) {
   } = action.payload;
 
   try {
+    yield put({ type: 'START_LOADING' });
     yield axios.put(`/api/vehicle/${vehicleId}`, {
       title,
       type,
@@ -164,7 +168,9 @@ function* updateVehicle(action) {
     yield axios.post(`/api/vehicle/availability/${vehicleId}`, {
       availability,
     });
+    yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Updated!');
+    yield put({ type: 'OPEN_SUCCESS' });
   } catch (error) {
     console.log('error updating vehicle:', error);
     yield put({ type: 'PUT_ERROR' });
@@ -194,9 +200,11 @@ function* uploadPhotos(action) {
     formData.append('photos', photo);
   }
   try {
+    yield put({ type: 'START_LOADING' });
     yield axios.post(`/api/vehicle/photos/${vehicleId}`, formData);
     yield put({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId });
     yield put({ type: 'CLEAR_PHOTO_GALLERY_INPUT' });
+    yield put({ type: 'STOP_LOADING' });
   } catch (error) {
     console.log('error posting photos:', error);
     yield put({ type: 'POST_ERROR' });

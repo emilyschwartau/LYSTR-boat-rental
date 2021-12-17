@@ -5,6 +5,8 @@ import PhotoGalleryItem from './PhotoGalleryItem';
 
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
 
 export default function PhotoGallery({ vehicleId }) {
   const dispatch = useDispatch();
@@ -15,14 +17,23 @@ export default function PhotoGallery({ vehicleId }) {
   );
 
   const { photos } = useSelector((store) => store.vehicle);
+  const { loading } = useSelector((store) => store.loading);
 
   return (
-    <Grid container maxWidth="md" mx="auto" mb={4}>
-      {photos?.map((photo) => (
-        <Grid item key={photo.id}>
-          <PhotoGalleryItem photo={photo} />
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <Grid container maxWidth="lg" mx="auto" mb={4}>
+        {photos?.map((photo) => (
+          <Grid item key={photo.id}>
+            <PhotoGalleryItem photo={photo} amount={photos.length} />
+          </Grid>
+        ))}
+      </Grid>
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </>
   );
 }
