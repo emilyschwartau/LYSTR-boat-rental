@@ -17,7 +17,7 @@ router.get("/cities", (req, res) => {
     .query(query)
     .then((result) => res.send(result.rows))
     .catch((err) => {
-      console.log(`Error making query ${queryText}`, err);
+      console.log(`Error making query`, err);
       res.sendStatus(500);
     });
 });
@@ -28,7 +28,7 @@ router.get("/types", (req, res) => {
     .query(query)
     .then((result) => res.send(result.rows))
     .catch((err) => {
-      console.log(`Error making query ${queryText}`, err);
+      console.log(`Error making query`, err);
       res.sendStatus(500);
     });
 });
@@ -39,18 +39,18 @@ router.get("/features", (req, res) => {
     .query(query)
     .then((result) => res.send(result.rows))
     .catch((err) => {
-      console.log(`Error making query ${queryText}`, err);
+      console.log(`Error making query `, err);
       res.sendStatus(500);
     });
 });
 
 router.get("/vehicleOwner/:vehicleId", (req, res) => {
-  const {vehicleId} = req.params;
+  const { vehicleId } = req.params;
   const query = `
     SELECT "first_name" AS "firstName", "last_name" AS "lastName" FROM "user"
     JOIN "vehicle" ON "vehicle"."owned_by" = "user"."id"
     WHERE "vehicle"."id" = $1;`;
-  
+
   pool
     .query(query, [vehicleId])
     .then((result) => res.send(result.rows))
@@ -66,7 +66,7 @@ router.get("/vehicleOwner/:id", (req, res) => {
     .query(query)
     .then((result) => res.send(result.rows))
     .catch((err) => {
-      console.log(`Error making query ${queryText}`, err);
+      console.log(`Error making query`, err);
       res.sendStatus(500);
     });
 });
