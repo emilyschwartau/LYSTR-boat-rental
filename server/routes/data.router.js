@@ -11,7 +11,7 @@ router.get("/cities", (req, res) => {
   const query = `
   SELECT city_name, county_name, zip
   FROM "cities"
-  WHERE city_name LIKE 'A%'
+
   ;`;
   pool
     .query(query)

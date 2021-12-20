@@ -22,9 +22,9 @@ const cities = (state = [], action) => {
   switch (action.type) {
     case "SET_CITIES":
 
-     
+      // formats data from cities table to list of labels as strings
+      // to use in auto complete
       const cityData = action.payload
-      // console.log('before removeKeys:', cityData)
       const cityLabels = []
 
       function removeKeys(obj) {
@@ -33,7 +33,7 @@ const cities = (state = [], action) => {
         let concatArr = [];
         for (let k of obj) {
           // remove keys from object
-            keyArr.push(Object.values(k))
+          keyArr.push(Object.values(k))
         }
         // concat all new arrays with no keys to one array
         for (let i of keyArr) {
@@ -49,11 +49,11 @@ const cities = (state = [], action) => {
 
 
         for (let i of removeDuplicates) {
-          if (typeof i === 'number'){
+          if (typeof i === 'number') {
             // checks for number, converts to string for auto complete type matching
             cityLabels.push({ "label": i.toString() })
           } else {
-          cityLabels.push({ "label": i })
+            cityLabels.push({ "label": i })
           }
         }
 
@@ -61,7 +61,6 @@ const cities = (state = [], action) => {
       }
 
       removeKeys(cityData)
-      // console.log('after removeKeys:', cityLabels)
 
       return [...cityLabels];
     default:
