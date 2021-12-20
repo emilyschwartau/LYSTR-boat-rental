@@ -23,8 +23,8 @@ const cities = (state = [], action) => {
     case "SET_CITIES":
 
      
-      const cities = [...state]
-      console.log('in city reducer:', cities)
+      const cityData = action.payload
+      // console.log('before removeKeys:', cityData)
       const cityLabels = []
 
       function removeKeys(obj) {
@@ -32,19 +32,13 @@ const cities = (state = [], action) => {
         let keyArr = [];
         let concatArr = [];
         for (let k of obj) {
-          if (typeof (k) === 'number') {
-            // convert zip codes to string
-            keyArr.push(Object.values(k).toString())
-          } else {
-            // add each item to a new array without keys
+          // remove keys from object
             keyArr.push(Object.values(k))
-          }
         }
         // concat all new arrays with no keys to one array
         for (let i of keyArr) {
           concatArr = concatArr.concat(i)
         }
-
         // check all instances and remove duplicates
         const removeDuplicates = concatArr.reduce(function (a, b) {
           if (a.indexOf(b) === -1) {
@@ -55,16 +49,21 @@ const cities = (state = [], action) => {
 
 
         for (let i of removeDuplicates) {
+          if (typeof i === 'number'){
+            // checks for number, converts to string for auto complete type matching
+            cityLabels.push({ "label": i.toString() })
+          } else {
           cityLabels.push({ "label": i })
+          }
         }
 
         return cityLabels
       }
-      removeKeys(cities)
-      // console.log('cities reducer:', cityLabels)
 
+      removeKeys(cityData)
+      // console.log('after removeKeys:', cityLabels)
 
-      return action.payload;
+      return [...cityLabels];
     default:
       return state;
   }
