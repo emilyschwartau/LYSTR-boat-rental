@@ -6,6 +6,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import * as Scroll from 'react-scroll';
+import LocationComboBox from '../LocationComboBox/LocationComboBox'
 
 
 function LandingPageLocation() {
@@ -66,6 +67,7 @@ function LandingPageLocation() {
                 onChange={(e) => handleLocationChange(e)}
               />
               <br />
+              <LocationComboBox />
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   required

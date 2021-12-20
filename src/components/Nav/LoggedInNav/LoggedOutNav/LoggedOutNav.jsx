@@ -17,6 +17,9 @@ function LoggedOutNav() {
     <Link className="navLink" to="/about">
       About LYSTR
     </Link>,
+    <Link to="/home" className="rentTheme">
+      Rent
+    </Link>,
     <Link to="/add-vehicle" className="listTheme">
       List Your Stuff
     </Link>,
