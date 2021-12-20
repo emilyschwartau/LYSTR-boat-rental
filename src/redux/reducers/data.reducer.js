@@ -18,7 +18,17 @@ const features = (state = [], action) => {
   }
 };
 
+const cities = (state = [], action) => {
+  switch (action.type) {
+    case "SET_CITIES":
+      return action.payload;
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
+  cities,
   types,
   features,
 });
