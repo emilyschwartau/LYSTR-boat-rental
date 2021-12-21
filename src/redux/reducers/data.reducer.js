@@ -26,6 +26,7 @@ const cities = (state = [], action) => {
       // to use in auto complete
       const cityData = action.payload
       const cityLabels = []
+      const cityZips = []
 
       function removeKeys(obj) {
 
@@ -44,20 +45,20 @@ const cities = (state = [], action) => {
           if (a.indexOf(b) === -1) {
             a.push(b)
           }
-          return a
+          return a.sort()
         }, [])
 
 
         for (let i of removeDuplicates) {
           if (typeof i === 'number') {
             // checks for number, converts to string for auto complete type matching
-            cityLabels.push({ "label": i.toString() })
+            cityZips.push({ "label": i.toString() })
           } else {
             cityLabels.push({ "label": i })
           }
         }
 
-        return cityLabels
+        return [...cityLabels, ...cityZips]
       }
 
       removeKeys(cityData)
