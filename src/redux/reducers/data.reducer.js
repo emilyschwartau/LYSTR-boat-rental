@@ -55,15 +55,14 @@ const cities = (state = [], action) => {
             cityZips.push({ "label": i.toString() })
           } else {
             cityLabels.push({ "label": i })
+            cityLabels.concat(cityZips)
           }
         }
-
-        return [...cityLabels, ...cityZips]
       }
 
       removeKeys(cityData)
-
-      return [...cityLabels];
+      
+      return [...cityLabels.concat(cityZips)];
     default:
       return state;
   }
