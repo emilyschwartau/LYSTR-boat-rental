@@ -20,10 +20,15 @@ function LocationComboBox() {
     }
 
     const handleAutoComplete = (event) => {
-        setSearch({ ...search, location: event.label })
-        dispatch({ type: 'SET_SEARCH_LOCATION', payload: event.label });
-        
-        console.log('handleAutoComplete:', event.label)
+        if (event.label) {
+            setSearch({ ...search, location: event.label })
+            dispatch({ type: 'SET_SEARCH_LOCATION', payload: event.label });
+            console.log('handleAutoComplete:', event, event.label)
+
+        } else {
+            setSearch('')
+        }
+
     }
 
 
@@ -40,8 +45,9 @@ function LocationComboBox() {
                 autoSelect={true}
                 id="combo-box-demo"
                 options={cities}
-                // onChange={(event, value) => console.log(value)}
                 onChange={(event, value) => handleAutoComplete(value)}
+                disableClearable={true}
+                // clearOnEscape={true}
                 renderInput={(params) =>
                     <TextField {...params}
                         // value={search.location}
@@ -49,11 +55,12 @@ function LocationComboBox() {
                         placeholder="City, State"
                         helperText="Search Location by City, State"
                         onChange={(e) => handleLocationChange(e)}
+
                         label="Location"
                     />
                 }
                 getOptionLabel={(option) => option.label}
-                // getOptionSelected={(option,value) => option.label === value.label}
+            // getOptionSelected={(option,value) => option.label === value.label}
             />
             <br />
         </div>
