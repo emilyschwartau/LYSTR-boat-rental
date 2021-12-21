@@ -6,6 +6,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
 import * as Scroll from 'react-scroll';
+import LocationComboBox from '../LocationComboBox/LocationComboBox'
 
 
 function LandingPageLocation() {
@@ -15,7 +16,7 @@ function LandingPageLocation() {
 
   //search input
   const [search, setSearch] = useState({
-    location: '',
+    // location: '',
     //initial search 
     startDate: null,
   })
@@ -23,15 +24,15 @@ function LandingPageLocation() {
   //handle date selection
   const handleDateChange = (newValue) => {
     const formattedStartDate = format(newValue, "yyyy-MM-dd");
-    console.log(`this is format`, formattedStartDate);
+    // console.log(`this is format`, formattedStartDate);
     setSearch({ ...search, startDate: formattedStartDate });
     dispatch({ type: "SET_SEARCH_DATE", payload: formattedStartDate });
   };
 
-  const handleLocationChange = (e) => {
-    setSearch({ ...search, location: e.target.value })
-    dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
-  }
+  // const handleLocationChange = (e) => {
+  //   setSearch({ ...search, location: e.target.value })
+  //   dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
+  // }
 
   // const handleSubmit = () => {
   //   dispatch({ type: "SET_SEARCH", payload: search });
@@ -57,7 +58,7 @@ function LandingPageLocation() {
           {/* <form onSubmit={() => handleSubmit()}> */}
           <form>
             <FormControl fullWidth={true}>
-              <TextField
+              {/* <TextField
                 required
                 placeholder="City, State"
                 helperText="Search Location by City, State"
@@ -65,7 +66,8 @@ function LandingPageLocation() {
                 // value={search.location}
                 onChange={(e) => handleLocationChange(e)}
               />
-              <br />
+              <br /> */}
+              <LocationComboBox />
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
                   required

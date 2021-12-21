@@ -1,6 +1,16 @@
 import { put, takeLatest } from "redux-saga/effects";
 import axios from "axios";
 
+function* fetchCityList() {
+  try{
+    const cities = yield axios.get("/api/data/cities");
+    yield put ({type:"SET_CITIES", payload: cities.data});
+  } catch (error) {
+    console.log("error getting cities list", error);
+    yield put({type: "GET_ERROR"})
+  }
+}
+
 function* fetchTypeList() {
   try {
     const types = yield axios.get("/api/data/types");
@@ -34,6 +44,7 @@ function* fetchOwnerByVehicleId() {
 }
 
 function* dataSaga() {
+  yield takeLatest("FETCH_CITY_LIST", fetchCityList)
   yield takeLatest("FETCH_TYPE_LIST", fetchTypeList);
   yield takeLatest("FETCH_FEATURES_LIST", fetchFeaturesList);
   yield takeLatest("FETCH_OWNER_BY_VEHICLE_ID", fetchOwnerByVehicleId);
