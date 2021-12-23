@@ -24,7 +24,10 @@ export default function VehicleDetailsPage() {
     <Container component="main">
       <Grid container>
         <Grid item md={6}>
-          <BookingForm availability={vehicleInfo.availability} />
+          <BookingForm
+            availability={vehicleInfo.availability}
+            dailyRate={vehicleInfo.dailyRate}
+          />
         </Grid>
       </Grid>
     </Container>

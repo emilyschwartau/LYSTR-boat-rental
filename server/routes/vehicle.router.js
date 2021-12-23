@@ -20,7 +20,7 @@ const {
  * GET routes
  */
 
-router.get('/:vehicleId', rejectUnauthenticated, (req, res) => {
+router.get('/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `
@@ -89,7 +89,6 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
     });
 });
 
-
 // GET ALL RESERVATIONS BY USER ID
 router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
   const { userId } = req.params;
@@ -118,7 +117,6 @@ router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
-
 
 router.get('/uploads/:key', (req, res) => {
   console.log('getting S3');

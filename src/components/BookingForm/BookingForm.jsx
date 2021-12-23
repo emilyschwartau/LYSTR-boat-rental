@@ -8,38 +8,57 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 
-export default function BookingForm({ availability }) {
+export default function BookingForm({ availability, dailyRate }) {
   const dispatch = useDispatch();
+  const { bookingInput } = useSelector((store) => store.rental);
+  const user = useSelector((store) => store.user);
   // const [dateInput, setDateInput] = React.useState('');
-  // const { bookingInput } = useSelector((store) => store.rental);
+
+  const handleBook = () => {};
   return (
-    <FormControl margin="normal">
-      <Calendar
-        numberOfMonths={1}
-        // value={vehicleFormInputs.availability?.map(
-        //   (date) => new DateObject(date)
-        // )}
-        // onChange={setDateInput}
-        onChange={(date) => {
-          // setDateInput(date);
-          dispatch({
-            type: 'BOOKING_FORM_ONCHANGE',
-            payload: {
-              property: 'date',
-              value: date.format(),
-            },
-          });
-          console.log(date.format());
-        }}
-        mapDays={({ date }) => {
-          const isAvailable = availability?.includes(date.format('YYYY-MM-DD'));
-          if (!isAvailable)
-            return {
-              disabled: true,
-              style: { color: '#ccc' },
-            };
-        }}
-      />
-    </FormControl>
+    <Box>
+      <FormControl margin="normal">
+        <Calendar
+          value={bookingInput.date}
+          numberOfMonths={1}
+          // value={vehicleFormInputs.availability?.map(
+          //   (date) => new DateObject(date)
+          // )}
+          // onChange={setDateInput}
+          onChange={(date) => {
+            // setDateInput(date);
+            dispatch({
+              type: 'BOOKING_FORM_ONCHANGE',
+              payload: {
+                property: 'date',
+                value: date.format(),
+              },
+            });
+            console.log(date);
+          }}
+          mapDays={({ date }) => {
+            const isAvailable = availability?.includes(
+              date.format('YYYY-MM-DD')
+            );
+            if (!isAvailable)
+              return {
+                disabled: true,
+                style: { color: '#ccc' },
+              };
+          }}
+        />
+      </FormControl>
+      <Typography>Daily Rate: ${dailyRate}</Typography>
+      <Typography>
+        Rental Date:{' '}
+        {bookingInput.date
+          ? new DateObject(bookingInput.date).format('MMMM D, YYYY')
+          : ''}
+      </Typography>
+      <Typography>
+        Estimated Cost: ${bookingInput.date ? dailyRate * 1 : 0}
+      </Typography>
+      <Button onClick={handleBook}>Book</Button>
+    </Box>
   );
 }
