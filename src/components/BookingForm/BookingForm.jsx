@@ -7,14 +7,22 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
 
-export default function BookingForm({ availability, dailyRate }) {
+export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const dispatch = useDispatch();
   const { bookingInput } = useSelector((store) => store.rental);
-  const user = useSelector((store) => store.user);
+
+  // const user = useSelector((store) => store.user);
   // const [dateInput, setDateInput] = React.useState('');
 
-  const handleBook = () => {};
+  const handleBook = () => {
+    console.log(bookingInput.date, dailyRate);
+    dispatch({
+      type: 'BOOK_VEHICLE',
+      payload: { vehicleId, date: bookingInput.date },
+    });
+  };
   return (
     <Box>
       <FormControl margin="normal">
@@ -31,7 +39,7 @@ export default function BookingForm({ availability, dailyRate }) {
               type: 'BOOKING_FORM_ONCHANGE',
               payload: {
                 property: 'date',
-                value: date.format(),
+                value: date.format('YYYY-MM-DD'),
               },
             });
             console.log(date);

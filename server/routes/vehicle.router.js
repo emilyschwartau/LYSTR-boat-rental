@@ -135,6 +135,7 @@ router.get('/uploads/:key', (req, res) => {
  * POST routes
  */
 
+// vehicle
 router.post('/', rejectUnauthenticated, (req, res) => {
   console.log(req.body);
   const {
@@ -193,6 +194,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//features
 router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
@@ -230,6 +232,7 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// availability
 router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { availability } = req.body;
   const { vehicleId } = req.params;
@@ -267,6 +270,7 @@ router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// photos
 router.post(
   '/photos/:vehicleId',
   rejectUnauthenticated,
@@ -407,6 +411,7 @@ router.delete('/photos/:photoId', rejectUnauthenticated, (req, res) => {
  * PUT routes
  */
 
+// vehicle
 router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
   const {
@@ -465,5 +470,8 @@ router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// availability
+router.put('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {});
 
 module.exports = router;

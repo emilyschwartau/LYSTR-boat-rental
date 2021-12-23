@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 const msg = {
   add: 'Vehicle added successfully!',
   update: 'Vehicle updated successfully!',
+  book: 'Vehicle booked!',
 };
 
 export default function SuccessDialoge(props) {
@@ -20,6 +21,8 @@ export default function SuccessDialoge(props) {
     title = msg.add;
   } else if (props.pathname.includes('/update-vehicle')) {
     title = msg.add;
+  } else if (props.pathname.includes('/vehicle-details')) {
+    title = msg.book;
   } else {
     msg = 'Success!';
   }
