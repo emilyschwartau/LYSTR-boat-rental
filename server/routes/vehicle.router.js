@@ -399,6 +399,7 @@ router.delete('/photos/:photoId', rejectUnauthenticated, (req, res) => {
     .then((result) => {
       const path = result.rows[0].image_path;
       deleteFile(path.split('/')[4]);
+      console.log('photo deleted from S3');
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -410,6 +411,29 @@ router.delete('/photos/:photoId', rejectUnauthenticated, (req, res) => {
 /*
  * PUT routes
  */
+
+// availability (toggle is_rented)
+router.put('/availability', rejectUnauthenticated, (req, res) => {
+  const { vehicleId, date } = req.query;
+  console.log(req.query);
+
+  const query = `
+    UPDATE "availability"
+    SET "is_rented" = NOT "is_rented"
+    WHERE "vehicle_id" = $1 AND "date_available" = $2;
+  `;
+
+  pool
+    .query(query, [vehicleId, date])
+    .then((result) => {
+      console.log(`PUT at /vehicle/availability/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error updating vehicle availability:`, err);
+      res.sendStatus(500);
+    });
+});
 
 // vehicle
 router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
@@ -470,8 +494,5 @@ router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
-
-// availability
-router.put('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {});
 
 module.exports = router;

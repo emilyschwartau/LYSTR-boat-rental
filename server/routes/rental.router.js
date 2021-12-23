@@ -20,7 +20,6 @@ router.post('/:vehicleId', rejectUnauthenticated, (req, res) => {
     INSERT INTO "rental" ("rented_by", "date_id", "vehicle_id")
       VALUES ($1, (select "id" from "availability" where "date_available" =  $2 and "vehicle_id" = $3), $3);
   `;
-  console.log(req.body, query);
   pool
     .query(query, [req.user.id, date, vehicleId])
     .then((result) => {
