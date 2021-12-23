@@ -10,11 +10,9 @@ import FormControl from '@mui/material/FormControl';
 
 export default function VehicleAvailability({ validateNumber }) {
   const dispatch = useDispatch();
-  const [dates, setDates] = React.useState([]);
+  // const [dates, setDates] = React.useState([]);
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
 
-  console.log(dates.map((date) => date.format()));
-  console.log(dates);
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
@@ -46,14 +44,14 @@ export default function VehicleAvailability({ validateNumber }) {
             value={vehicleFormInputs.availability?.map(
               (date) => new DateObject(date)
             )}
-            onChange={setDates}
+            // onChange={setDates}
             onChange={(dates) => {
-              setDates(dates);
+              // setDates(dates);
               dispatch({
                 type: 'VEHICLE_FORM_ONCHANGE',
                 payload: {
                   property: 'availability',
-                  value: dates?.map((date) => date.format()),
+                  value: dates?.map((date) => date.format('YYYY-MM-DD')),
                 },
               });
             }}
