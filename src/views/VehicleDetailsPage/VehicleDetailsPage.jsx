@@ -9,6 +9,9 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import Carousel from 'react-material-ui-carousel';
+
+
 
 export default function VehicleDetailsPage() {
   const dispatch = useDispatch();
@@ -16,11 +19,15 @@ export default function VehicleDetailsPage() {
 
   const { vehicleInfo, photos } = useSelector((store) => store.vehicle);
 
+  console.log("photos", photos);
+  console.log("vehicleInfo", vehicleInfo);
+
   React.useEffect(() => {
     dispatch({ type: 'FETCH_VEHICLE_BY_ID', payload: vehicleId });
     dispatch({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId });
   }, [dispatch]);
   return (
+    <>
     <Container component="main">
       <Grid container>
         <Grid item md={6}>
@@ -28,5 +35,7 @@ export default function VehicleDetailsPage() {
         </Grid>
       </Grid>
     </Container>
+    <p>boat details: {vehicleInfo.title}</p>
+    </>
   );
 }
