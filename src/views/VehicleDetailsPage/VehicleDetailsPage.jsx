@@ -26,6 +26,7 @@ export default function VehicleDetailsPage() {
     dispatch({ type: 'FETCH_VEHICLE_BY_ID', payload: vehicleId });
     dispatch({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId });
   }, [dispatch]);
+
   return (
     <>
     <Container component="main">
@@ -36,6 +37,18 @@ export default function VehicleDetailsPage() {
       </Grid>
     </Container>
     <p>boat details: {vehicleInfo.title}</p>
+    
+    <div id="detailsImage">
+    <Carousel autoPlay={false} navButtonsAlwaysVisible={true} indicators={false} >
+      {
+        photos?.map(item => {
+          return (
+            <img  src={item.path} key={item.vehicleId}/> 
+          );
+        })
+      } 
+    </Carousel>
+    </div>
     </>
   );
 }
