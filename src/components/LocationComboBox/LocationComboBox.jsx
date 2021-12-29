@@ -36,6 +36,11 @@ function LocationComboBox() {
 
     }
 
+    const capitalizeCity = (string) => {
+        let cityName = string.toLowerCase()
+        return cityName[0].toUpperCase() + cityName.slice(1)
+    }
+
     console.log('searchQuery store value:', searchQuery)
 
 
@@ -63,7 +68,7 @@ function LocationComboBox() {
                         helperText="Search Location by City, State"
                         onChange={(e) => handleLocationChange(e)}
 
-                        label={ searchQuery.location ? searchQuery.location : `Location`}
+                        label={ searchQuery.location ? capitalizeCity(searchQuery.location) : `Location`}
                     />
                 }
                 getOptionLabel={(option) => option.label}
