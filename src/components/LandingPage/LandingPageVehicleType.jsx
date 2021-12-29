@@ -1,8 +1,9 @@
 import React from 'react';
-import { Box, Stack, Card, Button } from '@mui/material';
+import { Box, Stack, Card, Button, Paper } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
+
 
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
@@ -76,12 +77,14 @@ function LandingPageVehicleType() {
             {vehicleList?.map((vehicle) => (
               <Card
                 key={vehicle.id}
-                onClick={() =>
+                elevation={ vehicleType === vehicle.name ? 6 : 2 }
+                onClick={() => {
+                  console.log(vehicle);
                   dispatch({
                     type: 'SET_SEARCH_VEHICLE_TYPE',
                     payload: vehicle.name,
                   })
-                }
+                }}
                 sx={{ margin: '1em', height: '20vh', width: '20vw' }}
               >
                 <img src={vehicle.image} height="70%" />
