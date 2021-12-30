@@ -10,35 +10,20 @@ function LocationComboBox() {
     const dispatch = useDispatch()
     const { cities } = useSelector((store) => store.data);
     const { searchQuery } = useSelector((store) => store.search)
-
-    const [search, setSearch] = useState({
-        location: ''
-    })
-
   
 
     const handleLocationChange = (e) => {
-        setSearch({ ...search, location: e.target.value })
         dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
     }
 
-
     const handleAutoComplete = (value) => {
         if (value.label) {
-
-            setSearch({ ...search, location: value.label })
             dispatch({ type: 'SET_SEARCH_LOCATION', payload: value.label });
             console.log('handleAutoComplete:', value, value.label)
-
         } else {
             setSearch('')
         }
-
-    }
-
-   
-
-    console.log('searchQuery store value:', searchQuery)
+    }  
 
 
     React.useEffect(() => {
