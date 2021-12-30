@@ -1,11 +1,12 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { DateObject } from 'react-multi-date-picker';
+// import { format } from 'date-fns';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -15,17 +16,17 @@ const msg = {
   book: 'Vehicle booked!',
 };
 
-export default function SuccessDialoge(props) {
+export default function SuccessDialog({ pathname, reservationResult }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const { success } = useSelector((store) => store.feedback);
 
   let title;
-  if (props.pathname.includes('/add-vehicle')) {
+  if (pathname.includes('/add-vehicle')) {
     title = msg.add;
-  } else if (props.pathname.includes('/update-vehicle')) {
+  } else if (pathname.includes('/update-vehicle')) {
     title = msg.add;
-  } else if (props.pathname.includes('/vehicle-details')) {
+  } else if (pathname.includes('/vehicle-details')) {
     title = msg.book;
   } else {
     msg = 'Success!';
@@ -39,11 +40,25 @@ export default function SuccessDialoge(props) {
   return (
     <Dialog open={success}>
       <DialogTitle>{title}</DialogTitle>
-      {props.pathname.includes('/vehicle-details') && (
+      {pathname.includes('/vehicle-details') && (
         <DialogContent>
-          <DialogContentText>
-            <Typography></Typography>
-          </DialogContentText>
+          <Typography>
+            {reservationResult?.year} {reservationResult?.make}{' '}
+            {reservationResult?.model}
+          </Typography>
+          <br />
+          <Typography>Owner Name: {reservationResult?.ownerFirst}</Typography>
+          <Typography>Owner Email: {reservationResult?.email}</Typography>
+          <br />
+          {reservationResult && (
+            <Typography>
+              Date:{' '}
+              {new DateObject(reservationResult.date).format('MMMM D, YYYY')}
+            </Typography>
+          )}
+          <Typography>
+            Estimated Cost: ${reservationResult?.dailyRate}
+          </Typography>
         </DialogContent>
       )}
       <DialogActions>

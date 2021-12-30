@@ -17,6 +17,7 @@ export default function VehicleDetailsPage() {
   const location = useLocation();
 
   const { vehicleInfo, photos } = useSelector((store) => store.vehicle);
+  const { reservationResult } = useSelector((store) => store.rental);
 
   React.useEffect(() => {
     dispatch({ type: 'FETCH_VEHICLE_BY_ID', payload: vehicleId });
@@ -33,7 +34,10 @@ export default function VehicleDetailsPage() {
           />
         </Grid>
       </Grid>
-      <SuccessDialog pathname={location.pathname} />
+      <SuccessDialog
+        pathname={location.pathname}
+        reservationResult={reservationResult}
+      />
     </Container>
   );
 }

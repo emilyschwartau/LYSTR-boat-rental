@@ -12,7 +12,7 @@ router.get('/:rentalId', rejectUnauthenticated, (req, res) => {
   const { rentalId } = req.params;
 
   const query = `
-    SELECT "rental"."vehicle_id" AS "vehicleId", "make", "model", "year", "street", "city", "state", "zip", "first_name" AS "ownerFirst", "last_name" AS "ownerLast", "email", "date_available" AS "date" FROM "rental"
+    SELECT "rental"."vehicle_id" AS "vehicleId", "make", "model", "year", "street", "city", "state", "zip", "daily_rate" AS "dailyRate", "first_name" AS "ownerFirst", "last_name" AS "ownerLast", "email", "date_available" AS "date" FROM "rental"
       JOIN "vehicle" ON "rental"."vehicle_id" = "vehicle"."id" 
       JOIN "availability" ON "rental"."date_id" = "availability"."id" 
       JOIN "user" ON "vehicle"."owned_by" = "user"."id"
