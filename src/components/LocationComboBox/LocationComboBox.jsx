@@ -60,7 +60,7 @@ function LocationComboBox() {
                 renderInput={(params) =>
                     <TextField {...params}
                         // value={search.location}
-                        required
+                        required={ searchQuery.location ? false : true }
                         placeholder="City, State"
                         helperText="Search Location by City, State"
                         onChange={(e) => handleLocationChange(e)}
