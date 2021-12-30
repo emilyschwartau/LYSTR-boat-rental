@@ -63,7 +63,7 @@ CREATE TABLE "features" (
 );
 
 INSERT INTO "features" ("name")
-VALUES ('Radar'), ('Sonar'), ('GPS'), ('Depth Finder'), ('Fish Finder'), ('Trolling Motor'), ('Anchor'), ('Live Well'), ('Life Jackets'), ('Fire Extinguisher'), ('EPIRB'), ('First Aid Kit'), ('Stereo System'), ('Towels'), ('Wake-board Tower and Board'), ('Water Skis'), ('Towable Tube'), ('Tow Rope'), ('Fishing Rod');
+VALUES ('Radar'), ('Sonar'), ('GPS'), ('Depth Finder'), ('Fish Finder'), ('Trolling Motor'), ('Anchor'), ('Live Well'), ('Life Jackets'), ('Fire Extinguisher'), ('First Aid Kit'), ('Stereo System'), ('Towels'), ('Wake-board Tower and Board'), ('Water Skis'), ('Towable Tube'), ('Tow Rope'), ('Fishing Rod');
 
 -- junction table
 CREATE TABLE "vehicle_features" (
