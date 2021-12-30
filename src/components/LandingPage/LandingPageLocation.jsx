@@ -16,14 +16,12 @@ function LandingPageLocation() {
   const { searchQuery } = useSelector((store) => store.search)
 
   // search input
-  const [search, setSearch] = useState({
-    startDate: null,
-  })
+  const [startDate, setSearch] = useState(null)
 
   //handle date selection
   const handleDateChange = (newValue) => {
     const formattedStartDate = format(newValue, "yyyy-MM-dd");
-    setSearch({ ...search, startDate: newValue });
+    setSearch( newValue );
     dispatch({ type: "SET_SEARCH_DATE", payload: formattedStartDate });
   };
 
@@ -55,7 +53,7 @@ function LandingPageLocation() {
                   required
                   label="Date of Trip"
                   helperText="Date of Trip"
-                  value={search.startDate}
+                  value={startDate}
                   onChange={(newValue) => {
                     handleDateChange(newValue);
                   }}
