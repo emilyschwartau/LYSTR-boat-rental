@@ -6,11 +6,13 @@ function* bookVehicle(action) {
   try {
     yield put({ type: 'START_LOADING' });
     // post to rental table
-    yield axios.post(`/api/rental/${vehicleId}`, { date });
+    const response = yield axios.post(`/api/rental/${vehicleId}`, { date });
     // mark availability date as rented
     yield axios.put(
       `/api/vehicle/availability?vehicleId=${vehicleId}&date=${date}`
     );
+    const reservation = yield axios.get(`/api/rental/${response.data[0].id}`);
+    yield put({ type: 'SET_RESERVATION_RESULT', payload: reservation.data[0] });
     yield put({ type: 'STOP_LOADING' });
     console.log('vehicle booked!');
     yield put({ type: 'OPEN_SUCCESS' });

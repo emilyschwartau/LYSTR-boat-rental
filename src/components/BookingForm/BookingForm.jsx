@@ -66,7 +66,9 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       <Typography>
         Estimated Cost: ${bookingInput.date ? dailyRate * 1 : 0}
       </Typography>
-      <Button onClick={handleBook}>Book</Button>
+      <Button variant="contained" onClick={handleBook}>
+        Book
+      </Button>
     </Box>
   );
 }

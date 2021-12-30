@@ -9,6 +9,16 @@ const bookingInput = (state = { date: '' }, action) => {
   }
 };
 
+const reservationResult = (state = {}, action) => {
+  switch (action.type) {
+    case 'SET_RESERVATION_RESULT':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   bookingInput,
+  reservationResult,
 });

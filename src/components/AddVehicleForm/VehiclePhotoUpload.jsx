@@ -12,6 +12,8 @@ import Paper from '@mui/material/Paper';
 export default function VehiclePhotoUpload(props) {
   const dispatch = useDispatch();
 
+  // vehicleFormInputs is used when a vehicle is being added (AddVehicle)
+  // photoGalleryInput is used when photos are added to an existing vehicle (PhotoGallery)
   const { vehicleFormInputs, photoGalleryInput } = useSelector(
     (store) => store.vehicle
   );

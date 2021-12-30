@@ -11,6 +11,7 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (255) NOT NULL,
     "last_name" VARCHAR (255) NOT NULL,
+    "email" VARCHAR(255) NOT NULL,
     "profile_picture" VARCHAR (1000) 
 );
 
@@ -83,7 +84,8 @@ CREATE TABLE "availability" (
 CREATE TABLE "rental" (
     "id" SERIAL PRIMARY KEY,
     "rented_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    "date_id" INTEGER NOT NULL REFERENCES "availability" ON DELETE CASCADE
+    "date_id" INTEGER NOT NULL REFERENCES "availability" ON DELETE CASCADE,
+    "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE
 );
 
 -- auto fill city table
