@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,6 +7,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 const msg = {
   add: 'Vehicle added successfully!',
@@ -17,6 +18,7 @@ const msg = {
 export default function SuccessDialoge(props) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const { success } = useSelector((store) => store.feedback);
 
   let title;
   if (props.pathname.includes('/add-vehicle')) {
@@ -35,8 +37,15 @@ export default function SuccessDialoge(props) {
   };
 
   return (
-    <Dialog open={props.success}>
+    <Dialog open={success}>
       <DialogTitle>{title}</DialogTitle>
+      {props.pathname.includes('/vehicle-details') && (
+        <DialogContent>
+          <DialogContentText>
+            <Typography></Typography>
+          </DialogContentText>
+        </DialogContent>
+      )}
       <DialogActions>
         <Button onClick={handleClick}>Dashboard</Button>
       </DialogActions>

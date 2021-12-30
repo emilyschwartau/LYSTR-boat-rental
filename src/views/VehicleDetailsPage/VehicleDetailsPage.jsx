@@ -17,7 +17,6 @@ export default function VehicleDetailsPage() {
   const location = useLocation();
 
   const { vehicleInfo, photos } = useSelector((store) => store.vehicle);
-  const { loading, success } = useSelector((store) => store.loading);
 
   React.useEffect(() => {
     dispatch({ type: 'FETCH_VEHICLE_BY_ID', payload: vehicleId });
@@ -34,7 +33,7 @@ export default function VehicleDetailsPage() {
           />
         </Grid>
       </Grid>
-      <SuccessDialog success={success} pathname={location.pathname} />
+      <SuccessDialog pathname={location.pathname} />
     </Container>
   );
 }
