@@ -4,7 +4,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { format } from 'date-fns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Scroll from 'react-scroll';
 import LocationComboBox from '../LocationComboBox/LocationComboBox'
 
@@ -13,30 +13,21 @@ function LandingPageLocation() {
   const ScrollLink = Scroll.Link;
 
   const dispatch = useDispatch();
+  const { searchQuery } = useSelector((store) => store.search)
 
-  //search input
+  // search input
   const [search, setSearch] = useState({
-    // location: '',
-    //initial search 
     startDate: null,
   })
 
   //handle date selection
   const handleDateChange = (newValue) => {
     const formattedStartDate = format(newValue, "yyyy-MM-dd");
-    // console.log(`this is format`, formattedStartDate);
-    setSearch({ ...search, startDate: formattedStartDate });
+    setSearch({ ...search, startDate: newValue });
     dispatch({ type: "SET_SEARCH_DATE", payload: formattedStartDate });
   };
 
-  // const handleLocationChange = (e) => {
-  //   setSearch({ ...search, location: e.target.value })
-  //   dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
-  // }
-
-  // const handleSubmit = () => {
-  //   dispatch({ type: "SET_SEARCH", payload: search });
-  // };
+  console.log('landing page search startDate', searchQuery.startDate)
 
   return (
     <>
@@ -58,15 +49,6 @@ function LandingPageLocation() {
           {/* <form onSubmit={() => handleSubmit()}> */}
           <form>
             <FormControl fullWidth={true}>
-              {/* <TextField
-                required
-                placeholder="City, State"
-                helperText="Search Location by City, State"
-                label="Location"
-                // value={search.location}
-                onChange={(e) => handleLocationChange(e)}
-              />
-              <br /> */}
               <LocationComboBox />
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker

@@ -51,17 +51,19 @@ const cities = (state = [], action) => {
 
         for (let i of removeDuplicates) {
           if (typeof i === 'number') {
-            // checks for number, converts to string for auto complete type matching
+            // checks for number adds to array of zip codes with key of label
             cityZips.push({ "label": i.toString() })
           } else {
-            cityLabels.push({ "label": i })
-            cityLabels.concat(cityZips)
+            // checks for string adds to array of city names with key of label
+            // Updates all capitalized city name to only first uppercase
+            cityLabels.push({ "label": i[0] + i.slice(1).toLowerCase() })
           }
         }
       }
 
       removeKeys(cityData)
-      
+      // add back in array of zip codes at end of array
+      // this sorts zips to bottom for auto complete
       return [...cityLabels.concat(cityZips)];
     default:
       return state;
