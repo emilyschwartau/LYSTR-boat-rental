@@ -20,13 +20,13 @@ const {
  * GET routes
  */
 
-router.get('/:vehicleId', rejectUnauthenticated, (req, res) => {
+router.get('/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `
     SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
 	    
-	    (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id"),
+	    (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id" and "is_rented" = FALSE),
 	    (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id")
     FROM "vehicle" JOIN "type" ON "vehicle"."type_id" = "type"."id" JOIN "user" ON "vehicle"."owned_by" = "user"."id"
     WHERE "vehicle"."id" = $1;
@@ -89,7 +89,6 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
     });
 });
 
-
 // GET ALL RESERVATIONS BY USER ID
 router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
   const { userId } = req.params;
@@ -119,7 +118,6 @@ router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
     });
 });
 
-
 router.get('/uploads/:key', (req, res) => {
   console.log('getting S3');
   const { key } = req.params;
@@ -137,6 +135,7 @@ router.get('/uploads/:key', (req, res) => {
  * POST routes
  */
 
+// vehicle
 router.post('/', rejectUnauthenticated, (req, res) => {
   console.log(req.body);
   const {
@@ -195,6 +194,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//features
 router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
@@ -232,6 +232,7 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// availability
 router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { availability } = req.body;
   const { vehicleId } = req.params;
@@ -269,6 +270,7 @@ router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// photos
 router.post(
   '/photos/:vehicleId',
   rejectUnauthenticated,
@@ -397,6 +399,7 @@ router.delete('/photos/:photoId', rejectUnauthenticated, (req, res) => {
     .then((result) => {
       const path = result.rows[0].image_path;
       deleteFile(path.split('/')[4]);
+      console.log('photo deleted from S3');
       res.sendStatus(201);
     })
     .catch((err) => {
@@ -409,6 +412,30 @@ router.delete('/photos/:photoId', rejectUnauthenticated, (req, res) => {
  * PUT routes
  */
 
+// availability (toggle is_rented)
+router.put('/availability', rejectUnauthenticated, (req, res) => {
+  const { vehicleId, date } = req.query;
+  console.log(req.query);
+
+  const query = `
+    UPDATE "availability"
+    SET "is_rented" = NOT "is_rented"
+    WHERE "vehicle_id" = $1 AND "date_available" = $2;
+  `;
+
+  pool
+    .query(query, [vehicleId, date])
+    .then((result) => {
+      console.log(`PUT at /vehicle/availability/${vehicleId} successful`);
+      res.sendStatus(201);
+    })
+    .catch((err) => {
+      console.log(`Error updating vehicle availability:`, err);
+      res.sendStatus(500);
+    });
+});
+
+// vehicle
 router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
   const {

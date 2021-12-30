@@ -4,7 +4,7 @@ import user from './user.reducer';
 import search from './search.reducer';
 import vehicle from './vehicle.reducer';
 import data from './data.reducer';
-import loading from './loading.reducer';
+import feedback from './feedback.reducer';
 import rental from './rental.reducer';
 
 // rootReducer is the primary reducer for our entire project
@@ -19,7 +19,7 @@ const rootReducer = combineReducers({
   search,
   vehicle,
   data,
-  loading,
+  feedback,
   rental,
 });
 

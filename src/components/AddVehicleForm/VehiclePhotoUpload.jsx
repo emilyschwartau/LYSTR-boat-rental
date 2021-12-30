@@ -5,13 +5,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import LinearProgress from '@mui/material/LinearProgress';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
 export default function VehiclePhotoUpload(props) {
   const dispatch = useDispatch();
 
+  // vehicleFormInputs is used when a vehicle is being added (AddVehicle)
+  // photoGalleryInput is used when photos are added to an existing vehicle (PhotoGallery)
   const { vehicleFormInputs, photoGalleryInput } = useSelector(
     (store) => store.vehicle
   );
@@ -113,8 +114,6 @@ export default function VehiclePhotoUpload(props) {
             <ul>{filepath}</ul>
           </aside>
         </Grid>
-
-        {/* {loading && <LinearProgress />} */}
 
         {props.galleryMode && (
           <Grid container item justifyContent="flex-end">

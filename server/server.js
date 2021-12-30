@@ -12,6 +12,7 @@ const userRouter = require('./routes/user.router');
 const vehicleRouter = require('./routes/vehicle.router');
 const dataRouter = require('./routes/data.router');
 const searchRouter = require('./routes/search.router');
+const rentalRouter = require('./routes/rental.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -29,6 +30,7 @@ app.use('/api/user', userRouter);
 app.use('/api/vehicle', vehicleRouter);
 app.use('/api/data', dataRouter);
 app.use('/api/search', searchRouter);
+app.use('/api/rental', rentalRouter);
 
 // Serve static files
 app.use(express.static('build'));
