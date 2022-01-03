@@ -79,7 +79,7 @@ function ListingsInfo({ vehicle }) {
             <Typography variant='body1'><u>Address:</u><br /> {`${vehicle?.street} ${vehicle?.city}, ${vehicle?.state} ${vehicle?.zip}`}</Typography><br />
 
             <Typography variant='body1' sx={{}}>
-              <u>Vehicle Info</u><br />
+              <u>Vehicle Info:</u><br />
               Capacity: {vehicle?.capacity}<br />
               Length: {vehicle?.length}ft <br />
               Horsepower: {vehicle?.horsepower} hp <br />

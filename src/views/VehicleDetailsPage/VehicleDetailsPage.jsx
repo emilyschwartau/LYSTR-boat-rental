@@ -73,7 +73,7 @@ export default function VehicleDetailsPage() {
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
-          <Box sx={{ width: '45%', textAlign: 'center',
+          <Box sx={{ width: '45%',
               width: '45%',
               padding: '1em',}}>
             <Card >
@@ -99,10 +99,13 @@ export default function VehicleDetailsPage() {
             </>
               : ''}
 
-            <Typography variant='body1'><u>Address:</u><br /> {`${vehicleInfo?.street} ${vehicleInfo?.city}, ${vehicleInfo?.state} ${vehicleInfo?.zip}`}</Typography><br />
+            <Typography id="detailsBoatTitle" variant='body1'>{`${vehicleInfo.title}`}</Typography><br />
+
+
+            <Typography  variant='body1'><span className="sectionTitle">Address:</span><br/> {`${vehicleInfo?.street} ${vehicleInfo?.city}, ${vehicleInfo?.state} ${vehicleInfo?.zip}`}</Typography><br />
 
             <Typography variant='body1' sx={{}}>
-              <u>Vehicle Info</u><br />
+            <span className="sectionTitle">Vehicle Info:</span><br />
               Capacity: {vehicleInfo?.capacity}<br />
               Length: {vehicleInfo?.length}ft <br />
               Horsepower: {vehicleInfo?.horsepower} hp <br />
@@ -110,14 +113,14 @@ export default function VehicleDetailsPage() {
               Heads: {vehicleInfo?.heads}<br />
             </Typography><br />
 
-            <Typography variant='body1'><u>Features:</u></Typography>
+            <Typography variant='body1'><span className="sectionTitle">Features:</span></Typography>
             <ul style={{ columns: 2 }}>
               {vehicleInfo?.features?.map((feature, i) => (
                 <li key={i}>{feature}</li>
               ))}
             </ul>
             <Typography variant='body1'>
-              <u>Description:</u><br />
+            <span className="sectionTitle">Description:</span><br />
               {vehicleInfo?.description}
             </Typography>
 
