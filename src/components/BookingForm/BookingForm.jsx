@@ -1,6 +1,7 @@
 import React from 'react';
 import { Calendar, DateObject } from 'react-multi-date-picker';
 import { useDispatch, useSelector } from 'react-redux';
+import useQuery from '../../hooks/useQuery';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -17,6 +18,9 @@ import DialogContentText from '@mui/material/DialogContentText';
 export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const dispatch = useDispatch();
   const { bookingInput } = useSelector((store) => store.rental);
+
+  const query = useQuery();
+  const date = query.get('date');
 
   // const user = useSelector((store) => store.user);
   // const [dateInput, setDateInput] = React.useState('');
@@ -41,6 +45,7 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
     <Box>
       <FormControl margin="normal">
         <Calendar
+          currentDate={new DateObject(date)}
           value={bookingInput.date}
           numberOfMonths={1}
           // value={vehicleFormInputs.availability?.map(
