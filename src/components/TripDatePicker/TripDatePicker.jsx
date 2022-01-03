@@ -4,11 +4,15 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { format } from 'date-fns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import useQuery from '../../hooks/useQuery'
 
 function TripDatePicker() {
-
+    const query = useQuery()
     const dispatch = useDispatch();
+    const { searchQuery } = useSelector((store) => store.search);
+    const date = query.get("date");
+    const tripDate = searchQuery.date
 
 
     // search input
@@ -34,7 +38,10 @@ function TripDatePicker() {
                 onChange={(newValue) => {
                     handleDateChange(newValue);
                 }}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField {...params}
+                label={date ? date : tripDate}
+                
+                />}
             />
         </LocalizationProvider>
     )

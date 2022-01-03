@@ -12,13 +12,13 @@ function VehicleTypeDropdown() {
     const type = query.get("type");
     const vehicleSearch = useSelector(store => store.search.vehicleType)
 
-    const vehicleLabel = vehicleList?.map( x => ({
-        label:x.name
+    const vehicleLabel = vehicleList?.map(x => ({
+        label: x.name
     }))
 
     const handleDropDown = (value) => {
-            console.log('VehicleTypeDropdown', value.label)
-            dispatch({ type: 'SET_SEARCH_VEHICLE_TYPE', payload: value.label });
+        console.log('VehicleTypeDropdown', value.label)
+        dispatch({ type: 'SET_SEARCH_VEHICLE_TYPE', payload: value.label });
     }
 
     return (
@@ -28,19 +28,13 @@ function VehicleTypeDropdown() {
                 autoComplete={true}
                 autoSelect={true}
                 id="VehicleTypeDropdown"
-                options={vehicleList? vehicleLabel : 'none'}
+                options={vehicleList ? vehicleLabel : 'none'}
+                isOptionEqualToValue={(option, value) => option.id === value.id}
                 onChange={(event, value) => handleDropDown(value)}
-                // onClick={() => {
-                //     console.log(vehicle);
-                //     dispatch({
-                //       type: 'SET_SEARCH_VEHICLE_TYPE',
-                //       payload: vehicle.name,
-                //     });
-                //   }}
                 disableClearable={true}
                 renderInput={(params) =>
                     <TextField {...params}
-                        label={vehicleSearch ? vehicleSearch : type }
+                        label={vehicleSearch ? vehicleSearch : type}
                     />
                 }
                 getOptionLabel={(option) => option.label}
