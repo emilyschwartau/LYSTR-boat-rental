@@ -70,14 +70,14 @@ export default function VehicleAddress({ handleChange }) {
         <Grid item sm={10}>
           <FormControl margin="normal" fullWidth>
             <TextField
-              name="instructions"
+              name="description"
               variant="outlined"
-              label="Instructions"
+              label="Description"
               required
               multiline
               rows={4}
               onChange={handleChange}
-              value={vehicleFormInputs.instructions}
+              value={vehicleFormInputs.description}
             />
           </FormControl>
         </Grid>

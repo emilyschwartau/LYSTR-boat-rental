@@ -46,7 +46,7 @@ CREATE TABLE "vehicle" (
     "city" VARCHAR(255) NOT NULL,
     "state" VARCHAR(255) NOT NULL,
     "zip" VARCHAR(255) NOT NULL,
-    "instructions" VARCHAR(1000)
+    "description" VARCHAR(1000)
 );
 
 -- photos for each vehicle

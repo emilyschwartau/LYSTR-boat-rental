@@ -8,9 +8,7 @@ function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
   const vehicleList = useSelector((store) => store.data.types);
-  const vehicleType = useSelector(
-    (store) => store.search.searchQuery.vehicleType
-  );
+  const vehicleType = useSelector((store) => store.search.searchQuery.vehicleType);
   const startDate = useSelector((store) => store.search.searchQuery.startDate);
   const location = useSelector((store) => store.search.searchQuery.location);
 

@@ -94,8 +94,8 @@ function ListingsInfo({ vehicle }) {
               ))}
             </ul>
             <Typography variant='body1'>
-              <u>Instructions:</u><br />
-              {vehicle?.instructions}
+              <u>Description:</u><br />
+              {vehicle?.description}
             </Typography>
 
           </Box>

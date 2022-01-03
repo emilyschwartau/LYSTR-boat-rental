@@ -36,7 +36,7 @@ function LocationComboBox() {
                 disablePortal
                 autoComplete={true}
                 autoSelect={true}
-                id="combo-box-demo"
+                id="locationComboBox"
                 options={cities}
                 onChange={(event, value) => handleAutoComplete(value)}
 
