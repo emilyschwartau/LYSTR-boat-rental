@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Stack, Card, Button, Paper } from '@mui/material';
+import { Box, Stack, Card, Button, Paper, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
@@ -47,14 +47,32 @@ function LandingPageVehicleType() {
   return (
     <>
       {/* page border */}
-      <Box sx={{ height: '100vh', width: '100vw', border: 'solid black 1px' }}>
-        <h1>SELECT VEHICLE TYPE</h1>
-
+      <Box
+        sx={{
+          height: '100vh',
+          width: '100vw',
+        }}
+      >
+        <Box
+         sx={{
+          textAlign: "center",
+          mt: 4,
+        }}
+        >
+          <Typography
+            variant="h4"
+            sx={{
+              m: 2
+            }}
+          >
+            Select a Vehicle
+          </Typography>
+        </Box>
         {/* type selection */}
         <Box
           sx={{
             margin: 'auto',
-            border: 'solid black 1px',
+            // border: 'solid black 1px',
             textAlign: 'center',
             width: '80%',
             padding: '1em',
@@ -66,7 +84,7 @@ function LandingPageVehicleType() {
             alignItems="center"
             sx={{ flexWrap: 'wrap' }}
           >
-            
+
             {vehicleList?.map((vehicle) => (
               <Card
                 key={vehicle.id}
@@ -89,7 +107,7 @@ function LandingPageVehicleType() {
             variant="outlined"
             sx={{
               width: '20%',
-              margin: 'auto',
+              m: 2
             }}
             onClick={handleSearch}
           >
