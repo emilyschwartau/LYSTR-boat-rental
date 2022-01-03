@@ -66,7 +66,9 @@ export default function VehicleDetailsPage() {
   return (
     <>
 
-  
+  <Button id="backToGalleryBtn" variant="contained" onClick={() => history.push(`/gallery`)}>
+        Back to Search Results
+  </Button>
   <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
         <Stack
           direction="row"
