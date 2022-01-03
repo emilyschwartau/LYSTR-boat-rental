@@ -31,9 +31,11 @@ function ReservationsRow({ rental }) {
         </TableCell>
         <TableCell align="right">{`${rental?.year} ${rental?.make} ${rental?.model}`}</TableCell>
         <TableCell align="right">{rental?.vehicleType}</TableCell>
-        <TableCell align="right">{format(new Date(rental?.dateRented), 'MM/dd/yyyy')}</TableCell>
+        <TableCell align="right">
+          {format(new Date(rental?.dateRented), 'MM/dd/yyyy')}
+        </TableCell>
         <TableCell align="right">{`${rental?.ownerFirstName} ${rental?.ownerLastName}`}</TableCell>
-        <TableCell align="right">{rental?.dailyRate}</TableCell>
+        <TableCell align="right">${rental?.dailyRate}</TableCell>
       </TableRow>
       {/* ACTUAL TABLE ROW END */}
       {/* INFO ROW START */}
