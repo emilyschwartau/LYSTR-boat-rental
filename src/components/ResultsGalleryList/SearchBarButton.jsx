@@ -2,6 +2,7 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
+import { height } from '@mui/system';
 
 
 function SearchBarButton() {
@@ -21,11 +22,9 @@ function SearchBarButton() {
       };
 
     return <Button
-        variant="outlined"
-        sx={{
-            width: '20%',
-            margin: 'auto',
-        }}
+        variant="contained"
+        
+        sx ={ {height: 56 } }
         onClick={handleSearch}
 
     >Find Vehicle</Button>
