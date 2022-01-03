@@ -67,7 +67,7 @@ function LandingPageVehicleType() {
             alignItems="center"
             sx={{ flexWrap: 'wrap' }}
           >
-            {/* Will eventually map over table from database */}
+            
             {vehicleList?.map((vehicle) => (
               <Card
                 key={vehicle.id}

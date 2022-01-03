@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Grid } from '@mui/material';
 import LocationComboBox from '../LocationComboBox/LocationComboBox'
 import TripDatePicker from '../TripDatePicker/TripDatePicker';
-
+import SearchBarButton from './SearchBarButton'
 
 
 function ResultsGallerySearchBar() {
@@ -21,6 +21,9 @@ function ResultsGallerySearchBar() {
             </Grid>
             <Grid item xs={4}>
                 <TripDatePicker />
+            </Grid>
+            <Grid item xs={4}>
+                <SearchBarButton />
             </Grid>
 
         </Box>
