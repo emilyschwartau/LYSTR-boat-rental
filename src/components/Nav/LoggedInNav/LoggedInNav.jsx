@@ -31,8 +31,8 @@ function LoggedInNav() {
     </p>,
   ];
   const pages = [
-    <Link to ="/home" className="rentTheme">
-        Rent
+    <Link to="/home" className="rentTheme">
+      Rent
     </Link>,
     <Link to="/add-vehicle" className="listTheme">
       List Your Stuff
@@ -56,6 +56,11 @@ function LoggedInNav() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  let profilePicPath;
+  if (user.profile_picture) {
+    profilePicPath = `/api/user/pic/${user.profile_picture}`;
+  }
 
   return (
     <AppBar position="static" sx={{ backgroundColor: 'white' }}>
@@ -120,8 +125,7 @@ function LoggedInNav() {
             noWrap
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
-          </Typography>
+          ></Typography>
 
           {/* LINK OPTIONS LARGE SCREEN */}
           <Box
@@ -147,7 +151,7 @@ function LoggedInNav() {
             {/* PHOTO AND OPEN DROPDOWN ON CLICK */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 2 }}>
-                <Avatar id="profilePicture" src={user.profile_picture} />
+                <Avatar id="profilePicture" src={profilePicPath} />
               </IconButton>
             </Tooltip>
 

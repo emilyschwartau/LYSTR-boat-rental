@@ -122,21 +122,31 @@ function* fetchAllReservationsById(action) {
   const userId = action.payload;
   try {
     //getting reservations by user id w/o vehicle owner info
-    let reservationsList = yield axios.get(`/api/vehicle/allReservations/${userId}`);
+    let reservationsList = yield axios.get(
+      `/api/vehicle/allReservations/${userId}`
+    );
 
     for (let i in reservationsList.data) {
       let rental = reservationsList.data[i];
       // getting owner name from db by vehicle id
-      const ownerName = yield axios.get(`/api/data/vehicleOwner/${rental.vehicleId}`);
+      const ownerName = yield axios.get(
+        `/api/data/vehicleOwner/${rental.vehicleId}`
+      );
       // adding owner names into reservations
-      reservationsList.data[i] = { ...rental, ownerFirstName: ownerName.data[0].firstName, ownerLastName: ownerName.data[0].lastName };
+      reservationsList.data[i] = {
+        ...rental,
+        ownerFirstName: ownerName.data[0].firstName,
+        ownerLastName: ownerName.data[0].lastName,
+      };
     }
     // setting reservations list into reducer
-    yield put({ type: `SET_ALL_RESERVATIONS_BY_ID`, payload: reservationsList.data });
-  }
-  catch (error) {
+    yield put({
+      type: `SET_ALL_RESERVATIONS_BY_ID`,
+      payload: reservationsList.data,
+    });
+  } catch (error) {
     console.log(`ERROR getting reservations info by user ID`, error);
-    yield put({type: `FETCH_ALL_RESERVATIONS_BY_ID_ERROR`})
+    yield put({ type: `FETCH_ALL_RESERVATIONS_BY_ID_ERROR` });
   }
 }
 
@@ -256,7 +266,10 @@ function* vehicleSaga() {
   yield takeLatest('UPDATE_VEHICLE', updateVehicle);
   yield takeLatest('FETCH_VEHICLE_PHOTOS', fetchVehiclePhotos);
   yield takeLatest('DELETE_PHOTO', deletePhoto);
-  yield takeLatest('FETCH_LISTED_VEHICLES_BY_OWNER',fetchListedVehiclesByOwner);
+  yield takeLatest(
+    'FETCH_LISTED_VEHICLES_BY_OWNER',
+    fetchListedVehiclesByOwner
+  );
   yield takeLatest('FETCH_ALL_RESERVATIONS_BY_ID', fetchAllReservationsById);
   yield takeLatest('UPLOAD_IMAGES_FROM_GALLERY', uploadPhotos);
 }

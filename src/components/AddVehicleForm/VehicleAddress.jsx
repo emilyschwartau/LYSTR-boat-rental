@@ -66,6 +66,7 @@ export default function VehicleAddress({ handleChange }) {
           </FormControl>
         </Grid>
       </Grid>
+
       <Grid container item justifyContent="center">
         <Grid item sm={10}>
           <FormControl margin="normal" fullWidth>
@@ -82,6 +83,7 @@ export default function VehicleAddress({ handleChange }) {
           </FormControl>
         </Grid>
       </Grid>
+
     </Grid>
   );
 }

@@ -5,6 +5,12 @@ import { useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import Typography from '@mui/material/Typography';
 
 import VehicleInfo from '../../components/AddVehicleForm/VehicleInfo';
 import VehicleAddress from '../../components/AddVehicleForm/VehicleAddress';
@@ -20,6 +26,9 @@ export default function AddVehicle() {
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
   const { loading, success } = useSelector((store) => store.feedback);
+
+  // for requiring at least one image upload
+  const [noImage, setNoImage] = React.useState(false);
 
   React.useEffect(() => dispatch({ type: 'CLEAR_VEHICLE_FORM' }), [dispatch]);
 
@@ -47,7 +56,11 @@ export default function AddVehicle() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(vehicleFormInputs);
-    dispatch({ type: 'ADD_VEHICLE', payload: vehicleFormInputs });
+    if (vehicleFormInputs.photos.length == 0) {
+      setNoImage(true);
+    } else {
+      dispatch({ type: 'ADD_VEHICLE', payload: vehicleFormInputs });
+    }
   };
 
   return (
@@ -72,6 +85,17 @@ export default function AddVehicle() {
       </Box>
       <LoadingSpinner />
       <SuccessDialog pathname={location.pathname} />
+      <Dialog open={noImage} onClose={() => setNoImage(false)}>
+        <DialogTitle>Vehicle Image Required</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please add at least one photo of your vehicle.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setNoImage(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Container>
   );
 }
