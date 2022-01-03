@@ -1,56 +1,53 @@
 import { useState } from 'react';
-import { Box, Card, Typography, Button, TextField, FormControl } from '@mui/material';
+import {
+  Box,
+  Card,
+  Typography,
+  Button,
+  TextField,
+  FormControl,
+} from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import { format } from 'date-fns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as Scroll from 'react-scroll';
-import LocationComboBox from '../LocationComboBox/LocationComboBox'
-
+import LocationComboBox from '../LocationComboBox/LocationComboBox';
 
 function LandingPageLocation() {
   const ScrollLink = Scroll.Link;
 
   const dispatch = useDispatch();
+  const { searchQuery } = useSelector((store) => store.search);
 
-  //search input
+  // search input
   const [search, setSearch] = useState({
-    // location: '',
-    //initial search 
     startDate: null,
-  })
+  });
 
   //handle date selection
   const handleDateChange = (newValue) => {
-    const formattedStartDate = format(newValue, "yyyy-MM-dd");
-    // console.log(`this is format`, formattedStartDate);
-    setSearch({ ...search, startDate: formattedStartDate });
-    dispatch({ type: "SET_SEARCH_DATE", payload: formattedStartDate });
+    const formattedStartDate = format(newValue, 'yyyy-MM-dd');
+    setSearch({ ...search, startDate: newValue });
+    dispatch({ type: 'SET_SEARCH_DATE', payload: formattedStartDate });
   };
 
-  // const handleLocationChange = (e) => {
-  //   setSearch({ ...search, location: e.target.value })
-  //   dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
-  // }
-
-  // const handleSubmit = () => {
-  //   dispatch({ type: "SET_SEARCH", payload: search });
-  // };
+  console.log('landing page search startDate', searchQuery.startDate);
 
   return (
     <>
       <Box
         sx={{
-          width: "50%",
+          width: '50%',
         }}
       >
         <Card
           sx={{
-            border: "1px solid black",
-            width: "100%",
-            padding: "1em",
-            textAlign: "center",
+            border: '1px solid black',
+            width: '100%',
+            padding: '1em',
+            textAlign: 'center',
           }}
         >
           <Typography variant="h4">Find A Boat To Rent Near You!</Typography>
@@ -58,15 +55,6 @@ function LandingPageLocation() {
           {/* <form onSubmit={() => handleSubmit()}> */}
           <form>
             <FormControl fullWidth={true}>
-              {/* <TextField
-                required
-                placeholder="City, State"
-                helperText="Search Location by City, State"
-                label="Location"
-                // value={search.location}
-                onChange={(e) => handleLocationChange(e)}
-              />
-              <br /> */}
               <LocationComboBox />
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DatePicker
@@ -85,8 +73,8 @@ function LandingPageLocation() {
                 type="submit"
                 variant="outlined"
                 sx={{
-                  width: "50%",
-                  margin: "auto",
+                  width: '50%',
+                  margin: 'auto',
                 }}
               >
                 <ScrollLink

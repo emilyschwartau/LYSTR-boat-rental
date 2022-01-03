@@ -67,9 +67,9 @@ function App() {
           </ProtectedRoute>
 
           {/* Vehicle Details (accessed from search results page) */}
-          <ProtectedRoute exact path="/vehicle-details/:vehicleId">
+          <Route exact path="/vehicle-details/:vehicleId">
             <VehicleDetailsPage />
-          </ProtectedRoute>
+          </Route>
 
           {/* Results Gallery Page */}
           <ProtectedRoute exact path="/gallery">

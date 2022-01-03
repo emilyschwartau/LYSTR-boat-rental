@@ -9,28 +9,21 @@ import { useDispatch, useSelector } from 'react-redux';
 function LocationComboBox() {
     const dispatch = useDispatch()
     const { cities } = useSelector((store) => store.data);
-
-    const [search, setSearch] = useState({
-        location: ''
-    })
+    const { searchQuery } = useSelector((store) => store.search)
+  
 
     const handleLocationChange = (e) => {
-        setSearch({ ...search, location: e.target.value })
         dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
     }
 
-    const handleAutoComplete = (event) => {
-        if (event.label) {
-            setSearch({ ...search, location: event.label })
-            dispatch({ type: 'SET_SEARCH_LOCATION', payload: event.label });
-            console.log('handleAutoComplete:', event, event.label)
-
+    const handleAutoComplete = (value) => {
+        if (value.label) {
+            dispatch({ type: 'SET_SEARCH_LOCATION', payload: value.label });
+            console.log('handleAutoComplete:', value, value.label)
         } else {
             setSearch('')
         }
-
-    }
-
+    }  
 
 
     React.useEffect(() => {
@@ -46,17 +39,18 @@ function LocationComboBox() {
                 id="combo-box-demo"
                 options={cities}
                 onChange={(event, value) => handleAutoComplete(value)}
+
                 disableClearable={true}
                 // clearOnEscape={true}
                 renderInput={(params) =>
                     <TextField {...params}
                         // value={search.location}
-                        required
+                        required={ searchQuery.location ? false : true }
                         placeholder="City, State"
                         helperText="Search Location by City, State"
                         onChange={(e) => handleLocationChange(e)}
 
-                        label="Location"
+                        label={ searchQuery.location ? searchQuery.location : `Location`}
                     />
                 }
                 getOptionLabel={(option) => option.label}

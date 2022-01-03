@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
+import {Card, CardActions, CardContent, Button, Box } from '@mui/material';
+
 import { useHistory } from 'react-router-dom';
+
+import ResultsGallerySearchBar from './ResultsGallerySearchBar'
 
 
 function ResultsGalleryList () {
@@ -27,6 +27,8 @@ function ResultsGalleryList () {
 
     return (
         <>
+        <Box sx={{ width: '90%', margin: '1em auto'}}>
+        <ResultsGallerySearchBar />
         {searchResultsList?.map(item => {
             return (
                 <div id="resultsCard" key={item.vehicleId}>
@@ -48,6 +50,7 @@ function ResultsGalleryList () {
                 </div>
             );
         })} 
+        </Box>
         </>
     );
 }
