@@ -66,24 +66,6 @@ export default function VehicleAddress({ handleChange }) {
           </FormControl>
         </Grid>
       </Grid>
-
-      <Grid container item justifyContent="center">
-        <Grid item sm={10}>
-          <FormControl margin="normal" fullWidth>
-            <TextField
-              name="description"
-              variant="outlined"
-              label="Description"
-              required
-              multiline
-              rows={4}
-              onChange={handleChange}
-              value={vehicleFormInputs.description}
-            />
-          </FormControl>
-        </Grid>
-      </Grid>
-
     </Grid>
   );
 }

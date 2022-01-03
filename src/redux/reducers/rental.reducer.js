@@ -4,6 +4,8 @@ const bookingInput = (state = { date: '' }, action) => {
   switch (action.type) {
     case 'BOOKING_FORM_ONCHANGE':
       return { [action.payload.property]: action.payload.value };
+    case 'CLEAR_BOOKING_INPUT':
+      return { date: '' };
     default:
       return state;
   }
