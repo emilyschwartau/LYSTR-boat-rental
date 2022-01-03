@@ -153,9 +153,12 @@ height: 300px;
   width: auto;
   max-width: 200px;
   height: 200px;
-  max-height: 200px;
   display: block;
   margin-left: auto;
   margin-right: auto;
  
+}
+
+#carouselNav {
+  margin-bottom: 50px;
 }

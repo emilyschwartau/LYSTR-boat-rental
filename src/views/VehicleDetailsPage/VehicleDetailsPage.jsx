@@ -62,13 +62,7 @@ export default function VehicleDetailsPage() {
 
   return (
     <>
-    <Container component="main">
-      <Grid container>
-        <Grid item md={6}>
-          <BookingForm availability={vehicleInfo.availability} />
-        </Grid>
-      </Grid>
-    </Container>
+
   
   <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
         <Stack
@@ -76,9 +70,11 @@ export default function VehicleDetailsPage() {
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
-          <Box sx={{ width: '45%', textAlign: 'center' }}>
-            <Card>
-              <CardActionArea onClick={() => setOpen(true)}>
+          <Box sx={{ width: '45%', textAlign: 'center',
+              width: '45%',
+              padding: '1em',}}>
+            <Card >
+              <CardActionArea>
                 <CardMedia className="detailImages"
                   component="img"
                   height={'200vh'}
@@ -88,6 +84,7 @@ export default function VehicleDetailsPage() {
             </Card>
             <br />
             {(photos?.length > 1) ? <>
+              <div id="carouselNav">
               <IconButton variant='outlined' onClick={() => handleBack()}>
                 <ArrowBackIosNewIcon />
               </IconButton>
@@ -95,17 +92,10 @@ export default function VehicleDetailsPage() {
               <IconButton variant='outlined' onClick={() => handleNext()}>
                 <ArrowForwardIosIcon />
               </IconButton>
+              </div>
             </>
               : ''}
-          </Box>
-          <Box
-            sx={{
-              border: 'gray solid 1px',
-              borderRadius: 2,
-              width: '45%',
-              padding: '1em',
-            }}
-          >
+
             <Typography variant='body1'><u>Address:</u><br /> {`${vehicleInfo?.street} ${vehicleInfo?.city}, ${vehicleInfo?.state} ${vehicleInfo?.zip}`}</Typography><br />
 
             <Typography variant='body1' sx={{}}>
@@ -128,6 +118,15 @@ export default function VehicleDetailsPage() {
               {vehicleInfo?.instructions}
             </Typography>
 
+          </Box>
+          <Box>
+            <Container component="main">
+              <Grid container>
+                <Grid item md={6}>
+                  <BookingForm availability={vehicleInfo.availability} />
+                </Grid>
+              </Grid>
+            </Container>
           </Box>
         </Stack>
       </Box>
