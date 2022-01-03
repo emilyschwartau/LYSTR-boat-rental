@@ -13,7 +13,7 @@ const newVehicleInitial = {
   city: '',
   state: '',
   zip: '',
-  instructions: '',
+  description: '',
   cabins: '',
   heads: '',
   dailyRate: '',

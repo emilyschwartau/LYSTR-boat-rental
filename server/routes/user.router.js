@@ -22,15 +22,24 @@ router.post('/register', (req, res, next) => {
   const password = encryptLib.encryptPassword(req.body.password);
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
+  const email = req.body.email;
   let profilePhotoURL = req.body.profilePhotoURL;
-  if (profilePhotoURL == "") {
-    profilePhotoURL = "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+  if (profilePhotoURL == '') {
+    profilePhotoURL =
+      'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
   }
 
-  const queryText = `INSERT INTO "user" (username, password, first_name, last_name, profile_picture)
-    VALUES ($1, $2, $3, $4, $5) RETURNING id`;
+  const queryText = `INSERT INTO "user" (username, password, first_name, last_name, profile_picture, email)
+    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
   pool
-    .query(queryText, [username, password, firstName, lastName, profilePhotoURL])
+    .query(queryText, [
+      username,
+      password,
+      firstName,
+      lastName,
+      profilePhotoURL,
+      email,
+    ])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log('User registration failed: ', err);
