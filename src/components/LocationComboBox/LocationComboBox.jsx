@@ -10,7 +10,7 @@ function LocationComboBox() {
     const dispatch = useDispatch()
     const { cities } = useSelector((store) => store.data);
     const { searchQuery } = useSelector((store) => store.search)
-  
+
 
     const handleLocationChange = (e) => {
         dispatch({ type: 'SET_SEARCH_LOCATION', payload: e.target.value });
@@ -23,7 +23,7 @@ function LocationComboBox() {
         } else {
             setSearch('')
         }
-    }  
+    }
 
 
     React.useEffect(() => {
@@ -31,33 +31,34 @@ function LocationComboBox() {
     }, []);
 
     return (
-        <div>
+     
             <Autocomplete
                 disablePortal
                 autoComplete={true}
                 autoSelect={true}
-                id="combo-box-demo"
+                id="locationComboBox"
                 options={cities}
                 onChange={(event, value) => handleAutoComplete(value)}
-
+                sx={{ 
+                    
+                    m: 1
+                  }}
                 disableClearable={true}
                 // clearOnEscape={true}
                 renderInput={(params) =>
                     <TextField {...params}
                         // value={search.location}
-                        required={ searchQuery.location ? false : true }
+                        required={searchQuery.location ? false : true}
                         placeholder="City, State"
                         helperText="Search Location by City, State"
                         onChange={(e) => handleLocationChange(e)}
 
-                        label={ searchQuery.location ? searchQuery.location : `Location`}
+                        label={searchQuery.location ? searchQuery.location : `Location`}
                     />
                 }
                 getOptionLabel={(option) => option.label}
-            // getOptionSelected={(option,value) => option.label === value.label}
             />
-            <br />
-        </div>
+       
     )
 
 }
