@@ -17,15 +17,9 @@ function LandingPageVehicleType() {
 
   const handleSearch = () => {
     if (vehicleType) {
-      dispatch({
-        type: 'FETCH_VEHICLES',
-        payload: {
-          location: location,
-          startDate: startDate,
-          vehicleType: vehicleType,
-        },
-      });
-      history.push('/gallery');
+      // search parameters push to url
+      // url query parsed on ResultsGalleryPage useQuery hook
+      history.push(`/gallery?location=${location}&date=${startDate}&type=${vehicleType}`);
     } else {
       alert('Please choose vehicle type');
     }

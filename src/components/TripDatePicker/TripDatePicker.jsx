@@ -29,6 +29,7 @@ function TripDatePicker() {
                 required
                 label="Date of Trip"
                 helperText="Date of Trip"
+                currentDate
                 value={startDate}
                 onChange={(newValue) => {
                     handleDateChange(newValue);
