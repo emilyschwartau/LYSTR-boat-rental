@@ -47,7 +47,7 @@ function LandingPageLocation() {
             <FormControl fullWidth={true}>
               <LocationComboBox />
               <TripDatePicker />
-              <br />
+              
               <Button
                 type="submit"
                 variant="outlined"
@@ -55,6 +55,8 @@ function LandingPageLocation() {
                   width: '50%',
                   margin: 'auto',
                 }}
+
+                
               >
                 <ScrollLink
                   type="submit"
