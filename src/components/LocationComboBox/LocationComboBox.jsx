@@ -31,7 +31,7 @@ function LocationComboBox() {
     }, []);
 
     return (
-        <div>
+     
             <Autocomplete
                 disablePortal
                 autoComplete={true}
@@ -39,7 +39,10 @@ function LocationComboBox() {
                 id="locationComboBox"
                 options={cities}
                 onChange={(event, value) => handleAutoComplete(value)}
-
+                sx={{ 
+                    
+                    m: 1
+                  }}
                 disableClearable={true}
                 // clearOnEscape={true}
                 renderInput={(params) =>
@@ -55,8 +58,7 @@ function LocationComboBox() {
                 }
                 getOptionLabel={(option) => option.label}
             />
-            <br />
-        </div>
+       
     )
 
 }

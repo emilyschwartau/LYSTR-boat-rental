@@ -14,10 +14,10 @@ function ResultsGallerySearchBar() {
             display: "flex",
             flexGrow: 1,
             width: '90%',
-            border: '1px solid black',
-            margin: '1em auto'
+           
+            margin: 3
         }}>
-            <Grid item xs={5}>
+            <Grid item xs={6}>
                 <LocationComboBox />
             </Grid>
             <Grid item xs={4}>

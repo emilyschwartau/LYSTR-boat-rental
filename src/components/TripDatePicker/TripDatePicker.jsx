@@ -32,15 +32,18 @@ function TripDatePicker() {
             <DatePicker
                 required
                 label="Date of Trip"
-                helperText="Date of Trip"
+                
                 currentDate
                 value={startDate}
                 onChange={(newValue) => {
                     handleDateChange(newValue);
                 }}
                 renderInput={(params) => <TextField {...params}
-                label={date ? date : tripDate}
-                
+                    label={date ? date : tripDate}
+                    sx ={{
+                        m: 1
+                    }}
+                    helperText="Date of Trip"
                 />}
             />
         </LocalizationProvider>

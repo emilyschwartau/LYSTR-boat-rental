@@ -22,12 +22,15 @@ function VehicleTypeDropdown() {
     }
 
     return (
-        <div>
+      
             <Autocomplete
                 disablePortal
                 autoComplete={true}
                 autoSelect={true}
                 id="VehicleTypeDropdown"
+                sx ={{
+                    m: 1
+                }}
                 options={vehicleList ? vehicleLabel : 'none'}
                 isOptionEqualToValue={(option, value) => option.id === value.id}
                 onChange={(event, value) => handleDropDown(value)}
@@ -35,12 +38,12 @@ function VehicleTypeDropdown() {
                 renderInput={(params) =>
                     <TextField {...params}
                         label={vehicleSearch ? vehicleSearch : type}
+                        helperText="Type of Vehicle"
                     />
                 }
                 getOptionLabel={(option) => option.label}
             />
-            <br />
-        </div>
+      
     )
 }
 
