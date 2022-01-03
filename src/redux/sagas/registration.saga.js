@@ -3,12 +3,21 @@ import axios from 'axios';
 
 // worker Saga: will be fired on "REGISTER" actions
 function* registerUser(action) {
+  const { username, password, firstName, lastName, email, profilePic } =
+    action.payload;
+  const formData = new FormData();
+  formData.append('username', username);
+  formData.append('password', password);
+  formData.append('firstName', firstName);
+  formData.append('lastName', lastName);
+  formData.append('email', email);
+  formData.append('profilePic', profilePic);
   try {
     // clear any existing error on the registration page
     yield put({ type: 'CLEAR_REGISTRATION_ERROR' });
 
     // passes the username and password from the payload to the server
-    yield axios.post('/api/user/register', action.payload);
+    yield axios.post('/api/user/register', formData);
 
     // automatically log a user in after registration
     yield put({ type: 'LOGIN', payload: action.payload });
