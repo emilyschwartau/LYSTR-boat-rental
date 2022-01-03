@@ -25,7 +25,7 @@ export default function SuccessDialog({ pathname, reservationResult }) {
   if (pathname.includes('/add-vehicle')) {
     title = msg.add;
   } else if (pathname.includes('/update-vehicle')) {
-    title = msg.add;
+    title = msg.update;
   } else if (pathname.includes('/vehicle-details')) {
     title = msg.book;
   } else {
