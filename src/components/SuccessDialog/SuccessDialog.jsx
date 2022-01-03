@@ -32,9 +32,14 @@ export default function SuccessDialog({ pathname, reservationResult }) {
     msg = 'Success!';
   }
 
-  const handleClick = () => {
+  const handleDashboard = () => {
     dispatch({ type: 'CLOSE_SUCCESS' });
     history.push('/user');
+  };
+
+  const handleHome = () => {
+    dispatch({ type: 'CLOSE_SUCCESS' });
+    history.push('/home');
   };
 
   return (
@@ -59,10 +64,15 @@ export default function SuccessDialog({ pathname, reservationResult }) {
           <Typography>
             Estimated Cost: ${reservationResult?.dailyRate}
           </Typography>
+          <br />
+          <Typography>
+            Please contact the owner to confirm reservation and discuss payment
+          </Typography>
         </DialogContent>
       )}
       <DialogActions>
-        <Button onClick={handleClick}>Dashboard</Button>
+        <Button onClick={handleHome}>Home</Button>
+        <Button onClick={handleDashboard}>Dashboard</Button>
       </DialogActions>
     </Dialog>
   );
