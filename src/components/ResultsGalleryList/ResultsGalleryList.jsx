@@ -14,7 +14,7 @@ function ResultsGalleryList () {
     const galleryItems = useSelector(store => store.search);
     let searchResultsList = galleryItems.searchResults.payload;
     //console.log(galleryItems);
-    console.log("search results list", searchResultsList);
+    // console.log("search results list", searchResultsList);
 
     const handleSelectTask = (item) => {
         // store selected task object in Redux
