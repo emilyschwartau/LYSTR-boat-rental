@@ -177,3 +177,11 @@ height: 300px;
 #backToGalleryBtn {
   margin: 20px;
 }
+
+#dailyRate {
+  margin-top: 20px;
+}
+
+#estimatedCost {
+  margin-bottom: 10px;
+}
