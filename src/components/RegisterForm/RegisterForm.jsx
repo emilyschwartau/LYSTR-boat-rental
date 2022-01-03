@@ -26,6 +26,13 @@ function RegisterForm() {
 
   const registerUser = (event) => {
     event.preventDefault();
+    // const formData = new FormData();
+    // formData.append('username', username);
+    // formData.append('password', password);
+    // formData.append('firstName', firstName);
+    // formData.append('lastName', lastName);
+    // formData.append('email', email);
+    // formData.append('profilePic', profilePic);
 
     dispatch({
       type: 'REGISTER',
@@ -34,15 +41,15 @@ function RegisterForm() {
         password: password,
         firstName: firstName,
         lastName: lastName,
-        profilePhotoURL: profilePhotoURL,
         email: email,
+        profilePic: profilePic,
       },
     });
   }; // end registerUser
 
   return (
     <form onSubmit={registerUser}>
-      <Typography component="h2" variant="h4" align="center">
+      <Typography component="h2" variant="h4" align="center" mt={2}>
         Register User
       </Typography>
       {errors.registrationMessage && (
@@ -148,12 +155,15 @@ function RegisterForm() {
           </Grid>
         </Grid>
 
-        <div>
-          {/* <input className="btn" type="submit" name="submit" value="Register" /> */}
-          <Button type="submit" variant="contained" size="large">
-            Register
-          </Button>
-        </div>
+        <Grid container item xs={6} justifyContent="center">
+          <Grid item xs={6}>
+            <FormControl fullWidth margin="normal">
+              <Button type="submit" variant="contained" size="large">
+                Register
+              </Button>
+            </FormControl>
+          </Grid>
+        </Grid>
       </Grid>
     </form>
   );

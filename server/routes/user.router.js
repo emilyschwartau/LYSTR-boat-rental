@@ -5,6 +5,23 @@ const {
 const encryptLib = require('../modules/encryption');
 const pool = require('../modules/pool');
 const userStrategy = require('../strategies/user.strategy');
+const multer = require('multer');
+const upload = multer({
+  dest: 'uploads/',
+  onError: function (err, next) {
+    console.log('upload error', err);
+    next(err);
+  },
+});
+const {
+  uploadFile,
+  getFileStream,
+  deleteFile,
+  // upload,
+} = require('../services/s3.js');
+const fs = require('fs');
+const util = require('util');
+const unlinkFile = util.promisify(fs.unlink);
 
 const router = express.Router();
 
@@ -14,37 +31,60 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   res.send(req.user);
 });
 
+// route for getting profile picture upload from S3
+router.get('/pic/:key', (req, res) => {
+  console.log('getting S3');
+  const { key } = req.params;
+  // create a read stream for the image in the S3 bucket
+  const readStream = getFileStream(key);
+  // handle errors
+  readStream.on('error', (error) => {
+    res.sendStatus(500);
+  });
+  // pipe the read stream to the client
+  readStream.pipe(res);
+});
+
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {
+router.post('/register', upload.single('profilePic'), async (req, res) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const firstName = req.body.firstName;
   const lastName = req.body.lastName;
   const email = req.body.email;
-  let profilePhotoURL = req.body.profilePhotoURL;
-  if (profilePhotoURL == '') {
-    profilePhotoURL =
-      'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
-  }
+  let profilePic = req.file;
 
-  const queryText = `INSERT INTO "user" (username, password, first_name, last_name, profile_picture, email)
-    VALUES ($1, $2, $3, $4, $5, $6) RETURNING id`;
-  pool
-    .query(queryText, [
-      username,
-      password,
-      firstName,
-      lastName,
-      profilePhotoURL,
-      email,
-    ])
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log('User registration failed: ', err);
-      res.sendStatus(500);
-    });
+  try {
+    let profilePicKey;
+    if (req.file) {
+      profilePicKey = await uploadFile(profilePic);
+      await unlinkFile(profilePic.path);
+    } else {
+      profilePicKey = '';
+    }
+
+    const queryText = `INSERT INTO "user" (username, password, first_name, last_name, profile_picture, email)
+    VALUES ($1, $2, $3, $4, $5, $6);`;
+    pool
+      .query(queryText, [
+        username,
+        password,
+        firstName,
+        lastName,
+        profilePicKey.Key,
+        email,
+      ])
+      .then((result) => res.sendStatus(201))
+      .catch((err) => {
+        console.log('User registration failed: ', err);
+        res.sendStatus(500);
+      });
+  } catch (error) {
+    console.log('error uploading', error);
+    res.sendStatus(500);
+  }
 });
 
 // Handles login form authenticate/login POST
