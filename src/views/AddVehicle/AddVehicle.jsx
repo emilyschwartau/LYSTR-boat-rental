@@ -5,8 +5,6 @@ import { useLocation } from 'react-router-dom';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
 
 import VehicleInfo from '../../components/AddVehicleForm/VehicleInfo';
 import VehicleAddress from '../../components/AddVehicleForm/VehicleAddress';
@@ -14,13 +12,14 @@ import VehicleFeatures from '../../components/AddVehicleForm/VehicleFeatures';
 import VehiclePhotoUpload from '../../components/AddVehicleForm/VehiclePhotoUpload';
 import VehiclePriceAvailability from '../../components/AddVehicleForm/VehiclePriceAvailability';
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 
 export default function AddVehicle() {
   const dispatch = useDispatch();
   const location = useLocation();
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
-  const { loading, success } = useSelector((store) => store.loading);
+  const { loading, success } = useSelector((store) => store.feedback);
 
   React.useEffect(() => dispatch({ type: 'CLEAR_VEHICLE_FORM' }), [dispatch]);
 
@@ -71,13 +70,8 @@ export default function AddVehicle() {
           </Button>
         </Box>
       </Box>
-      <Backdrop
-        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
-      <SuccessDialog success={success} pathname={location.pathname} />
+      <LoadingSpinner />
+      <SuccessDialog pathname={location.pathname} />
     </Container>
   );
 }

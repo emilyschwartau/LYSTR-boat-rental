@@ -26,7 +26,7 @@ export default function UpdateVehicle() {
   }, [vehicleId]);
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
-  const { loading, success } = useSelector((store) => store.loading);
+  const { loading, success } = useSelector((store) => store.feedback);
 
   const handleChange = (e) => {
     console.log(e.target.value);

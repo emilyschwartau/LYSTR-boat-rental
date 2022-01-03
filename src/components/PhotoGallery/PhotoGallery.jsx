@@ -17,7 +17,7 @@ export default function PhotoGallery({ vehicleId }) {
   );
 
   const { photos } = useSelector((store) => store.vehicle);
-  const { loading } = useSelector((store) => store.loading);
+  const { loading } = useSelector((store) => store.feedback);
 
   return (
     <>

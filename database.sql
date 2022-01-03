@@ -11,6 +11,7 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "first_name" VARCHAR (255) NOT NULL,
     "last_name" VARCHAR (255) NOT NULL,
+    "email" VARCHAR(255) NOT NULL,
     "profile_picture" VARCHAR (1000) 
 );
 
@@ -62,7 +63,7 @@ CREATE TABLE "features" (
 );
 
 INSERT INTO "features" ("name")
-VALUES ('Radar'), ('Sonar'), ('GPS'), ('Depth Finder'), ('Fish Finder'), ('Trolling Motor'), ('Anchor'), ('Live Well'), ('Life Jackets'), ('Fire Extinguisher'), ('EPIRB'), ('First Aid Kit'), ('Stereo System'), ('Towels'), ('Wake-board Tower and Board'), ('Water Skis'), ('Towable Tube'), ('Tow Rope'), ('Fishing Rod');
+VALUES ('Radar'), ('Sonar'), ('GPS'), ('Depth Finder'), ('Fish Finder'), ('Trolling Motor'), ('Anchor'), ('Live Well'), ('Life Jackets'), ('Fire Extinguisher'), ('First Aid Kit'), ('Stereo System'), ('Towels'), ('Wake-board Tower and Board'), ('Water Skis'), ('Towable Tube'), ('Tow Rope'), ('Fishing Rod');
 
 -- junction table
 CREATE TABLE "vehicle_features" (
@@ -83,7 +84,8 @@ CREATE TABLE "availability" (
 CREATE TABLE "rental" (
     "id" SERIAL PRIMARY KEY,
     "rented_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    "date_id" INTEGER NOT NULL REFERENCES "availability" ON DELETE CASCADE
+    "date_id" INTEGER NOT NULL REFERENCES "availability" ON DELETE CASCADE,
+    "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE
 );
 
 -- auto fill city table
