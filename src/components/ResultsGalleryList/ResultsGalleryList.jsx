@@ -36,7 +36,7 @@ function ResultsGalleryList () {
                             <img id="resultCardImg"src={item.photos[0]} />
                             
                             <div id="resultCardDetails">
-                            <h4 id="boatResultTitle">{item.title}</h4>
+                            <h5 id="boatResultTitle">{item.title}</h5>
                             Daily Rate: ${item.dailyRate}<br></br>
                             {item.city}, {item.state}
                             </div>
