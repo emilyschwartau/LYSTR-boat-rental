@@ -117,8 +117,8 @@ export default function VehicleDetailsPage() {
               ))}
             </ul>
             <Typography variant='body1'>
-              <u>Instructions:</u><br />
-              {vehicleInfo?.instructions}
+              <u>Description:</u><br />
+              {vehicleInfo?.description}
             </Typography>
 
           </Box>

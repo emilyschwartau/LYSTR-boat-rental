@@ -90,8 +90,8 @@ function ReservationsInfo({ rental }) {
               ))}
             </ul>
             <Typography variant='body1'>
-              <u>Instructions:</u><br />
-              {rental?.instructions}
+              <u>Description:</u><br />
+              {rental?.description}
             </Typography>
 
           </Box>

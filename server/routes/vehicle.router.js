@@ -24,7 +24,7 @@ router.get('/:vehicleId', (req, res) => {
   const { vehicleId } = req.params;
 
   const query = `
-    SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
+    SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "description", "cabins", "heads", "daily_rate" AS "dailyRate",
 	    
 	    (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id" and "is_rented" = FALSE),
 	    (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id")
@@ -69,7 +69,7 @@ router.get('/photos/:vehicleId', (req, res) => {
 router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
   const { userId } = req.params;
   const query = `
-  SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "instructions", "cabins", "heads", "daily_rate" AS "dailyRate",
+  SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "description", "cabins", "heads", "daily_rate" AS "dailyRate",
     (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
     (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id"),
     (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id") FROM "vehicle" 
@@ -94,7 +94,7 @@ router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
   const { userId } = req.params;
 
   const query = `
-    SELECT "rental"."id", "availability"."date_available" AS "dateRented", "vehicle"."id" AS "vehicleId", "vehicle"."title", "vehicle"."make", "vehicle"."model", "vehicle"."year", "vehicle"."capacity", "vehicle"."length", "vehicle"."horsepower", "vehicle"."daily_rate" AS "dailyRate", "vehicle"."cabins", "vehicle"."heads", "vehicle"."street", "vehicle"."city", "vehicle"."state", "vehicle"."zip", "vehicle"."instructions", "type"."name" AS "vehicleType",
+    SELECT "rental"."id", "availability"."date_available" AS "dateRented", "vehicle"."id" AS "vehicleId", "vehicle"."title", "vehicle"."make", "vehicle"."model", "vehicle"."year", "vehicle"."capacity", "vehicle"."length", "vehicle"."horsepower", "vehicle"."daily_rate" AS "dailyRate", "vehicle"."cabins", "vehicle"."heads", "vehicle"."street", "vehicle"."city", "vehicle"."state", "vehicle"."zip", "vehicle"."description", "type"."name" AS "vehicleType",
     (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
     (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id"),
     "user"."first_name" AS "rentedBy" FROM "user"
@@ -151,7 +151,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     city,
     state,
     zip,
-    instructions,
+    description,
     cabins,
     heads,
     dailyRate,
@@ -159,7 +159,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
   const ownedBy = req.user.id;
 
   const query = `
-    INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "instructions", "street", "city", "state", "zip")
+    INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "description", "street", "city", "state", "zip")
       VALUES ($1, (select "id" from "type" where "name" = $2), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
       RETURNING "id";
   `;
@@ -178,7 +178,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       dailyRate,
       cabins,
       heads,
-      instructions,
+      description,
       street,
       city,
       state,
@@ -451,7 +451,7 @@ router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
     city,
     state,
     zip,
-    instructions,
+    description,
     cabins,
     heads,
     dailyRate,
@@ -470,7 +470,7 @@ router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
     dailyRate,
     cabins,
     heads,
-    instructions,
+    description,
     street,
     city,
     state,
@@ -478,7 +478,7 @@ router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
   ];
 
   let query = `
-    UPDATE "vehicle" SET ("type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "instructions", "street", "city", "state", "zip") = 
+    UPDATE "vehicle" SET ("type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "description", "street", "city", "state", "zip") = 
       ((select "id" from "type" where "name" = $2), $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)
       WHERE "id" = $1;
   `;
