@@ -109,9 +109,10 @@ function ListingsInfo({ vehicle }) {
                 <li key={i}>{feature}</li>
               ))}
             </ul>
-            <Typography variant="body1">
-              <u>description:</u>
-              <br />
+
+            <Typography variant='body1'>
+              <u>Description:</u><br />
+
               {vehicle?.description}
             </Typography>
           </Box>
