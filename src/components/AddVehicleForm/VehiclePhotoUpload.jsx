@@ -8,6 +8,37 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 
+const thumbsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 16,
+};
+
+const thumb = {
+  display: 'inline-flex',
+  borderRadius: 2,
+  border: '1px solid #eaeaea',
+  marginBottom: 8,
+  marginRight: 8,
+  width: 100,
+  height: 100,
+  padding: 4,
+  boxSizing: 'border-box',
+};
+
+const thumbInner = {
+  display: 'flex',
+  minWidth: 0,
+  overflow: 'hidden',
+};
+
+const img = {
+  display: 'block',
+  width: 'auto',
+  height: '100%',
+};
+
 export default function VehiclePhotoUpload(props) {
   const dispatch = useDispatch();
 
@@ -18,15 +49,24 @@ export default function VehiclePhotoUpload(props) {
   );
 
   // const [files, setFiles] = React.useState([]);
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-    acceptedFiles,
-    open,
-  } = useDropzone({
+
+  const thumbs = props.galleryMode
+    ? photoGalleryInput.photos?.map((photo) => (
+        <div style={thumb} key={photo.name}>
+          <div style={thumbInner}>
+            <img src={photo.preview} style={img} />
+          </div>
+        </div>
+      ))
+    : vehicleFormInputs.photos?.map((photo) => (
+        <div style={thumb} key={photo.name}>
+          <div style={thumbInner}>
+            <img src={photo.preview} style={img} />
+          </div>
+        </div>
+      ));
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: 'image/*',
     // noClick: true,
     noKeyboard: true,
@@ -110,9 +150,7 @@ export default function VehiclePhotoUpload(props) {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <aside>
-            <ul>{filepath}</ul>
-          </aside>
+          <aside style={thumbsContainer}>{thumbs}</aside>
         </Grid>
 
         {props.galleryMode && (

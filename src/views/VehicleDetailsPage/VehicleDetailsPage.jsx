@@ -109,6 +109,10 @@ export default function VehicleDetailsPage() {
                 variant="body1"
               >{`${vehicleInfo.title}`}</Typography>
               <br />
+              <Typography>
+                {vehicleInfo?.year} {vehicleInfo?.make} {vehicleInfo?.model}
+              </Typography>
+              <br />
 
               <Typography variant="body1">
                 <span className="sectionTitle">Address:</span>
