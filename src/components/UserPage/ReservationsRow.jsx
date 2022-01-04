@@ -34,7 +34,7 @@ function ReservationsRow({ rental }) {
         <TableCell align="right">
           {format(new Date(rental?.dateRented), 'MM/dd/yyyy')}
         </TableCell>
-        <TableCell align="right">{`${rental?.ownerFirstName} ${rental?.ownerLastName}`}</TableCell>
+        <TableCell align="right">{<>{rental?.ownerFirstName} {rental?.ownerLastName}<br />{rental?.ownerEmail}</>}</TableCell>
         <TableCell align="right">${rental?.dailyRate}</TableCell>
       </TableRow>
       {/* ACTUAL TABLE ROW END */}

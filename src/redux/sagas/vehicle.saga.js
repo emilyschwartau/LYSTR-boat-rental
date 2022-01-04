@@ -151,6 +151,7 @@ function* fetchAllReservationsById(action) {
         ...rental,
         ownerFirstName: ownerName.data[0].firstName,
         ownerLastName: ownerName.data[0].lastName,
+        ownerEmail: ownerName.data[0].email,
       };
     }
     // setting reservations list into reducer
