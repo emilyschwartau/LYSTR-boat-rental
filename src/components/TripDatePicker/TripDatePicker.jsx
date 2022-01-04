@@ -39,11 +39,12 @@ function TripDatePicker() {
                     handleDateChange(newValue);
                 }}
                 renderInput={(params) => <TextField {...params}
-                    label={date ? date : tripDate}
+                    // label={date ? date : tripDate}
                     sx ={{
                         m: 1
                     }}
                     helperText="Date of Trip"
+                    label={'Date'}
                 />}
             />
         </LocalizationProvider>

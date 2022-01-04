@@ -25,40 +25,38 @@ function LocationComboBox() {
         }
     }
 
+    // console.log('value should equal location combobox',searchQuery.location)
 
     React.useEffect(() => {
         dispatch({ type: 'FETCH_CITY_LIST' });
     }, []);
 
     return (
-     
-            <Autocomplete
-                disablePortal
-                autoComplete={true}
-                autoSelect={true}
-                id="locationComboBox"
-                options={cities}
-                onChange={(event, value) => handleAutoComplete(value)}
-                sx={{ 
-                    
-                    m: 1
-                  }}
-                disableClearable={true}
-                // clearOnEscape={true}
-                renderInput={(params) =>
-                    <TextField {...params}
-                        // value={search.location}
-                        required={searchQuery.location ? false : true}
-                        placeholder="City, State"
-                        helperText="Search Location by City, State"
-                        onChange={(e) => handleLocationChange(e)}
 
-                        label={searchQuery.location ? searchQuery.location : `Location`}
-                    />
-                }
-                getOptionLabel={(option) => option.label}
-            />
-       
+        <Autocomplete
+            disablePortal
+            autoComplete={true}
+            autoSelect={true}
+            id="locationComboBox"
+            options={cities}
+            onChange={(event, value) => handleAutoComplete(value)}
+            sx={{
+                m: 1
+            }}
+            disableClearable={true}
+            inputValue={searchQuery.location}
+            renderInput={(params) =>
+                <TextField {...params}
+                    required={searchQuery.location ? false : true}
+                    placeholder="City, State"
+                    helperText="Search Location by City, State"
+                    onChange={(e) => handleLocationChange(e)}
+                    label='Location'
+                />
+            }
+
+        />
+
     )
 
 }
