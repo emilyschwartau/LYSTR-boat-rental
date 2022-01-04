@@ -40,13 +40,16 @@ function ListingsInfo({ vehicle }) {
   console.log('listings info');
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
           <Box sx={{ width: '40%', textAlign: 'center' }}>
+            <Typography variant="caption" sx={{ margin: '0 1em' }}>
+              Click on image to delete or upload new images
+            </Typography>
             <Card>
               <CardActionArea onClick={() => setOpen(true)}>
                 <CardMedia
@@ -83,14 +86,14 @@ function ListingsInfo({ vehicle }) {
             }}
           >
             <Typography variant="body1">
-              <u>Address:</u>
+              <strong>Address:</strong>
               <br />{' '}
               {`${vehicle?.street} ${vehicle?.city}, ${vehicle?.state} ${vehicle?.zip}`}
             </Typography>
             <br />
 
             <Typography variant="body1" sx={{}}>
-              <u>Vehicle Info</u>
+              <strong>Vehicle Info</strong>
               <br />
               Capacity: {vehicle?.capacity}
               <br />
@@ -103,7 +106,7 @@ function ListingsInfo({ vehicle }) {
             <br />
 
             <Typography variant="body1">
-              <u>Features:</u>
+              <strong>Features:</strong>
             </Typography>
             <ul style={{ columns: 2 }}>
               {vehicle?.features.map((feature, i) => (
@@ -112,7 +115,7 @@ function ListingsInfo({ vehicle }) {
             </ul>
 
             <Typography variant='body1'>
-              <u>Description:</u><br />
+              <strong>Description:</strong><br />
 
               {vehicle?.description}
             </Typography>
@@ -133,19 +136,23 @@ function ListingsInfo({ vehicle }) {
           }}
         >
           <Typography variant='body1'>
-            <u>Upcoming Rentals:</u><br />
+            {/* if there are future rental dates -> show upcoming rentals otherwise dont show upcoming rental text*/}
+            {vehicle?.rentalData.filter(data => new Date(data.rentalDate) >= new Date()).length > 0 ?
+              <>
+                <strong>Upcoming Rentals:</strong><br />
+                {vehicle?.rentalData
+                  //filter out dates past today
+                  .filter(data => new Date(data.rentalDate) >= new Date())
+                  //map future dates
+                  .map((data) => (
+                    <li key={data.id}>
+                      {format(new Date(data.rentalDate), 'MM/dd/yyyy')} -{' '}
+                      {data.renterFirst} {data.renterLast} -{' '}
+                      {data.renterEmail}</li>
+                  ))}
+              </>
+              : ''}
 
-            {vehicle?.rentalData
-              //filter out dates past today
-              .filter(data => new Date(data.rentalDate) >= new Date())
-              .sort()
-              //map future dates
-              .map((data) => (
-                <li key={data.id}>
-                  {format(new Date(data.rentalDate), 'MM/dd/yyyy')} -{' '} 
-                  {data.renterFirst} {data.renterLast} -{' '} 
-                  {data.renterEmail}</li>
-              ))}
 
           </Typography>
         </Box>
