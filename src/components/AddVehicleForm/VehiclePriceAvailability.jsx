@@ -12,6 +12,7 @@ export default function VehicleAvailability({ validateNumber }) {
   const dispatch = useDispatch();
   // const [dates, setDates] = React.useState([]);
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
+  const { vehicleReservations } = useSelector((store) => store.rental);
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -44,6 +45,19 @@ export default function VehicleAvailability({ validateNumber }) {
             value={vehicleFormInputs.availability?.map(
               (date) => new DateObject(date)
             )}
+            mapDays={({ date, today }) => {
+              const isNotAvailable = vehicleReservations
+                .map((res) => res.rentalDate.split('T')[0])
+                .includes(date.format('YYYY-MM-DD'));
+              if (
+                isNotAvailable ||
+                date.format('YYYY-MM-DD') < today.format('YYYY-MM-DD')
+              )
+                return {
+                  disabled: true,
+                  style: { color: '#ccc' },
+                };
+            }}
             // onChange={setDates}
             onChange={(dates) => {
               // setDates(dates);

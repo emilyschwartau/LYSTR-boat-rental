@@ -63,11 +63,14 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
             });
             console.log(date);
           }}
-          mapDays={({ date }) => {
+          mapDays={({ date, today }) => {
             const isAvailable = availability?.includes(
               date.format('YYYY-MM-DD')
             );
-            if (!isAvailable)
+            if (
+              !isAvailable ||
+              date.format('YYYY-MM-DD') < today.format('YYYY-MM-DD')
+            )
               return {
                 disabled: true,
                 style: { color: '#ccc' },
