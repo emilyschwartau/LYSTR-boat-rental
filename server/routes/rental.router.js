@@ -31,6 +31,29 @@ router.get('/:rentalId', rejectUnauthenticated, (req, res) => {
     });
 });
 
+router.get('/vehicle/:vehicleId', rejectUnauthenticated, (req, res) => {
+  const { vehicleId } = req.params;
+  console.log(req.params);
+
+  const query = `
+    SELECT "rental"."vehicle_id" AS "vehicleId", "date_available" AS "rentalDate", "first_name" AS "renterFirst", "last_name" AS "renterLast", "email" AS "renterEmail" FROM "rental"
+    JOIN "availability" ON "rental"."date_id" = "availability"."id"
+    JOIN "user" ON "rental"."rented_by" = "user"."id"
+    WHERE "rental"."vehicle_id" = $1;
+  `;
+
+  pool
+    .query(query, [vehicleId])
+    .then((result) => {
+      console.log(`GET at /rental/vehicle/${vehicleId} success`);
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.log(`error during GET at /rental/vehicle/${vehicleId}: `, error);
+      res.sendStatus(500);
+    });
+});
+
 /**
  * POST routes
  */

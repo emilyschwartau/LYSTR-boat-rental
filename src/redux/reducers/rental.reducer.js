@@ -20,7 +20,17 @@ const reservationResult = (state = {}, action) => {
   }
 };
 
+const vehicleReservations = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_VEHICLE_RESERVATIONS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   bookingInput,
   reservationResult,
+  vehicleReservations,
 });

@@ -22,8 +22,21 @@ function* bookVehicle(action) {
   }
 }
 
+function* fetchVehicleReservations(action) {
+  const vehicleId = action.payload;
+  console.log(action.payload);
+  try {
+    const response = yield axios.get(`/api/rental/vehicle/${vehicleId}`);
+    yield put({ type: 'SET_VEHICLE_RESERVATIONS', payload: response.data });
+  } catch (error) {
+    console.log('error getting vehicle reservations:', error);
+    yield put({ type: 'GET_ERROR' });
+  }
+}
+
 function* rentalSaga() {
   yield takeLatest('BOOK_VEHICLE', bookVehicle);
+  yield takeLatest('FETCH_VEHICLE_RESERVATIONS', fetchVehicleReservations);
 }
 
 export default rentalSaga;
