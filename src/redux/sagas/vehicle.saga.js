@@ -105,7 +105,6 @@ function* fetchListedVehiclesByOwner(action) {
   const userId = action.payload;
   try {
     let vehiclesListed = yield axios.get(`/api/vehicle/allVehiclesListed/${userId}`);
-    console.log(`this is vehiclesListed in fetchListedVehiclesByOwner`, vehiclesListed.data);
 
     for (let i in vehiclesListed.data) {
       let vehicleInfo = vehiclesListed.data[i];
@@ -114,16 +113,12 @@ function* fetchListedVehiclesByOwner(action) {
       const rentalData = yield axios.get(
         `/api/rental/vehicle/${vehicleInfo.vehicleId}`
       );
-        
-      console.log(`rental data`, rentalData.data);
+  
       // adding rental data into vehicle info object
       vehiclesListed.data[i] = {
         ...vehicleInfo,
         rentalData: rentalData.data,
       };
-
-      console.log(`this is new vehicle info`, vehiclesListed.data[i]);
-
     }
 
     yield put({
