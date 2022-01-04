@@ -78,14 +78,14 @@ function ReservationsInfo({ rental }) {
             }}
           >
             <Typography variant="body1">
-              <u>Address:</u>
+              <strong>Address:</strong>
               <br />{' '}
               {`${rental?.street} ${rental?.city}, ${rental?.state} ${rental?.zip}`}
             </Typography>
             <br />
 
             <Typography variant="body1" sx={{}}>
-              <u>rental Info</u>
+              <strong>Vehicle Info</strong>
               <br />
               Capacity: {rental?.capacity}
               <br />
@@ -98,7 +98,7 @@ function ReservationsInfo({ rental }) {
             <br />
 
             <Typography variant="body1">
-              <u>Features:</u>
+              <strong>Features:</strong>
             </Typography>
             <ul style={{ columns: 2 }}>
               {rental?.features.map((feature, i) => (
@@ -107,7 +107,7 @@ function ReservationsInfo({ rental }) {
             </ul>
 
             <Typography variant='body1'>
-              <u>Description:</u><br />
+              <strong>Description:</strong><br />
 
               {rental?.description}
             </Typography>
