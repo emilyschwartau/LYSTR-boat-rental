@@ -23,6 +23,7 @@ export default function UpdateVehicle() {
 
   React.useEffect(() => {
     dispatch({ type: 'FETCH_VEHICLE_TO_EDIT', payload: vehicleId });
+    dispatch({ type: 'FETCH_VEHICLE_RESERVATIONS', payload: vehicleId });
   }, [vehicleId]);
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);

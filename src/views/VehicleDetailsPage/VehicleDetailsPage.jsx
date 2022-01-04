@@ -25,7 +25,6 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-
 export default function VehicleDetailsPage() {
   const dispatch = useDispatch();
   const { vehicleId } = useParams();
@@ -34,8 +33,8 @@ export default function VehicleDetailsPage() {
   const { vehicleInfo, photos } = useSelector((store) => store.vehicle);
   const { reservationResult } = useSelector((store) => store.rental);
 
-  console.log("photos", photos);
-  console.log("vehicleInfo", vehicleInfo);
+  console.log('photos', photos);
+  console.log('vehicleInfo', vehicleInfo);
 
   React.useEffect(() => {
     dispatch({ type: 'FETCH_VEHICLE_BY_ID', payload: vehicleId });
@@ -61,71 +60,89 @@ export default function VehicleDetailsPage() {
     }
   };
   console.log('listings info');
-  
 
   return (
     <>
-
-  <Button id="backToGalleryBtn" variant="contained" onClick={() => history.goBack()}>
+      <Button
+        id="backToGalleryBtn"
+        variant="contained"
+        onClick={() => history.goBack()}
+      >
         Back to Search Results
-  </Button>
-  <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
+      </Button>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
-          <Box sx={{ width: '45%',
-              width: '45%',
-              padding: '1em',}}>
-            <Card >
-              <CardActionArea>
-                <CardMedia className="detailImages"
-                  component="img"
-                  height={'200vh'}
-                  image={photos[imageIndex]?.path}
-                />
-              </CardActionArea>
+          <Box sx={{ width: '45%', width: '45%', padding: '1em' }}>
+            <Card>
+              <CardMedia
+                className="detailImages"
+                component="img"
+                height={'200vh'}
+                image={photos[imageIndex]?.path}
+              />
             </Card>
             <br />
-            {(photos?.length > 1) ? <>
-              <div id="carouselNav">
-              <IconButton variant='outlined' onClick={() => handleBack()}>
-                <ArrowBackIosNewIcon />
-              </IconButton>
-              <Typography variant='caption' sx={{ margin: '0 1em' }}>Click to navigate through images</Typography>
-              <IconButton variant='outlined' onClick={() => handleNext()}>
-                <ArrowForwardIosIcon />
-              </IconButton>
-              </div>
-            </>
-              : ''}
+            {photos?.length > 1 ? (
+              <>
+                <div id="carouselNav">
+                  <IconButton variant="outlined" onClick={() => handleBack()}>
+                    <ArrowBackIosNewIcon />
+                  </IconButton>
+                  <Typography variant="caption" sx={{ margin: '0 1em' }}>
+                    Click to navigate through images
+                  </Typography>
+                  <IconButton variant="outlined" onClick={() => handleNext()}>
+                    <ArrowForwardIosIcon />
+                  </IconButton>
+                </div>
+              </>
+            ) : (
+              ''
+            )}
 
-            <Typography id="detailsBoatTitle" variant='body1'>{`${vehicleInfo.title}`}</Typography><br />
+            <Typography
+              id="detailsBoatTitle"
+              variant="body1"
+            >{`${vehicleInfo.title}`}</Typography>
+            <br />
 
+            <Typography variant="body1">
+              <span className="sectionTitle">Address:</span>
+              <br />{' '}
+              {`${vehicleInfo?.street} ${vehicleInfo?.city}, ${vehicleInfo?.state} ${vehicleInfo?.zip}`}
+            </Typography>
+            <br />
 
-            <Typography  variant='body1'><span className="sectionTitle">Address:</span><br/> {`${vehicleInfo?.street} ${vehicleInfo?.city}, ${vehicleInfo?.state} ${vehicleInfo?.zip}`}</Typography><br />
-
-            <Typography variant='body1' sx={{}}>
-            <span className="sectionTitle">Vehicle Info:</span><br />
-              Capacity: {vehicleInfo?.capacity}<br />
+            <Typography variant="body1" sx={{}}>
+              <span className="sectionTitle">Vehicle Info:</span>
+              <br />
+              Capacity: {vehicleInfo?.capacity}
+              <br />
               Length: {vehicleInfo?.length}ft <br />
               Horsepower: {vehicleInfo?.horsepower} hp <br />
               Cabins: {vehicleInfo?.cabins} <br />
-              Heads: {vehicleInfo?.heads}<br />
-            </Typography><br />
+              Heads: {vehicleInfo?.heads}
+              <br />
+            </Typography>
+            <br />
 
-            <Typography variant='body1'><span className="sectionTitle">Features:</span></Typography>
+            <Typography variant="body1">
+              <span className="sectionTitle">Features:</span>
+            </Typography>
             <ul style={{ columns: 2 }}>
               {vehicleInfo?.features?.map((feature, i) => (
                 <li key={i}>{feature}</li>
               ))}
             </ul>
-            <Typography variant='body1'>
-            <span className="sectionTitle">Description:</span><br />
+            <Typography variant="body1">
+              <span className="sectionTitle">Description:</span>
+              <br />
               {vehicleInfo?.description}
             </Typography>
-
           </Box>
           <Box>
             <Container component="main">
@@ -146,11 +163,6 @@ export default function VehicleDetailsPage() {
           </Box>
         </Stack>
       </Box>
-
     </>
-
   );
 }
-
-
-
