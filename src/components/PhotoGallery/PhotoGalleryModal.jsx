@@ -9,10 +9,11 @@ import DialogContent from '@mui/material/DialogContent';
 import PhotoGallery from './PhotoGallery';
 import VehiclePhotoUpload from '../AddVehicleForm/VehiclePhotoUpload';
 
-export default function PhotoGalleryModal({ open, setOpen, vehicleId }) {
+export default function PhotoGalleryModal({ open, setOpen, vehicleId, renderStatus, setRenderStatus }) {
   const dispatch = useDispatch();
 
   const handleClose = () => {
+    setRenderStatus(!renderStatus);
     setOpen(false);
   };
 

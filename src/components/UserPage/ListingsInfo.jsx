@@ -11,16 +11,25 @@ import {
 } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
 
 function ListingsInfo({ vehicle }) {
+  const user = useSelector((store) => store.user);
   const [imageIndex, setImageIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const [renderStatus, setRenderStatus] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({ type: `FETCH_LISTED_VEHICLES_BY_OWNER`, payload: user.id });
+    setImageIndex(0);
+  }, [renderStatus]);
 
   const handleNext = () => {
     if (imageIndex != vehicle?.photos.length - 1) {
@@ -37,7 +46,11 @@ function ListingsInfo({ vehicle }) {
       setImageIndex(imageIndex - 1);
     }
   };
-  console.log('listings info');
+
+  const manualRender = () => {
+    console.log(`re-rendered`);
+  }
+
   return (
     <>
       <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
@@ -160,6 +173,8 @@ function ListingsInfo({ vehicle }) {
           open={open}
           setOpen={setOpen}
           vehicleId={vehicle.vehicleId}
+          setRenderStatus={setRenderStatus}
+          renderStatus={renderStatus}
         />
       </Box>
     </>
