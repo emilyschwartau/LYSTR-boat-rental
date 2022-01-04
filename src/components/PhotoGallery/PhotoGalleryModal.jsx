@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -11,8 +11,11 @@ import VehiclePhotoUpload from '../AddVehicleForm/VehiclePhotoUpload';
 
 export default function PhotoGalleryModal({ open, setOpen, vehicleId }) {
   const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
 
   const handleClose = () => {
+    dispatch({ type: 'FETCH_ALL_RESERVATIONS_BY_ID', payload: user.id });
+
     setOpen(false);
   };
 
