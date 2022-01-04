@@ -13,6 +13,7 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
 
@@ -39,13 +40,13 @@ function ListingsInfo({ vehicle }) {
   console.log('listings info');
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
-          <Box sx={{ width: '45%', textAlign: 'center' }}>
+          <Box sx={{ width: '40%', textAlign: 'center' }}>
             <Card>
               <CardActionArea onClick={() => setOpen(true)}>
                 <CardMedia
@@ -77,7 +78,7 @@ function ListingsInfo({ vehicle }) {
             sx={{
               border: 'gray solid 1px',
               borderRadius: 2,
-              width: '45%',
+              width: '40%',
               padding: '1em',
             }}
           >
@@ -124,6 +125,29 @@ function ListingsInfo({ vehicle }) {
           >
             Update
           </Button>
+        </Box>
+        <Box
+          sx={{
+            width: '100%',
+            padding: '1em',
+          }}
+        >
+          <Typography variant='body1'>
+            <u>Upcoming Rentals:</u><br />
+
+            {vehicle?.rentalData
+              //filter out dates past today
+              .filter(data => new Date(data.rentalDate) >= new Date())
+              .sort()
+              //map future dates
+              .map((data) => (
+                <li key={data.id}>
+                  {format(new Date(data.rentalDate), 'MM/dd/yyyy')} -{' '} 
+                  {data.renterFirst} {data.renterLast} -{' '} 
+                  {data.renterEmail}</li>
+              ))}
+
+          </Typography>
         </Box>
         <PhotoGalleryModal
           open={open}

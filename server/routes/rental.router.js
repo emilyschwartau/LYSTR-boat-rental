@@ -36,10 +36,11 @@ router.get('/vehicle/:vehicleId', rejectUnauthenticated, (req, res) => {
   console.log(req.params);
 
   const query = `
-    SELECT "rental"."vehicle_id" AS "vehicleId", "date_available" AS "rentalDate", "first_name" AS "renterFirst", "last_name" AS "renterLast", "email" AS "renterEmail" FROM "rental"
+    SELECT "rental"."id", "rental"."vehicle_id" AS "vehicleId", "date_available" AS "rentalDate", "first_name" AS "renterFirst", "last_name" AS "renterLast", "email" AS "renterEmail" FROM "rental"
     JOIN "availability" ON "rental"."date_id" = "availability"."id"
     JOIN "user" ON "rental"."rented_by" = "user"."id"
-    WHERE "rental"."vehicle_id" = $1;
+    WHERE "rental"."vehicle_id" = $1
+    ORDER BY "date_available" ASC;
   `;
 
   pool
