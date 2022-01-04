@@ -75,14 +75,14 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
           }}
         />
       </FormControl>
-      <Typography>Daily Rate: ${dailyRate}</Typography>
+      <Typography id="dailyRate">Daily Rate: ${dailyRate}</Typography>
       <Typography>
         Rental Date:{' '}
         {bookingInput.date
           ? new DateObject(bookingInput.date).format('MMMM D, YYYY')
           : ''}
       </Typography>
-      <Typography>
+      <Typography id="estimatedCost">
         Estimated Cost: ${bookingInput.date ? dailyRate * 1 : 0}
       </Typography>
       <Button variant="contained" onClick={handleBook}>

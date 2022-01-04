@@ -128,17 +128,60 @@ input {
 
 }
 
+
+
+
+
 #resultCardContent {
 height: 250px;
 }
 
 #resultCardDetails {
+  font-size: 15px;
   padding: 0px;
-  margin-top: 10px;
+  margin-top: 5px;
   display: block;
 }
 
 #boatResultTitle{
+  font-size: 20px;
   padding: 0px;
   margin: 0px;
+}
+
+.detailImages {
+  width: auto;
+  max-width: 200px;
+  height: 200px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+ 
+}
+
+#carouselNav {
+  margin-bottom: 50px;
+}
+
+#detailsBoatTitle {
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.sectionTitle {
+  font-weight: bold;
+  font-size: 17px;
+ 
+}
+
+#backToGalleryBtn {
+  margin: 20px;
+}
+
+#dailyRate {
+  margin-top: 20px;
+}
+
+#estimatedCost {
+  margin-bottom: 10px;
 }
