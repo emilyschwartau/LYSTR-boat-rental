@@ -37,7 +37,7 @@ function ListingsRow({vehicle}) {
             {/* ACTUAL TABLE ROW END */}
             {/* INFO ROW START */}
             <TableRow>
-                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <ListingsInfo vehicle={vehicle}/>
                     </Collapse>

@@ -40,7 +40,7 @@ function ReservationsRow({ rental }) {
       {/* ACTUAL TABLE ROW END */}
       {/* INFO ROW START */}
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <ReservationsInfo rental={rental} />
           </Collapse>

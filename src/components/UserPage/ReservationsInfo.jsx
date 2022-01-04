@@ -35,13 +35,13 @@ function ReservationsInfo({ rental }) {
   console.log('reservations info', rental);
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%', border: 'solid black 1px'}}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
-          <Box sx={{ width: '45%', textAlign: 'center' }}>
+          <Box sx={{ width: '40%', textAlign: 'center' }}>
             <Card>
               <CardActionArea>
                 <CardMedia
@@ -73,7 +73,7 @@ function ReservationsInfo({ rental }) {
             sx={{
               border: 'gray solid 1px',
               borderRadius: 2,
-              width: '45%',
+              width: '40%',
               padding: '1em',
             }}
           >

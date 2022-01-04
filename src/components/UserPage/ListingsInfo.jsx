@@ -40,7 +40,7 @@ function ListingsInfo({ vehicle }) {
   console.log('listings info');
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%', border: 'solid black 1px' }}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
