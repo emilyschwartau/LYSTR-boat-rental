@@ -1,8 +1,7 @@
 import Autocomplete from '@mui/material/Autocomplete';
-import TextField from '@mui/material/TextField';
-import InputLabel from '@mui/material/InputLabel';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
+
+import { FormControl, FormHelperText, TextField, InputLabel, Select, MenuItem } from '@mui/material';
+
 import { useDispatch, useSelector } from 'react-redux';
 import useQuery from '../../hooks/useQuery'
 
@@ -25,70 +24,24 @@ function VehicleTypeDropdown() {
     }
 
     return (
-        <>
 
-       
-
-            <Autocomplete
-                disablePortal
-                autoComplete={true}
-                autoSelect={true}
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Type</InputLabel>
+            <Select
+                labelId="VehicleTypeDropdown"
                 id="VehicleTypeDropdown"
-                options={vehicleLabel}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                onChange={(event, value) => handleDropDown(value)}
-                sx={{
-                    m: 1
-                }}
-                disableClearable={true}
-                inputValue={vehicleSearch ? vehicleSearch : type}
-
-                renderInput={(params) =>
-                    <TextField {...params}
-                        placeholder='Choose Vehicle Type'
-                        helperText="Type of Vehicle"
-                        label="Vehicle"
-                    />
-                }
-                // getOptionLabel={(option) => option.label}
-            />
-
-        </>
-
-
-
-        // <Select
-        //     labelId="VehicleTypeDropdown"
-        //     label="Vehicle"
-        //     onChange={handleDropDown}
-        //     value={vehicleSearch}
-        //     name="type"
-        //     sx ={{m:1}}
-
-        // >
-        //     {vehicleLabel?.map((type) => (
-        //         <MenuItem key={type.label} value={type.label}>
-        //             {type.label}
-        //         </MenuItem>
-        //     ))}
-        // </Select>
-        // <>
-        // <InputLabel id="type-selector">Type</InputLabel>
-        // <Select
-        // // defaultValue=""
-        // labelId="type-selector"
-        // label="Age"
-        // onChange={handleDropDown}
-        // value={vehicleFormInputs.type}
-        // name="type"
-        // >
-        // {types?.map((type) => (
-        //     <MenuItem key={type.name} value={type.name}>
-        //     {type.name}
-        //     </MenuItem>
-        // ))}
-        // </Select>
-        // </>
+                value={type}
+                label="type"
+                onChange={handleDropDown}
+            >
+                {vehicleLabel?.map((type) => (
+                    <MenuItem key={type.label} value={type.label}>
+                        {type.label}
+                    </MenuItem>
+                ))}
+            </Select>
+            <FormHelperText>Choose a Vehicle Type</FormHelperText>
+        </FormControl>
     )
 }
 
