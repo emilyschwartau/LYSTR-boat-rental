@@ -13,6 +13,7 @@ router.get('/:location/:startDate/:vehicleType', (req, res) => {
   console.log(locationKeyword, startDate, vehicleType);
 
   const query = `
+
     SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "description", "cabins", "heads", "daily_rate" AS "dailyRate",
     (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),    
     (select JSON_AGG("date_available") as "availability" from "availability" where "vehicle"."id" = "availability"."vehicle_id"),
