@@ -35,7 +35,7 @@ function ReservationsInfo({ rental }) {
   console.log('reservations info', rental);
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '90%', border: 'solid black 1px'}}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}

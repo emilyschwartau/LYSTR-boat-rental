@@ -40,13 +40,16 @@ function ListingsInfo({ vehicle }) {
   console.log('listings info');
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '90%', border: 'solid black 1px' }}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
           <Box sx={{ width: '40%', textAlign: 'center' }}>
+            <Typography variant="caption" sx={{ margin: '0 1em' }}>
+              Click on image to delete or upload new images
+            </Typography>
             <Card>
               <CardActionArea onClick={() => setOpen(true)}>
                 <CardMedia
