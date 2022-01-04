@@ -252,7 +252,7 @@ router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
     // add a comma or semi-colon depending on if we are at the last interation or not
     if (i === availability.length - 1) {
       // if last iteration, add semicolon
-      query += `;`;
+      query += `ON CONFLICT DO NOTHING;`;
     } else {
       // otherwise, add comma
       query += `,`;

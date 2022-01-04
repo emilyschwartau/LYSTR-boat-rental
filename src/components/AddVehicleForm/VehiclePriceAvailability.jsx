@@ -40,11 +40,13 @@ export default function VehicleAvailability({ validateNumber }) {
       <Grid item alignSelf="center">
         <FormControl margin="normal">
           <Calendar
+            currentDate={new DateObject()}
             multiple
             numberOfMonths={3}
             value={vehicleFormInputs.availability?.map(
               (date) => new DateObject(date)
             )}
+            // disable dates of reservations so owner may not overwrite reservations when updating availability
             mapDays={({ date, today }) => {
               const isNotAvailable = vehicleReservations
                 .map((res) => res.rentalDate.split('T')[0])
