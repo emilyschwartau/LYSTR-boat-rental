@@ -3,11 +3,15 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
-
+import useQuery from '../../hooks/useQuery'
 
 
 function LocationComboBox() {
     const dispatch = useDispatch()
+    // hook to check url query string
+    const query = useQuery()
+    const location = query.get("location");
+
     const { cities } = useSelector((store) => store.data);
     const { searchQuery } = useSelector((store) => store.search)
 
@@ -44,10 +48,10 @@ function LocationComboBox() {
                 m: 1
             }}
             disableClearable={true}
-            inputValue={searchQuery.location}
+            inputValue={ searchQuery.location }
             renderInput={(params) =>
                 <TextField {...params}
-                    required={searchQuery.location ? false : true}
+                    required
                     placeholder="City, State"
                     helperText="Search Location by City, State"
                     onChange={(e) => handleLocationChange(e)}
