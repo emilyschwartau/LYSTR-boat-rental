@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
-function MapComponent() {
+function MapComponent({ searchResultsList }) {
     const [activeMarker, setActiveMarker] = useState(null);
     const [suggestions, setSuggestions] = useState([]);
 
@@ -56,6 +56,15 @@ function MapComponent() {
         contributors'
             />
 
+            {searchResultsList?.map((searchItem) => <>
+                <Marker
+                    position={[searchItem.lat, searchItem.lng]}
+                    onClick={() => setActiveMarker(searchItem)}
+                />
+
+                
+            </>)}
+
             <Marker
                 //position=[lat, lng]
                 position={[
@@ -64,8 +73,8 @@ function MapComponent() {
                 ]}
                 //onclick function
                 onclick={() => setActiveMarker(current)}
-                //change icon to object
-                // icon={boatIcon}
+            //change icon to object
+            // icon={boatIcon}
             />
 
             {/* If there is an active marker, show pop up */}
@@ -73,8 +82,8 @@ function MapComponent() {
                 <Popup
                     // position of pop up
                     position={[
-                        current.lat,
-                        current.lng
+                        activeMarker.lat,
+                        activeMarker.lng
                     ]}
                     onClose={() => setActiveMarker(null)}
                 >
