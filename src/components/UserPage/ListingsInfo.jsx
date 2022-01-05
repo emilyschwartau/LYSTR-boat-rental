@@ -1,27 +1,29 @@
-import {
-  Box,
-  Divider,
-  Stack,
-  Card,
-  CardMedia,
-  CardActionArea,
-  Button,
-  Typography,
-  IconButton,
-} from '@mui/material';
+import { Box, Divider, Stack, Card, CardMedia, CardActionArea, Button, Typography, IconButton } from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
 
 function ListingsInfo({ vehicle }) {
+  const user = useSelector((store) => store.user);
   const [imageIndex, setImageIndex] = useState(0);
   const [open, setOpen] = useState(false);
+  const [renderStatus, setRenderStatus] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
 
+  //reload vehicle info on page load and when render status change
+  //render status changes when image delete/upload modal closes to force rerender of image list
+  useEffect(() => {
+    dispatch({ type: `FETCH_LISTED_VEHICLES_BY_OWNER`, payload: user.id });
+    setImageIndex(0);
+  }, [renderStatus]);
+
+  //if image index is not the final index yet, +1 to index otherwise next btn restarts from index 0
   const handleNext = () => {
     if (imageIndex != vehicle?.photos.length - 1) {
       setImageIndex(imageIndex + 1);
@@ -30,6 +32,7 @@ function ListingsInfo({ vehicle }) {
     }
   };
 
+  //if image index is not the first index, -1 to index otherwise back btn restarts the index to last index
   const handleBack = () => {
     if (imageIndex == 0) {
       setImageIndex(vehicle?.photos.length - 1);
@@ -37,7 +40,7 @@ function ListingsInfo({ vehicle }) {
       setImageIndex(imageIndex - 1);
     }
   };
-  console.log('listings info');
+
   return (
     <>
       <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
@@ -58,9 +61,9 @@ function ListingsInfo({ vehicle }) {
                   image={vehicle?.photos[imageIndex]}
                 />
               </CardActionArea>
-              {/* <img src={vehicle?.photos[imageIndex]} height={'200vh'} /> */}
             </Card>
             <br />
+            {/* if there is more than 1 photo, display the image navigation toolbar */}
             {vehicle?.photos.length > 1 ? (
               <>
                 <IconButton variant="outlined" onClick={() => handleBack()}>
@@ -160,6 +163,8 @@ function ListingsInfo({ vehicle }) {
           open={open}
           setOpen={setOpen}
           vehicleId={vehicle.vehicleId}
+          setRenderStatus={setRenderStatus}
+          renderStatus={renderStatus}
         />
       </Box>
     </>

@@ -21,10 +21,9 @@ function UserPage() {
   
   // this component doesn't do much to start, just renders some user reducer info to the DOM
 
-
-
   const [value, setValue] = useState(0);
 
+  //handles tab selection
   const handleChange = (event, newValue) => {
     console.log(newValue)
     setValue(newValue);
@@ -32,7 +31,7 @@ function UserPage() {
 
 
   return (<>
-    <Box sx={{ width: '90%', border: '1px solid black', margin: '1em auto'}}>
+    <Box sx={{ width: '90%', border: '1px solid black', margin: '2em auto'}}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value}
           onChange={handleChange}
