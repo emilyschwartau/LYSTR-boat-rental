@@ -1,15 +1,8 @@
 import ListingsRow from './ListingsRow';
-
 import * as React from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
+import { Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { useSelector } from 'react-redux';
+
 
 function ListingsTab() {
   const ownerListingList = useSelector(
@@ -26,7 +19,6 @@ function ListingsTab() {
                         <TableCell>Listing Title</TableCell>
                         <TableCell align="right">Year,&nbsp; Make,&nbsp; Model</TableCell>
                         <TableCell align="right">Vehicle Type</TableCell>
-                        {/* <TableCell align="right">Currently Rented By</TableCell> */}
                         <TableCell align="right">Daily Rate</TableCell>
                     </TableRow>
                 </TableHead>
