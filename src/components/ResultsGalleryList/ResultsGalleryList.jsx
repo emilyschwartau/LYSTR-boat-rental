@@ -30,7 +30,9 @@ function ResultsGalleryList() {
     <>
       <Box sx={{ width: '90%', margin: '1em auto' }}>
         <ResultsGallerySearchBar />
-        <MapComponent searchResultsList={searchResultsList} searchQueryLocation={galleryItems.searchQuery.location}/>
+        <Box sx={{width: '40%'}}>
+          <MapComponent vehicleList={searchResultsList} searchQueryLocation={galleryItems.searchQuery.location} handleSelectTask={handleSelectTask} />
+        </Box>
         {searchResultsList?.map((item) => {
           return (
             <div id="resultsCard" key={item.vehicleId}>

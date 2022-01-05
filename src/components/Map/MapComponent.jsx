@@ -3,19 +3,13 @@ import { useState, useEffect } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
-function MapComponent({ searchResultsList, searchQueryLocation }) {
+function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
     const [activeMarker, setActiveMarker] = useState(null);
     const [initialLocation, setInitialLocation] = useState({ lat: '', lng: '' });
 
     useEffect(() => {
         reverseGeocode();
     }, []);
-
-
-    //geocode location searching start
-    const handleClick = () => {
-        reverseGeocode();
-    }
 
     const reverseGeocode = () => {
 
@@ -40,22 +34,22 @@ function MapComponent({ searchResultsList, searchQueryLocation }) {
     return (<>
         <Map
             //center on [lat, lng]
-            center={[initialLocation.lat, initialLocation.lng]}
+            center={[initialLocation?.lat, initialLocation?.lng]}
             //set zoom level
-            zoom={15}
+            zoom={14}
         >
-            {/* Grabbing actual map */}
+            {/* Grabbing actual map design*/}
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>
         contributors'
             />
 
-            {searchResultsList?.map((searchItem) =>
+            {vehicleList?.map((vehicle) =>
                 <Marker
-                    key={searchItem.vehicleId}
-                    position={[searchItem.lat, searchItem.lng]}
-                    onClick={() => setActiveMarker(searchItem)}
+                    key={vehicle?.vehicleId}
+                    position={[vehicle?.lat, vehicle?.lng]}
+                    onClick={() => setActiveMarker(vehicle)}
                     // icon={customIcon}
                 />)}
 
@@ -64,14 +58,15 @@ function MapComponent({ searchResultsList, searchQueryLocation }) {
                 <Popup
                     // position of pop up
                     position={[
-                        activeMarker.lat,
-                        activeMarker.lng
+                        activeMarker?.lat,
+                        activeMarker?.lng
                     ]}
                     onClose={() => setActiveMarker(null)}
                 >
                     {/* Message inside the popup */}
                     <div>
                         <h2>{activeMarker?.title}</h2>
+                        <button onClick={() => handleSelectTask(activeMarker)}>click me</button>
                     </div>
                 </Popup>
             }
