@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 
-export default function VehicleAvailability({ validateNumber }) {
+export default function VehicleAvailabilityForm({ validateNumber }) {
   const dispatch = useDispatch();
   // const [dates, setDates] = React.useState([]);
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);

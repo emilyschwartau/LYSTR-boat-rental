@@ -39,7 +39,7 @@ const img = {
   height: '100%',
 };
 
-export default function VehiclePhotoUpload(props) {
+export default function VehiclePhotoUploadForm(props) {
   const dispatch = useDispatch();
 
   // vehicleFormInputs is used when a vehicle is being added (AddVehicle)

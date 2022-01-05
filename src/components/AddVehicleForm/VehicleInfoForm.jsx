@@ -10,7 +10,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 
-export default function VehicleInfo({ handleChange, validateNumber }) {
+export default function VehicleInfoForm({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {

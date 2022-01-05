@@ -3,6 +3,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import TabPanel from './TabPanel';
 import ListingsTab from './ListingsTab';
 import ReservationsTab from './ReservationsTab';
+import ProfileTab from './ProfileTab';
 import { useSelector } from 'react-redux';
 
 import Tabs from '@mui/material/Tabs';
@@ -42,6 +43,7 @@ function UserPage() {
           >
             <Tab label="My Reservations" />
             <Tab label="My listings" />
+            <Tab label="Profile" />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -49,6 +51,9 @@ function UserPage() {
         </TabPanel>
         <TabPanel value={value} index={1}>
           <ListingsTab />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <ProfileTab />
         </TabPanel>
       </Box>
     </>

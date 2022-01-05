@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
 import PhotoGallery from './PhotoGallery';
-import VehiclePhotoUpload from '../AddVehicleForm/VehiclePhotoUpload';
+import VehiclePhotoUploadForm from '../AddVehicleForm/VehiclePhotoUploadForm';
 
 export default function PhotoGalleryModal({
   open,
@@ -34,7 +34,7 @@ export default function PhotoGalleryModal({
         <Button onClick={handleClose}>Close</Button>
       </DialogActions>
       <DialogContent>
-        <VehiclePhotoUpload galleryMode vehicleId={vehicleId} />
+        <VehiclePhotoUploadForm galleryMode vehicleId={vehicleId} />
         {/* <DialogActions sx={{ justifyContent: 'center', mb: 2 }}>
           <Button variant="contained" onClick={handleClose}>
             Upload
