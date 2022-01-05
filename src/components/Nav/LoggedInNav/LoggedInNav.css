@@ -1,22 +1,20 @@
 #profilePicture {
-    width: 70px;
-    height: 70px;
-  
-  } 
+  width: 70px;
+  height: 70px;
+} 
   
 #logo {
-    width: 250px;
-    padding: 10px;
-    padding-left: 0px;
-  }
+  width: 250px;
+  padding: 10px;
+  padding-left: 0px;
+}
   
 #signOut {
-    padding: 0px;
-    margin: 0px;
-  }
+  padding: 0px;
+  margin: 0px;
+}
 
 #logoDiv {
-    border-radius: 25px;
-    
+  border-radius: 25px;   
 }
 

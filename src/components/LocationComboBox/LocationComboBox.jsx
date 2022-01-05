@@ -3,13 +3,20 @@ import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { useDispatch, useSelector } from 'react-redux';
-
+import useQuery from '../../hooks/useQuery'
 
 
 function LocationComboBox() {
     const dispatch = useDispatch()
+    // hook to check url query string
+    const query = useQuery()
+    const location = query.get("location");
+
     const { cities } = useSelector((store) => store.data);
     const { searchQuery } = useSelector((store) => store.search)
+
+      // search input
+      const [locationSearch, setSearch] = useState(null)
 
 
     const handleLocationChange = (e) => {
@@ -25,40 +32,39 @@ function LocationComboBox() {
         }
     }
 
+    // console.log('value should equal location combobox',searchQuery.location)
 
     React.useEffect(() => {
         dispatch({ type: 'FETCH_CITY_LIST' });
+        dispatch({ type: 'SET_SEARCH_LOCATION', payload: '' });
     }, []);
 
     return (
-     
-            <Autocomplete
-                disablePortal
-                autoComplete={true}
-                autoSelect={true}
-                id="locationComboBox"
-                options={cities}
-                onChange={(event, value) => handleAutoComplete(value)}
-                sx={{ 
-                    
-                    m: 1
-                  }}
-                disableClearable={true}
-                // clearOnEscape={true}
-                renderInput={(params) =>
-                    <TextField {...params}
-                        // value={search.location}
-                        required={searchQuery.location ? false : true}
-                        placeholder="City, State"
-                        helperText="Search Location by City, State"
-                        onChange={(e) => handleLocationChange(e)}
 
-                        label={searchQuery.location ? searchQuery.location : `Location`}
-                    />
-                }
-                getOptionLabel={(option) => option.label}
-            />
-       
+        <Autocomplete
+            disablePortalch
+            autoComplete={true}
+            autoSelect={true}
+            id="locationComboBox"
+            options={cities}
+            onChange={(event, value) => handleAutoComplete(value)}
+            sx={{
+                m: 1
+            }}
+            disableClearable={true}
+            inputValue={ searchQuery.location }
+            renderInput={(params) =>
+                <TextField {...params}
+                    required
+                    placeholder="City, State"
+                    helperText="Search Location by City, State"
+                    onChange={(e) => handleLocationChange(e)}
+                    label='Location'
+                />
+            }
+
+        />
+
     )
 
 }
