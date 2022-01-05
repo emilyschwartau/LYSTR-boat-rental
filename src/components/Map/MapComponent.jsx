@@ -1,16 +1,16 @@
 import './MapComponent.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
 
 
-function MapComponent({ searchResultsList }) {
+function MapComponent({ searchResultsList, searchQueryLocation }) {
     const [activeMarker, setActiveMarker] = useState(null);
-    const [suggestions, setSuggestions] = useState([]);
+    const [initialLocation, setInitialLocation] = useState({ lat: '', lng: '' });
 
-    const current = {
-        lat: 44.978429,
-        lng: -93.263523
-    }
+    useEffect(() => {
+        reverseGeocode();
+    }, []);
+
 
     //geocode location searching start
     const handleClick = () => {
@@ -20,8 +20,8 @@ function MapComponent({ searchResultsList }) {
     const reverseGeocode = () => {
 
         const params = {
-            key: '23b13dee192a480db9509915a88bc50a',
-            q: searchInput,
+            key: process.env.REACT_APP_OPENCAGE_API_KEY,
+            q: `${searchQueryLocation}, MN`,
             limit: 1,
             pretty: 1,
             countrycode: 'us',
@@ -29,23 +29,18 @@ function MapComponent({ searchResultsList }) {
 
         opencage.geocode({ ...params })
             .then(response => {
-                const result = response;
-                console.log(result);
-                setSuggestions(response.results);
+                const result = response.results[0];
+                console.log(`this is geocode result`, result);
+                setInitialLocation({lat: result.geometry.lat, lng: result.geometry.lng})
             });
     }
 
     //geocode location searching end
 
-
-    console.log(suggestions)
-
     return (<>
-        <p>map</p>
-
         <Map
             //center on [lat, lng]
-            center={[44.978429, -93.263523]}
+            center={[initialLocation.lat, initialLocation.lng]}
             //set zoom level
             zoom={15}
         >
@@ -56,26 +51,13 @@ function MapComponent({ searchResultsList }) {
         contributors'
             />
 
-            {searchResultsList?.map((searchItem) => <>
+            {searchResultsList?.map((searchItem) =>
                 <Marker
+                    key={searchItem.vehicleId}
                     position={[searchItem.lat, searchItem.lng]}
                     onClick={() => setActiveMarker(searchItem)}
-                />
-
-                
-            </>)}
-
-            <Marker
-                //position=[lat, lng]
-                position={[
-                    current.lat,
-                    current.lng
-                ]}
-                //onclick function
-                onclick={() => setActiveMarker(current)}
-            //change icon to object
-            // icon={boatIcon}
-            />
+                    // icon={customIcon}
+                />)}
 
             {/* If there is an active marker, show pop up */}
             {activeMarker &&
@@ -89,7 +71,7 @@ function MapComponent({ searchResultsList }) {
                 >
                     {/* Message inside the popup */}
                     <div>
-                        <h2>POPUP?</h2>
+                        <h2>{activeMarker?.title}</h2>
                     </div>
                 </Popup>
             }

@@ -30,8 +30,7 @@ function ResultsGalleryList() {
     <>
       <Box sx={{ width: '90%', margin: '1em auto' }}>
         <ResultsGallerySearchBar />
-        {JSON.stringify(searchResultsList)}
-        <MapComponent searchResultsList={searchResultsList} />
+        <MapComponent searchResultsList={searchResultsList} searchQueryLocation={galleryItems.searchQuery.location}/>
         {searchResultsList?.map((item) => {
           return (
             <div id="resultsCard" key={item.vehicleId}>
