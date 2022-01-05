@@ -5,6 +5,7 @@ import useQuery from '../../hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 
 import ResultsGallerySearchBar from './ResultsGallerySearchBar';
+import MapComponent from '../Map/MapComponent';
 
 function ResultsGalleryList() {
   const history = useHistory();
@@ -29,6 +30,8 @@ function ResultsGalleryList() {
     <>
       <Box sx={{ width: '90%', margin: '1em auto' }}>
         <ResultsGallerySearchBar />
+        {JSON.stringify(searchResultsList)}
+        <MapComponent />
         {searchResultsList?.map((item) => {
           return (
             <div id="resultsCard" key={item.vehicleId}>
