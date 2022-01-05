@@ -24,8 +24,6 @@ function LocationComboBox() {
         if (value.label) {
             dispatch({ type: 'SET_SEARCH_LOCATION', payload: value.label });
             console.log('handleAutoComplete:', value, value.label)
-        } else {
-            setSearch('')
         }
     }
 
