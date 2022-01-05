@@ -9,13 +9,18 @@ import DialogContent from '@mui/material/DialogContent';
 import PhotoGallery from './PhotoGallery';
 import VehiclePhotoUpload from '../AddVehicleForm/VehiclePhotoUpload';
 
-export default function PhotoGalleryModal({ open, setOpen, vehicleId }) {
+export default function PhotoGalleryModal({
+  open,
+  setOpen,
+  vehicleId,
+  renderStatus,
+  setRenderStatus,
+}) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
   const handleClose = () => {
-    dispatch({ type: 'FETCH_ALL_RESERVATIONS_BY_ID', payload: user.id });
-
+    setRenderStatus(!renderStatus);
     setOpen(false);
   };
 

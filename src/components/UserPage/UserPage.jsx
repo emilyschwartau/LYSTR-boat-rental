@@ -23,6 +23,7 @@ function UserPage() {
 
   const [value, setValue] = useState(0);
 
+  //handles tab selection
   const handleChange = (event, newValue) => {
     console.log(newValue);
     setValue(newValue);

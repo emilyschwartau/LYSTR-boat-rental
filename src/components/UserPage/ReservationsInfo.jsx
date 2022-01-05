@@ -1,14 +1,4 @@
-import {
-  Box,
-  Divider,
-  Stack,
-  Card,
-  CardActionArea,
-  CardMedia,
-  Button,
-  Typography,
-  IconButton,
-} from '@mui/material';
+import { Box, Divider, Stack, Card, CardActionArea, CardMedia, Typography, IconButton,} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
@@ -16,6 +6,7 @@ import { useState } from 'react';
 function ReservationsInfo({ rental }) {
   const [imageIndex, setImageIndex] = useState(0);
 
+  //if image index is not the final index yet, +1 to index otherwise next btn restarts from index 0
   const handleNext = () => {
     if (imageIndex != rental.photos.length - 1) {
       setImageIndex(imageIndex + 1);
@@ -24,6 +15,7 @@ function ReservationsInfo({ rental }) {
     }
   };
 
+  //if image index is not the first index, -1 to index otherwise back btn restarts the index to last index
   const handleBack = () => {
     if (imageIndex == 0) {
       setImageIndex(rental.photos.length - 1);
@@ -35,13 +27,13 @@ function ReservationsInfo({ rental }) {
   console.log('reservations info', rental);
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
           justifyContent="space-around"
         >
-          <Box sx={{ width: '45%', textAlign: 'center' }}>
+          <Box sx={{ width: '40%', textAlign: 'center' }}>
             <Card>
               <CardActionArea>
                 <CardMedia
@@ -50,9 +42,9 @@ function ReservationsInfo({ rental }) {
                   image={rental?.photos[imageIndex]}
                 />
               </CardActionArea>
-              {/* <img src={rental?.photos[imageIndex]} height={'200vh'} /> */}
             </Card>
             <br />
+            {/* if there is more than 1 photo, display the image navigation toolbar */}
             {rental?.photos.length > 1 ? (
               <>
                 <IconButton variant="outlined" onClick={() => handleBack()}>
@@ -73,19 +65,19 @@ function ReservationsInfo({ rental }) {
             sx={{
               border: 'gray solid 1px',
               borderRadius: 2,
-              width: '45%',
+              width: '40%',
               padding: '1em',
             }}
           >
             <Typography variant="body1">
-              <u>Address:</u>
+              <strong>Address:</strong>
               <br />{' '}
               {`${rental?.street} ${rental?.city}, ${rental?.state} ${rental?.zip}`}
             </Typography>
             <br />
 
             <Typography variant="body1" sx={{}}>
-              <u>rental Info</u>
+              <strong>Vehicle Info</strong>
               <br />
               Capacity: {rental?.capacity}
               <br />
@@ -98,7 +90,7 @@ function ReservationsInfo({ rental }) {
             <br />
 
             <Typography variant="body1">
-              <u>Features:</u>
+              <strong>Features:</strong>
             </Typography>
             <ul style={{ columns: 2 }}>
               {rental?.features.map((feature, i) => (
@@ -107,7 +99,7 @@ function ReservationsInfo({ rental }) {
             </ul>
 
             <Typography variant='body1'>
-              <u>Description:</u><br />
+              <strong>Description:</strong><br />
 
               {rental?.description}
             </Typography>
