@@ -12,26 +12,31 @@ function VehicleTypeDropdown() {
     const dispatch = useDispatch()
     const vehicleList = useSelector((store) => store.data.types);
     const type = query.get("type");
-    const vehicleSearch = useSelector(store => store.search.vehicleType)
+    const { vehicleType } = useSelector(store => store.search.searchQuery)
 
+    
     const vehicleLabel = vehicleList?.map(x => ({
         label: x.name
     }))
 
-    const handleDropDown = (value) => {
-        console.log('VehicleTypeDropdown', value.label)
-        dispatch({ type: 'SET_SEARCH_VEHICLE_TYPE', payload: value.label });
+    console.log('before handleDropDown', vehicleType)
+
+    const handleDropDown = (e) => {
+        console.log('VehicleTypeDropdown', e.target.value)
+        dispatch({ type: 'SET_SEARCH_VEHICLE_TYPE', payload: e.target.value });
     }
+
+    
 
     return (
 
         <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="demo-simple-select-helper-label">Type</InputLabel>
+            <InputLabel id="demo-simple-select-helper-label">Vehicle</InputLabel>
             <Select
                 labelId="VehicleTypeDropdown"
                 id="VehicleTypeDropdown"
-                value={type}
-                label="type"
+                value={ vehicleType }
+                label="Vehicle"
                 onChange={handleDropDown}
             >
                 {vehicleLabel?.map((type) => (
