@@ -1,14 +1,4 @@
-import {
-  Box,
-  Divider,
-  Stack,
-  Card,
-  CardActionArea,
-  CardMedia,
-  Button,
-  Typography,
-  IconButton,
-} from '@mui/material';
+import { Box, Divider, Stack, Card, CardActionArea, CardMedia, Typography, IconButton,} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
@@ -16,6 +6,7 @@ import { useState } from 'react';
 function ReservationsInfo({ rental }) {
   const [imageIndex, setImageIndex] = useState(0);
 
+  //if image index is not the final index yet, +1 to index otherwise next btn restarts from index 0
   const handleNext = () => {
     if (imageIndex != rental.photos.length - 1) {
       setImageIndex(imageIndex + 1);
@@ -24,6 +15,7 @@ function ReservationsInfo({ rental }) {
     }
   };
 
+  //if image index is not the first index, -1 to index otherwise back btn restarts the index to last index
   const handleBack = () => {
     if (imageIndex == 0) {
       setImageIndex(rental.photos.length - 1);
@@ -50,9 +42,9 @@ function ReservationsInfo({ rental }) {
                   image={rental?.photos[imageIndex]}
                 />
               </CardActionArea>
-              {/* <img src={rental?.photos[imageIndex]} height={'200vh'} /> */}
             </Card>
             <br />
+            {/* if there is more than 1 photo, display the image navigation toolbar */}
             {rental?.photos.length > 1 ? (
               <>
                 <IconButton variant="outlined" onClick={() => handleBack()}>

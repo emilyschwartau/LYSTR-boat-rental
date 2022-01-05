@@ -1,13 +1,9 @@
 import ReservationsInfo from './ReservationsInfo';
 
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
+import { Collapse, IconButton, TableRow, TableCell } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import TableRow from '@mui/material/TableRow';
-import TableCell from '@mui/material/TableCell';
 import { format } from 'date-fns';
 
 function ReservationsRow({ rental }) {

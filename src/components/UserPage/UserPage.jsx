@@ -21,10 +21,9 @@ function UserPage() {
   
   // this component doesn't do much to start, just renders some user reducer info to the DOM
 
-
-
   const [value, setValue] = useState(0);
 
+  //handles tab selection
   const handleChange = (event, newValue) => {
     console.log(newValue)
     setValue(newValue);
