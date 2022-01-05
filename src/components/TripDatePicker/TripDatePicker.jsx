@@ -34,7 +34,7 @@ function TripDatePicker() {
                 label="Date of Trip"
                 
                 currentDate
-                value={startDate}
+                value={startDate? startDate : date}
                 onChange={(newValue) => {
                     handleDateChange(newValue);
                 }}
