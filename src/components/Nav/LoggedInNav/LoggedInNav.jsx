@@ -6,7 +6,6 @@ import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
@@ -15,28 +14,46 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 
+//If a user is logged in navbar will display clickable logo,
+// link to rent, link to list, clickable profile photo, and
+// dropdown menu from profile photo that displays links to 
+// user dashboard, about page, and sign out
 function LoggedInNav() {
+
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
 
+  //dropdown menu from profile photo
   const settings = [
+    //link to user dashboard
     <Link className="userDropdown" to="/user">
       User Dashboard
     </Link>,
+
+    //link to about page
     <Link className="userDropdown" to="/about">
       About LYSTR
     </Link>,
+
+    //link to sign out
     <p id="signOut" onClick={() => dispatch({ type: 'LOGOUT' })}>
       Sign Out
     </p>,
+
   ];
+
+  //links on nav bar - appear in hamburger dropdown menu if small screen
   const pages = [
+    //link to home page/ rental page
     <Link to="/home" className="rentTheme">
       Rent
     </Link>,
+
+    //link to list vehicle page
     <Link to="/add-vehicle" className="listTheme">
       List Your Stuff
     </Link>,
+
   ];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -45,6 +62,7 @@ function LoggedInNav() {
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -66,8 +84,8 @@ function LoggedInNav() {
     <AppBar position="static" sx={{ backgroundColor: 'white' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          {/* LOGO */}
 
+          {/* LOGO */}
           <Link to="/home">
             <img src="/images/LYSTR-logo.png" id="logo" />
           </Link>
@@ -119,14 +137,6 @@ function LoggedInNav() {
             </Menu>
           </Box>
 
-          {/* EXTRA STUFF THAT SAID LOGO ON SMALL SCREEN - NOT NEEDED? */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          ></Typography>
-
           {/* LINK OPTIONS LARGE SCREEN */}
           <Box
             sx={{
@@ -146,10 +156,10 @@ function LoggedInNav() {
             ))}
           </Box>
 
-          {/* PROFILE PHOTO AND LOGOUT DROPDOWN ON CLICK */}
+          {/* PROFILE PHOTO AND DROPDOWN */}
           <Box sx={{ flexGrow: 0 }}>
             {/* PHOTO AND OPEN DROPDOWN ON CLICK */}
-            <Tooltip title="Open settings">
+            <Tooltip title="View Menu">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 2 }}>
                 <Avatar id="profilePicture" src={profilePicPath} />
               </IconButton>
