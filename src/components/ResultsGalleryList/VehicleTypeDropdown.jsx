@@ -1,7 +1,4 @@
-import Autocomplete from '@mui/material/Autocomplete';
-
-import { FormControl, FormHelperText, TextField, InputLabel, Select, MenuItem } from '@mui/material';
-
+import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import useQuery from '../../hooks/useQuery'
 
@@ -14,19 +11,16 @@ function VehicleTypeDropdown() {
     const type = query.get("type");
     const { vehicleType } = useSelector(store => store.search.searchQuery)
 
-    
+    // maps over vehicle list, removes keys, renames name to label.
     const vehicleLabel = vehicleList?.map(x => ({
         label: x.name
     }))
 
-    console.log('before handleDropDown', vehicleType)
-
+    // submits value from select change event to search reducer
     const handleDropDown = (e) => {
-        console.log('VehicleTypeDropdown', e.target.value)
         dispatch({ type: 'SET_SEARCH_VEHICLE_TYPE', payload: e.target.value });
     }
 
-    
 
     return (
 
@@ -35,11 +29,13 @@ function VehicleTypeDropdown() {
             <Select
                 labelId="VehicleTypeDropdown"
                 id="VehicleTypeDropdown"
-                value={ vehicleType }
+                // checks for reducer for search string, then url
+                value={vehicleType ? vehicleType : type}
                 label="Vehicle"
                 onChange={handleDropDown}
             >
                 {vehicleLabel?.map((type) => (
+                    // maps over array for select options
                     <MenuItem key={type.label} value={type.label}>
                         {type.label}
                     </MenuItem>
