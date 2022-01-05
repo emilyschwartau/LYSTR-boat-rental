@@ -3,6 +3,7 @@ import { Box, Stack, Card, Button, Paper, Typography } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
+import './LandingPage.css';
 
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
@@ -83,12 +84,14 @@ function LandingPageVehicleType() {
             justifyContent="center"
             alignItems="center"
             sx={{ flexWrap: 'wrap' }}
+            
           >
 
             {vehicleList?.map((vehicle) => (
               <Card
+              className = "cardHover"
                 key={vehicle.id}
-                elevation={vehicleType === vehicle.name ? 6 : 2}
+                elevation={vehicleType === vehicle.name ? 8 : 2}
                 onClick={() => {
                   console.log(vehicle);
                   dispatch({

@@ -1,0 +1,7 @@
+.cardHover {
+    border: 1px solid transparent
+}
+
+.cardHover:hover{
+    border: 1px solid black
+}
