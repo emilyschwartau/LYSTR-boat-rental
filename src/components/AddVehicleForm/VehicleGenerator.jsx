@@ -1,16 +1,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
+import './generatorData'
 
 function VehicleGenerator({ handleChange, validateNumber }) {
   const dispatch = useDispatch()
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
 
   const generateVehicle = () => {
-    dispatch({ type: 'FETCH_GENERATED_VEHICLE' })
     
-    vehicleFormInputs.title = 'bass boat'
-    console.log('generateVehicle', vehicleFormInputs.title)
+    dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : vehicleExamples[0] })
+   
+    
 
   }
 
