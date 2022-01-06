@@ -3,17 +3,13 @@ import { Calendar, DateObject } from 'react-multi-date-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import useQuery from '../../hooks/useQuery';
 
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 
 export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const dispatch = useDispatch();

@@ -17,6 +17,7 @@ import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
+import CancelReservationButton from '../CancelReservation/CancelReservationButton';
 
 function ListingsInfo({ vehicle }) {
   const user = useSelector((store) => store.user);
@@ -165,6 +166,7 @@ function ListingsInfo({ vehicle }) {
                     <li key={data.id}>
                       {format(new Date(data.rentalDate), 'MM/dd/yyyy')} -{' '}
                       {data.renterFirst} {data.renterLast} - {data.renterEmail}
+                      <CancelReservationButton rentalData={data} user={user} />
                     </li>
                   ))}
               </>
