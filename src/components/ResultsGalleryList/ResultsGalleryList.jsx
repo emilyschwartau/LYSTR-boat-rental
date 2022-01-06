@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
-import { Card, CardActions, CardContent, Button, Box } from '@mui/material';
+import { Card, CardActions, CardContent, Button, Box, Stack } from '@mui/material';
 import useQuery from '../../hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import ResultsGallerySearchBar from './ResultsGallerySearchBar';
+import MapComponent from '../Map/MapComponent';
 
 //gallery of search result cards
 function ResultsGalleryList() {
@@ -25,38 +26,54 @@ function ResultsGalleryList() {
 
         {/* search bar */}
         <ResultsGallerySearchBar />
+        <Stack
+          direction="row"
+          justifyContent="space-around"
+        >
+          <Box>
+            {searchResultsList?.map((item) => {
+              return (
+                <div id="resultsCard" key={item.vehicleId}>
+                  <Card>
+                    <CardContent id="resultCardContent">
 
-        {/* search results */}
-        {searchResultsList?.map((item) => {
-          return (
-            <div id="resultsCard" key={item.vehicleId}>
-              <Card>
-                <CardContent id="resultCardContent">
+                      {/* returns first image for card */}
+                      <img id="resultCardImg" src={item.photos[0]} />
 
-                  {/* returns first image for card */}
-                  <img id="resultCardImg" src={item.photos[0]} />
+                      {/* title, daily rate, location */}
+                      <div id="resultCardDetails">
+                        <h4 id="boatResultTitle">{item.title}</h4>
+                        Daily Rate: ${item.dailyRate}
+                        <br></br>
+                        {item.city}, {item.state}
+                      </div>
 
-                  {/* title, daily rate, location */}
-                  <div id="resultCardDetails">
-                    <h4 id="boatResultTitle">{item.title}</h4>
-                    Daily Rate: ${item.dailyRate}
-                    <br></br>
-                    {item.city}, {item.state}
-                  </div>
+                    </CardContent>
+                    <CardActions>
 
-                </CardContent>
-                <CardActions>
+                      {/* button to details page */}
+                      <Button size="small" onClick={() => handleSelectTask(item)}>
+                        Learn More
+                      </Button>
 
-                  {/* button to details page */}
-                  <Button size="small" onClick={() => handleSelectTask(item)}>
-                    Learn More
-                  </Button>
-                  
-                </CardActions>
-              </Card>
-            </div>
-          );
-        })}
+                    </CardActions>
+                  </Card>
+                </div>
+              );
+            })}
+          </Box>
+          {searchResultsList?.length > 0 ?
+            <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em'}}>
+              <MapComponent
+                vehicleList={searchResultsList}
+                searchQueryLocation={galleryItems.searchQuery.location}
+                handleSelectTask={handleSelectTask}
+              />
+            </Box>
+            :
+            ''
+          }
+        </Stack>
       </Box>
     </>
   );

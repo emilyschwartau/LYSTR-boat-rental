@@ -36,13 +36,13 @@ function LocationComboBox() {
 
     React.useEffect(() => {
         dispatch({ type: 'FETCH_CITY_LIST' });
-        dispatch({ type: 'SET_SEARCH_LOCATION', payload: '' });
+        // dispatch({ type: 'SET_SEARCH_LOCATION', payload: '' });
     }, []);
 
     return (
 
         <Autocomplete
-            disablePortalch
+            disablePortal
             autoComplete={true}
             autoSelect={true}
             id="locationComboBox"
