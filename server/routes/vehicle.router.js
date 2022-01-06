@@ -199,6 +199,8 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
 
+  console.log('vehicle router:',vehicleId, features)
+
   let query = `
     INSERT INTO "vehicle_features" ("vehicle_id", "feature_id")
       VALUES
@@ -211,7 +213,7 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
     query += ` ($1, (select "id" from "features" where "name" = $${i + 2}))`;
     // push the featureId into values
     values.push(features[i]);
-    // add a comma or semi-colon depending on if we are at the last interation or not
+    // add a comma or semi-colon depending on if we are at the last iteration or not
     if (i === features.length - 1) {
       // if last iteration, add semicolon
       query += `;`;
@@ -220,6 +222,8 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
       query += `,`;
     }
   }
+
+  console.log('vehicle router:', query)
   pool
     .query(query, values)
     .then((result) => {
