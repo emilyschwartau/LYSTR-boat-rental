@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import useQuery from '../../hooks/useQuery'
 
 function TripDatePicker() {
-    const query = useQuery()
     const dispatch = useDispatch();
-    const { searchQuery } = useSelector((store) => store.search);
+    // hook to check url query string
+    const query = useQuery()
     const date = query.get("date");
+
+    const { searchQuery } = useSelector((store) => store.search);
     const tripDate = searchQuery.date
 
 
@@ -34,16 +36,18 @@ function TripDatePicker() {
                 label="Date of Trip"
                 
                 currentDate
-                value={startDate}
+                // checks value from state then url, updates when changed
+                value={startDate? startDate : date}
                 onChange={(newValue) => {
                     handleDateChange(newValue);
                 }}
                 renderInput={(params) => <TextField {...params}
-                    label={date ? date : tripDate}
+                    // label={date ? date : tripDate}
                     sx ={{
                         m: 1
                     }}
                     helperText="Date of Trip"
+                    label={'Date'}
                 />}
             />
         </LocalizationProvider>

@@ -12,20 +12,34 @@ import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import './LoggedOutNav.css';
 
+// when a user is not logged in the navbar will display a clickable logo,
+// a link to the about page, a link to the rent page, a link
+// to the list your stuff page, and a link to sign in
 function LoggedOutNav() {
+
+  //links on nav bar - appear in hamburger dropdown menu if small screen
   const pages = [
+
+    //link to about page
     <Link className="navLink" to="/about">
       About LYSTR
     </Link>,
+
+    //link to rental/home page
     <Link to="/home" className="rentTheme">
       Rent
     </Link>,
+
+    //link to listing page
     <Link to="/add-vehicle" className="listTheme">
       List Your Stuff
     </Link>,
+
+    //link to sign in page
     <Link to="/login" className="navLink">
       Sign in
     </Link>,
+
   ];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -43,7 +57,6 @@ function LoggedOutNav() {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           {/* LOGO */}
-
           <Link to="/home">
             <img src="/images/LYSTR-logo.png" id="logo" />
           </Link>
@@ -94,16 +107,6 @@ function LoggedOutNav() {
               ))}
             </Menu>
           </Box>
-
-          {/* EXTRA STUFF THAT SAID LOGO ON SMALL SCREEN - NOT NEEDED? */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
-          >
-            {/* LOGO */}
-          </Typography>
 
           {/* LINK OPTIONS LARGE SCREEN */}
           <Box
