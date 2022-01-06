@@ -49,7 +49,7 @@ function LandingPageLocation() {
               <TripDatePicker />
               
               <Button
-                type="submit"
+                // type="submit"
                 variant="outlined"
                 sx={{
                   width: '50%',
@@ -57,7 +57,7 @@ function LandingPageLocation() {
                 }}
               >
                 <ScrollLink
-                  type="submit"
+                  // type="submit"
                   to="vehicleType"
                   spy={true}
                   smooth={true}
