@@ -32,7 +32,7 @@ function UserPage() {
   };
 
   return (
-    <Paper sx={{ width: '90%', margin: '2rem auto' }}>
+    <Paper sx={{ width: '90%', margin: '3rem auto' }} elevation={4}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs
           value={value}
