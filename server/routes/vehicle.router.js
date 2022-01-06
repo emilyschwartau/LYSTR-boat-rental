@@ -324,6 +324,30 @@ router.post(
   }
 );
 
+//coordinates
+router.post('/coordinates/:vehicleId', rejectUnauthenticated, (req, res) => {
+  const { vehicleId } = req.params;
+  const { lat, lng } = req.body;
+
+  const query = `
+    INSERT INTO "coordinates" ("vehicle_id", "lat", "lng")
+    VALUES ($1, $2, $3);
+  `;
+
+  const values = [vehicleId, lat, lng];
+
+  pool
+    .query(query, values)
+    .then((result) => {
+      console.log(`POST at /vehicle/coordinates successful`);
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log(`Error during POST to /vehicle/coordinates`, error);
+      res.sendStatus(500);
+    });
+})
+
 /*
  * DELETE routes
  */
