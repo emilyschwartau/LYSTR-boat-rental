@@ -13,6 +13,7 @@ const vehicleRouter = require('./routes/vehicle.router');
 const dataRouter = require('./routes/data.router');
 const searchRouter = require('./routes/search.router');
 const rentalRouter = require('./routes/rental.router');
+const geocodeRouter = require('./routes/geocode.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -31,6 +32,7 @@ app.use('/api/vehicle', vehicleRouter);
 app.use('/api/data', dataRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/rental', rentalRouter);
+app.use('/api/geocode', geocodeRouter);
 
 // Serve static files
 app.use(express.static('build'));

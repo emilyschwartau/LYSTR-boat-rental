@@ -134,27 +134,6 @@ router.get('/uploads/:key', (req, res) => {
 });
 
 
-router.get(`/geocode/:street/:city/:state/:zip`, (req, res) => {
-  const { street, city, state, zip } = req.params;
-
-  const params = {
-    key: process.env.REACT_APP_OPENCAGE_API_KEY,
-    q: `${street}, ${city}, ${state} ${zip}`,
-    limit: 1,
-    pretty: 1,
-    countrycode: 'us',
-  }
-  opencage
-    .geocode({ ...params })
-    .then((result) => {
-      // console.log(`this is geocode result[0]`, result);
-      const coords = { lat: result.results[0].geometry.lat, lng: result.results[0].geometry.lng };
-      // console.log(`this is all response from geocode`, response.results);
-      console.log(`this is coords of location`, coords);
-      res.send(coords);
-    });
-})
-
 /*
  * POST routes
  */
