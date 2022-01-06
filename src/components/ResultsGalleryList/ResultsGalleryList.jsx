@@ -62,7 +62,7 @@ function ResultsGalleryList() {
               );
             })}
           </Box>
-          {searchResultsList?.length > 1 ?
+          {searchResultsList?.length > 0 ?
             <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em'}}>
               <MapComponent
                 vehicleList={searchResultsList}
