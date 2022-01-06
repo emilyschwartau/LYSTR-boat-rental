@@ -1,6 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import opencage from 'opencage-api-client';
 
 // POST a new vehicle
 function* addVehicle(action) {

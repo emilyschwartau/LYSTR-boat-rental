@@ -15,7 +15,7 @@ const unlinkFile = util.promisify(fs.unlink);
 const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
-const opencage = require('opencage-api-client');
+
 
 
 /*
