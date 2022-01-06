@@ -115,6 +115,20 @@ export default function VehiclePhotoUploadForm(props) {
         </li>
       ));
 
+  const handleGalleryModeUpload = () => {
+    if (photoGalleryInput.photos.length == 0) {
+      props.setNoImage(true);
+    } else {
+      dispatch({
+        type: 'UPLOAD_IMAGES_FROM_GALLERY',
+        payload: {
+          photos: photoGalleryInput.photos,
+          vehicleId: props.vehicleId,
+        },
+      });
+    }
+  };
+
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
       <Grid item>
@@ -155,18 +169,7 @@ export default function VehiclePhotoUploadForm(props) {
 
         {props.galleryMode && (
           <Grid container item justifyContent="flex-end">
-            <Button
-              variant="contained"
-              onClick={() =>
-                dispatch({
-                  type: 'UPLOAD_IMAGES_FROM_GALLERY',
-                  payload: {
-                    photos: photoGalleryInput.photos,
-                    vehicleId: props.vehicleId,
-                  },
-                })
-              }
-            >
+            <Button variant="contained" onClick={handleGalleryModeUpload}>
               Upload
             </Button>
           </Grid>

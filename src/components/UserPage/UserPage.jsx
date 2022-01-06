@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import { useDispatch } from 'react-redux';
 
 function UserPage() {
@@ -31,32 +32,30 @@ function UserPage() {
   };
 
   return (
-    <>
-      <Box sx={{ width: '90%', border: '1px solid black', margin: '1em auto' }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
-            aria-label="secondary tabs example"
-          >
-            <Tab label="My Reservations" />
-            <Tab label="My listings" />
-            <Tab label="Profile" />
-          </Tabs>
-        </Box>
-        <TabPanel value={value} index={0}>
-          <ReservationsTab />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          <ListingsTab />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          <ProfileTab />
-        </TabPanel>
+    <Paper sx={{ width: '90%', margin: '2rem auto' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Tabs
+          value={value}
+          onChange={handleChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          aria-label="secondary tabs example"
+        >
+          <Tab label="My Reservations" />
+          <Tab label="My listings" />
+          <Tab label="Profile" />
+        </Tabs>
       </Box>
-    </>
+      <TabPanel value={value} index={0}>
+        <ReservationsTab />
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+        <ListingsTab />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <ProfileTab />
+      </TabPanel>
+    </Paper>
   );
 }
 

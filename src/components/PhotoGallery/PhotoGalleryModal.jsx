@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
 
 import PhotoGallery from './PhotoGallery';
 import VehiclePhotoUploadForm from '../AddVehicleForm/VehiclePhotoUploadForm';
@@ -19,6 +21,9 @@ export default function PhotoGalleryModal({
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
+  // for requiring at least one image upload
+  const [noImage, setNoImage] = React.useState(false);
+
   const handleClose = () => {
     setRenderStatus(!renderStatus);
     setOpen(false);
@@ -29,19 +34,36 @@ export default function PhotoGalleryModal({
   });
 
   return (
-    <Dialog fullScreen open={open} onClose={handleClose}>
-      <DialogActions>
-        <Button onClick={handleClose}>Close</Button>
-      </DialogActions>
-      <DialogContent>
-        <VehiclePhotoUploadForm galleryMode vehicleId={vehicleId} />
-        {/* <DialogActions sx={{ justifyContent: 'center', mb: 2 }}>
+    <>
+      <Dialog fullScreen open={open} onClose={handleClose}>
+        <DialogActions>
+          <Button onClick={handleClose}>Close</Button>
+        </DialogActions>
+        <DialogContent>
+          <VehiclePhotoUploadForm
+            galleryMode
+            vehicleId={vehicleId}
+            setNoImage={setNoImage}
+          />
+          {/* <DialogActions sx={{ justifyContent: 'center', mb: 2 }}>
           <Button variant="contained" onClick={handleClose}>
             Upload
           </Button>
         </DialogActions> */}
-        <PhotoGallery vehicleId={vehicleId} />
-      </DialogContent>
-    </Dialog>
+          <PhotoGallery vehicleId={vehicleId} />
+        </DialogContent>
+      </Dialog>
+      <Dialog open={noImage} onClose={() => setNoImage(false)}>
+        <DialogTitle>Vehicle Image Required</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Please add at least one photo of your vehicle.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setNoImage(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
