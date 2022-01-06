@@ -91,6 +91,14 @@ CREATE TABLE "cities" (
     "zip" INTEGER
 );
 
+-- coordinates table for map
+CREATE TABLE "coordinates" (
+    "id" SERIAL PRIMARY KEY,
+    "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
+    "lat" NUMERIC NOT NULL,
+    "lng" NUMERIC NOT NULL
+);
+
 -- STRETCH table for messages between users
 CREATE TABLE "messages" (
     "id" SERIAL PRIMARY KEY,
