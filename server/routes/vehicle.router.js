@@ -519,4 +519,30 @@ router.put('/:vehicleId', rejectUnauthenticated, (req, res) => {
     });
 });
 
+//coordinates update
+//coordinates
+router.put('/coordinates/:vehicleId', rejectUnauthenticated, (req, res) => {
+  const { vehicleId } = req.params;
+  const { lat, lng } = req.body;
+
+  const query = `
+    UPDATE "coordinates"
+    SET "lat" = $2, "lng" = $3
+    WHERE "vehicle_id" = $1;
+  `;
+
+  const values = [vehicleId, lat, lng];
+
+  pool
+    .query(query, values)
+    .then((result) => {
+      console.log(`PUT at /vehicle/coordinates successful`);
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log(`Error during PUT to /vehicle/coordinates`, error);
+      res.sendStatus(500);
+    });
+})
+
 module.exports = router;

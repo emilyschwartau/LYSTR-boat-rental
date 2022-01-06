@@ -230,15 +230,33 @@ function* updateVehicle(action) {
       heads,
       dailyRate,
     });
-
+    //features 
     yield axios.delete(`/api/vehicle/features/${vehicleId}`);
     yield axios.post(`/api/vehicle/features/${vehicleId}`, {
       features,
     });
+    //availability
     yield axios.delete(`/api/vehicle/availability/${vehicleId}`);
     yield axios.post(`/api/vehicle/availability/${vehicleId}`, {
       availability,
     });
+    // geocoding vehicle location into lat lng coordinates
+    let coords = { lat: '', lng: '' };
+    const params = {
+      key: process.env.REACT_APP_OPENCAGE_API_KEY,
+      q: `${street}, ${city}, ${state} ${zip}`,
+      limit: 1,
+      pretty: 1,
+      countrycode: 'us',
+    }
+    yield opencage.geocode({ ...params })
+      .then(response => {
+        const result = response.results[0];
+        coords = { lat: result.geometry.lat, lng: result.geometry.lng };
+      });
+    // post to "coordinates"
+    yield axios.put(`/api/vehicle/coordinates/${vehicleId}`, coords);
+
     yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Updated!');
     yield put({ type: 'OPEN_SUCCESS' });
