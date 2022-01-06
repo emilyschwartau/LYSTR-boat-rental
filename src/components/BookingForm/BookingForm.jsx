@@ -43,6 +43,9 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
   };
   return (
     <Box>
+      <Typography variant="h5" align="center">
+        Select a Date to Rent
+      </Typography>
       <FormControl margin="normal">
         <Calendar
           currentDate={new DateObject(date)}
@@ -78,15 +81,17 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
           }}
         />
       </FormControl>
-      <Typography id="dailyRate">Daily Rate: ${dailyRate}</Typography>
       <Typography>
-        Rental Date:{' '}
+        <b>Daily Rate:</b> ${dailyRate}
+      </Typography>
+      <Typography>
+        <b>Rental Date:</b>{' '}
         {bookingInput.date
           ? new DateObject(bookingInput.date).format('MMMM D, YYYY')
           : ''}
       </Typography>
-      <Typography id="estimatedCost">
-        Estimated Cost: ${bookingInput.date ? dailyRate * 1 : 0}
+      <Typography>
+        <b>Estimated Cost:</b> ${bookingInput.date ? dailyRate * 1 : 0}
       </Typography>
       <Button variant="contained" onClick={handleBook}>
         Book
