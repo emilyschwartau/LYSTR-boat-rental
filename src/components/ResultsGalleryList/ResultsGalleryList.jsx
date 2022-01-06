@@ -29,9 +29,8 @@ function ResultsGalleryList() {
         <Stack
           direction="row"
           justifyContent="space-around"
-
         >
-          <Box sx={{border: "solid black 1px"}}>
+          <Box>
             {searchResultsList?.map((item) => {
               return (
                 <div id="resultsCard" key={item.vehicleId}>
@@ -64,7 +63,7 @@ function ResultsGalleryList() {
             })}
           </Box>
           {searchResultsList?.length > 1 ?
-            <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: "1em"}}>
+            <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em'}}>
               <MapComponent
                 vehicleList={searchResultsList}
                 searchQueryLocation={galleryItems.searchQuery.location}

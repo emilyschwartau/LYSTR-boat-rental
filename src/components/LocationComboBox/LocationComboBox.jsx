@@ -42,7 +42,7 @@ function LocationComboBox() {
     return (
 
         <Autocomplete
-            disablePortalch
+            disablePortal
             autoComplete={true}
             autoSelect={true}
             id="locationComboBox"
