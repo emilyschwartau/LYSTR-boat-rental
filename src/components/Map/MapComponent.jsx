@@ -1,6 +1,8 @@
 import './MapComponent.css';
 import { useState, useEffect } from 'react';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Button, Typography } from '@mui/material';
+import opencage from 'opencage-api-client';
 
 
 function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
@@ -8,10 +10,10 @@ function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
     const [initialLocation, setInitialLocation] = useState({ lat: '', lng: '' });
 
     useEffect(() => {
-        reverseGeocode();
+        searchLocationGeocode();
     }, []);
 
-    const reverseGeocode = () => {
+    const searchLocationGeocode = () => {
 
         const params = {
             key: process.env.REACT_APP_OPENCAGE_API_KEY,
@@ -24,7 +26,6 @@ function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
         opencage.geocode({ ...params })
             .then(response => {
                 const result = response.results[0];
-                console.log(`this is geocode result`, result);
                 setInitialLocation({lat: result.geometry.lat, lng: result.geometry.lng})
             });
     }
@@ -36,7 +37,7 @@ function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
             //center on [lat, lng]
             center={[initialLocation?.lat, initialLocation?.lng]}
             //set zoom level
-            zoom={14}
+            zoom={13}
         >
             {/* Grabbing actual map design*/}
             <TileLayer
@@ -65,8 +66,15 @@ function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
                 >
                     {/* Message inside the popup */}
                     <div>
-                        <h2>{activeMarker?.title}</h2>
-                        <button onClick={() => handleSelectTask(activeMarker)}>click me</button>
+                        <Typography variant="h6">{activeMarker?.title}</Typography>
+                        <Typography variant="body2">{activeMarker.year} {activeMarker.make} {activeMarker.model}</Typography>
+                        <Typography variant="body2">Daily Rate: ${activeMarker.dailyRate}</Typography>
+                        <Button
+                            variant="outlined"
+                            onClick={() => handleSelectTask(activeMarker)}
+                        >
+                            learn more
+                        </Button>
                     </div>
                 </Popup>
             }
