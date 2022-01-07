@@ -8,11 +8,33 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 
-export default function VehicleAvailability({ validateNumber }) {
+export default function VehicleAvailabilityForm({
+  validateNumber,
+  updateMode,
+}) {
   const dispatch = useDispatch();
-  // const [dates, setDates] = React.useState([]);
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
   const { vehicleReservations } = useSelector((store) => store.rental);
+
+  const handleMapDays = ({ date, today }) => {
+    const isNotAvailable = vehicleReservations
+      .map((res) => res.rentalDate)
+      .includes(date.format('MM-DD-YYYY'));
+    // only look at reservation dates when updating a vehicle
+    if (updateMode) {
+      if (isNotAvailable || date.dayOfYear < today.dayOfYear)
+        return {
+          disabled: true,
+          style: { color: '#ccc' },
+        };
+    } else {
+      if (date.dayOfYear < today.dayOfYear)
+        return {
+          disabled: true,
+          style: { color: '#ccc' },
+        };
+    }
+  };
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -43,42 +65,23 @@ export default function VehicleAvailability({ validateNumber }) {
             currentDate={new DateObject()}
             multiple
             numberOfMonths={3}
-            value={vehicleFormInputs.availability?.map(
-              (date) => new DateObject(date)
+            value={vehicleFormInputs.availability?.map((date) =>
+              new DateObject()
+                .set('year', date.split('-')[2])
+                .set('month', date.split('-')[0])
+                .set('day', date.split('-')[1])
             )}
             // disable dates of reservations so owner may not overwrite reservations when updating availability
-            mapDays={({ date, today }) => {
-              const isNotAvailable = vehicleReservations
-                .map((res) => res.rentalDate.split('T')[0])
-                .includes(date.format('YYYY-MM-DD'));
-              if (
-                isNotAvailable ||
-                date.format('YYYY-MM-DD') < today.format('YYYY-MM-DD')
-              )
-                return {
-                  disabled: true,
-                  style: { color: '#ccc' },
-                };
-            }}
-            // onChange={setDates}
+            mapDays={handleMapDays}
             onChange={(dates) => {
-              // setDates(dates);
               dispatch({
                 type: 'VEHICLE_FORM_ONCHANGE',
                 payload: {
                   property: 'availability',
-                  value: dates?.map((date) => date.format('YYYY-MM-DD')),
+                  value: dates.map((date) => date.format('MM-DD-YYYY')),
                 },
               });
             }}
-            // mapDays={({ date }) => {
-            //   const isBooked = examples.includes(date.format());
-            //   if (isBooked)
-            //     return {
-            //       disabled: true,
-            //       style: { color: "#ccc" },
-            //     };
-            // }}
           />
         </FormControl>
       </Grid>

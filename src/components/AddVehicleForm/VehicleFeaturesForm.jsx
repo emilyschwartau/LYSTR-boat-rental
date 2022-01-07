@@ -9,7 +9,7 @@ import FormControl from '@mui/material/FormControl';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 
-export default function VehicleFeatures({ validateNumber }) {
+export default function VehicleFeaturesForm({ validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {

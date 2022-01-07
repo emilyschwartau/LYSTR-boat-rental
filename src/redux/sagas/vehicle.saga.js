@@ -1,5 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
+import { format } from 'date-fns';
+
 
 // POST a new vehicle
 function* addVehicle(action) {
@@ -25,8 +27,7 @@ function* addVehicle(action) {
     availability,
   } = action.payload;
 
-  console.log(photos);
-  // append the photo files to a FormData for multer upload
+  // create FormData for multer image upload
   const formData = new FormData();
   for (const photo of photos) {
     console.log(photo);
@@ -92,7 +93,7 @@ function* fetchVehicleById(action) {
     switch (action.type) {
       case 'FETCH_VEHICLE_TO_EDIT':
         yield put({
-          type: 'SET_VECHICLE_FORM_INPUTS',
+          type: 'SET_VEHICLE_FORM_INPUTS',
           payload: vehicle.data[0],
         });
         break;
@@ -110,7 +111,9 @@ function* fetchVehicleById(action) {
 function* fetchListedVehiclesByOwner(action) {
   const userId = action.payload;
   try {
-    let vehiclesListed = yield axios.get(`/api/vehicle/allVehiclesListed/${userId}`);
+    let vehiclesListed = yield axios.get(
+      `/api/vehicle/allVehiclesListed/${userId}`
+    );
 
     for (let i in vehiclesListed.data) {
       let vehicleInfo = vehiclesListed.data[i];
@@ -215,7 +218,7 @@ function* updateVehicle(action) {
       heads,
       dailyRate,
     });
-    //features 
+    //features
     yield axios.delete(`/api/vehicle/features/${vehicleId}`);
     yield axios.post(`/api/vehicle/features/${vehicleId}`, {
       features,
@@ -286,6 +289,19 @@ function* deletePhoto(action) {
   }
 }
 
+function* deleteVehicle(action) {
+  const { photos, vehicleId, userId } = action.payload;
+  try {
+    yield put({ type: 'START_LOADING' });
+    yield axios.delete(`/api/vehicle/${vehicleId}`, { data: { photos } });
+    yield put({ type: 'FETCH_LISTED_VEHICLES_BY_OWNER', payload: userId });
+    yield put({ type: 'STOP_LOADING' });
+  } catch (error) {
+    console.log('error deleting vehicle:', error);
+    yield put({ type: 'DELETE_ERROR' });
+  }
+}
+
 function* vehicleSaga() {
   yield takeLatest('ADD_VEHICLE', addVehicle);
   yield takeLatest('FETCH_VEHICLE_TO_EDIT', fetchVehicleById);
@@ -299,6 +315,7 @@ function* vehicleSaga() {
   );
   yield takeLatest('FETCH_ALL_RESERVATIONS_BY_ID', fetchAllReservationsById);
   yield takeLatest('UPLOAD_IMAGES_FROM_GALLERY', uploadPhotos);
+  yield takeLatest('DELETE_VEHICLE', deleteVehicle);
 }
 
 export default vehicleSaga;

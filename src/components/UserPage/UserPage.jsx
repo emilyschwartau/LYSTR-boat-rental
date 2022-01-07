@@ -1,45 +1,49 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import TabPanel from './TabPanel';
 import ListingsTab from './ListingsTab';
 import ReservationsTab from './ReservationsTab';
+import ProfileTab from './ProfileTab';
 import { useSelector } from 'react-redux';
 
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
 import { useDispatch } from 'react-redux';
 
 function UserPage() {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  
+
   useEffect(() => {
     dispatch({ type: `FETCH_LISTED_VEHICLES_BY_OWNER`, payload: user.id });
     dispatch({ type: `FETCH_ALL_RESERVATIONS_BY_ID`, payload: user.id });
-  }, [user.id])
-  
+  }, [user.id]);
+
   // this component doesn't do much to start, just renders some user reducer info to the DOM
 
   const [value, setValue] = useState(0);
 
   //handles tab selection
   const handleChange = (event, newValue) => {
-    console.log(newValue)
+    console.log(newValue);
     setValue(newValue);
   };
 
-
-  return (<>
-    <Box sx={{ width: '90%', border: '1px solid black', margin: '2em auto'}}>
+  return (
+    <Paper sx={{ width: '90%', margin: '3rem auto' }} elevation={4}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value}
+        <Tabs
+          value={value}
           onChange={handleChange}
           textColor="secondary"
           indicatorColor="secondary"
-          aria-label="secondary tabs example">
-          <Tab label="My Reservations"/>
+          aria-label="secondary tabs example"
+        >
+          <Tab label="My Reservations" />
           <Tab label="My listings" />
+          <Tab label="Profile" />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -48,9 +52,10 @@ function UserPage() {
       <TabPanel value={value} index={1}>
         <ListingsTab />
       </TabPanel>
-    </Box>
-
-  </>
+      <TabPanel value={value} index={2}>
+        <ProfileTab />
+      </TabPanel>
+    </Paper>
   );
 }
 

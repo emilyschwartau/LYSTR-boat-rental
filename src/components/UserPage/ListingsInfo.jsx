@@ -1,4 +1,14 @@
-import { Box, Divider, Stack, Card, CardMedia, CardActionArea, Button, Typography, IconButton } from '@mui/material';
+import {
+  Box,
+  Divider,
+  Stack,
+  Card,
+  CardMedia,
+  CardActionArea,
+  Button,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState, useEffect } from 'react';
@@ -7,12 +17,15 @@ import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
+import CancelReservationButton from '../CancelReservation/CancelReservationButton';
+import DeleteListingModal from '../DeleteListing/DeleteListingModal';
 
 function ListingsInfo({ vehicle }) {
   const user = useSelector((store) => store.user);
   const [imageIndex, setImageIndex] = useState(0);
   const [open, setOpen] = useState(false);
-  const [renderStatus, setRenderStatus] = useState(false);
+  const [renderStatus, setRenderStatus] = useState(false); // for forcing re render
+  const [confirmDelete, setConfirmDelete] = useState(false); // for opening the delete listing modal
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -41,9 +54,22 @@ function ListingsInfo({ vehicle }) {
     }
   };
 
+  const handleDeleteListing = () => {
+    console.log(vehicle.vehicleId);
+    dispatch({
+      type: 'DELETE_VEHICLE',
+      payload: {
+        vehicleId: vehicle.vehicleId,
+        photos: vehicle.photos,
+        userId: user.id,
+      },
+    });
+    setConfirmDelete(false);
+  };
+
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
@@ -69,7 +95,11 @@ function ListingsInfo({ vehicle }) {
                 <IconButton variant="outlined" onClick={() => handleBack()}>
                   <ArrowBackIosNewIcon />
                 </IconButton>
-                <Typography variant="caption" sx={{ margin: '0 1em' }}>
+                <Typography
+                  variant="caption"
+                  sx={{ margin: '0 1em' }}
+                  className="navCaption"
+                >
                   Click to navigate through images
                 </Typography>
                 <IconButton variant="outlined" onClick={() => handleNext()}>
@@ -112,25 +142,37 @@ function ListingsInfo({ vehicle }) {
               <strong>Features:</strong>
             </Typography>
             <ul style={{ columns: 2 }}>
-              {vehicle?.features.map((feature, i) => (
+              {vehicle.features?.map((feature, i) => (
                 <li key={i}>{feature}</li>
               ))}
             </ul>
 
-            <Typography variant='body1'>
-              <strong>Description:</strong><br />
+            <Typography variant="body1">
+              <strong>Description:</strong>
+              <br />
 
               {vehicle?.description}
             </Typography>
           </Box>
         </Stack>
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 2 }}>
-          <Button
-            variant="outlined"
-            onClick={() => history.push(`/update-vehicle/${vehicle.vehicleId}`)}
-          >
-            Update
-          </Button>
+          <Stack direction="row" spacing={4}>
+            <Button
+              variant="contained"
+              onClick={() =>
+                history.push(`/update-vehicle/${vehicle.vehicleId}`)
+              }
+            >
+              Update Listing
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => setConfirmDelete(true)}
+            >
+              Remove Listing
+            </Button>
+          </Stack>
         </Box>
         <Box
           sx={{
@@ -138,25 +180,29 @@ function ListingsInfo({ vehicle }) {
             padding: '1em',
           }}
         >
-          <Typography variant='body1'>
+          <Typography variant="body1">
             {/* if there are future rental dates -> show upcoming rentals otherwise dont show upcoming rental text*/}
-            {vehicle?.rentalData.filter(data => new Date(data.rentalDate) >= new Date()).length > 0 ?
+            {vehicle?.rentalData.filter(
+              (data) => new Date(data.rentalDate) >= new Date()
+            ).length > 0 ? (
               <>
-                <strong>Upcoming Rentals:</strong><br />
+                <strong>Upcoming Rentals:</strong>
+                <br />
                 {vehicle?.rentalData
                   //filter out dates past today
-                  .filter(data => new Date(data.rentalDate) >= new Date())
+                  .filter((data) => new Date(data.rentalDate) >= new Date())
                   //map future dates
                   .map((data) => (
                     <li key={data.id}>
                       {format(new Date(data.rentalDate), 'MM/dd/yyyy')} -{' '}
-                      {data.renterFirst} {data.renterLast} -{' '}
-                      {data.renterEmail}</li>
+                      {data.renterFirst} {data.renterLast} - {data.renterEmail}
+                      <CancelReservationButton rentalData={data} user={user} />
+                    </li>
                   ))}
               </>
-              : ''}
-
-
+            ) : (
+              ''
+            )}
           </Typography>
         </Box>
         <PhotoGalleryModal
@@ -165,6 +211,12 @@ function ListingsInfo({ vehicle }) {
           vehicleId={vehicle.vehicleId}
           setRenderStatus={setRenderStatus}
           renderStatus={renderStatus}
+        />
+        <DeleteListingModal
+          rentalData={vehicle.rentalData}
+          open={confirmDelete}
+          setConfirmDelete={setConfirmDelete}
+          handleDeleteListing={handleDeleteListing}
         />
       </Box>
     </>

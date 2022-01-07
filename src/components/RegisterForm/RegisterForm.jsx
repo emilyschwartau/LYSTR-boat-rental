@@ -17,7 +17,6 @@ function RegisterForm() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [profilePhotoURL, setProfilePhotoURL] = useState('');
   const [email, setEmail] = useState('');
   const [profilePic, setProfilePic] = useState(null);
 
@@ -26,13 +25,6 @@ function RegisterForm() {
 
   const registerUser = (event) => {
     event.preventDefault();
-    // const formData = new FormData();
-    // formData.append('username', username);
-    // formData.append('password', password);
-    // formData.append('firstName', firstName);
-    // formData.append('lastName', lastName);
-    // formData.append('email', email);
-    // formData.append('profilePic', profilePic);
 
     dispatch({
       type: 'REGISTER',
@@ -123,18 +115,7 @@ function RegisterForm() {
               />
             </FormControl>
           </Grid>
-          {/* <Grid item>
-          <label htmlFor="profilePhotoURL">
-            Profile Photo URL:
-            <input
-              type="profilePhotoURL"
-              name="profilePhotoURL"
-              value={profilePhotoURL}
-              onChange={(event) => setProfilePhotoURL(event.target.value)}
-            />
-          </label>
-        </Grid> */}
-          <Grid item xs={6}>
+          <Grid item xs={6} display="inline-block">
             <FormControl fullWidth margin="normal">
               <label htmlFor="contained-upload-button">
                 <Input

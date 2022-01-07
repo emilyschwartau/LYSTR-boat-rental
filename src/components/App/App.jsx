@@ -37,7 +37,7 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    dispatch({type: 'FETCH_TYPE_LIST'});
+    dispatch({ type: 'FETCH_TYPE_LIST' });
   }, [dispatch]);
 
   return (
@@ -73,9 +73,9 @@ function App() {
           </Route>
 
           {/* Results Gallery Page */}
-          <ProtectedRoute exact path="/gallery">
+          <Route exact path="/gallery">
             <ResultsGalleryPage />
-          </ProtectedRoute>
+          </Route>
 
           {/* Results Gallery Page */}
           <ProtectedRoute exact path="/vehicle-details/:vehicleId">
