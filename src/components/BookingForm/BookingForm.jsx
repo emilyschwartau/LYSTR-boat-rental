@@ -14,6 +14,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const dispatch = useDispatch();
   const { bookingInput } = useSelector((store) => store.rental);
+  const user = useSelector((store) => store.user);
 
   const query = useQuery();
   const date = query.get('date');
@@ -91,8 +92,8 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       <Typography>
         <b>Estimated Cost:</b> ${bookingInput.date ? dailyRate * 1 : 0}
       </Typography>
-      <Button variant="contained" onClick={handleBook}>
-        Book
+      <Button variant="contained" onClick={handleBook} disabled={!user.id}>
+        {user.id ? 'Book' : 'Login to Book'}
       </Button>
       <Dialog open={noDate} onClose={() => setNoDate(false)}>
         <DialogTitle>Please Select a Date to Rent</DialogTitle>
