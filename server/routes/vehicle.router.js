@@ -75,7 +75,8 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
     (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id") FROM "vehicle" 
   JOIN "type" ON "vehicle"."type_id" = "type"."id" 
   JOIN "user" ON "vehicle"."owned_by" = "user"."id"
-  WHERE "user"."id" = $1;
+  WHERE "user"."id" = $1
+  ORDER BY "vehicle"."id";
   `;
   pool
     .query(query, [userId])
@@ -207,71 +208,78 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   `;
   let values = [vehicleId];
 
-  // build the query string
-  for (let i = 0; i < features.length; i++) {
-    // start at $2 since $1 will be used for vehicleId
-    query += ` ($1, (select "id" from "features" where "name" = $${i + 2}))`;
-    // push the featureId into values
-    values.push(features[i]);
-    // add a comma or semi-colon depending on if we are at the last iteration or not
-    if (i === features.length - 1) {
-      // if last iteration, add semicolon
-      query += `;`;
-    } else {
-      // otherwise, add comma
-      query += `,`;
-    }
+  if (features === null || features.length === 0) {
+    res.sendStatus(201);
   }
 
-  console.log('vehicle router:', query)
-  pool
-    .query(query, values)
-    .then((result) => {
-      console.log('POST at /vehicle/features successful');
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.log('Error during POST to vehicle_features: ', error);
-      res.sendStatus(500);
-    });
+  // build the query string
+  else {
+    for (let i = 0; i < features.length; i++) {
+      // start at $2 since $1 will be used for vehicleId
+      query += ` ($1, (select "id" from "features" where "name" = $${i + 2}))`;
+      // push the featureId into values
+      values.push(features[i]);
+      // add a comma or semi-colon depending on if we are at the last interation or not
+      if (i === features.length - 1) {
+        // if last iteration, add semicolon
+        query += `;`;
+      } else {
+        // otherwise, add comma
+        query += `,`;
+      }
+    }
+    pool
+      .query(query, values)
+      .then((result) => {
+        console.log('POST at /vehicle/features successful');
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        console.log('Error during POST to vehicle_features: ', error);
+        res.sendStatus(500);
+      });
+  }
 });
 
 // availability
 router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
-  const { formattedAvailability } = req.body;
+  const { availability } = req.body;
   const { vehicleId } = req.params;
-
-  let query = `
+  if (availability === null || availability.length === 0) {
+    res.sendStatus(201);
+  } else {
+    let query = `
     INSERT INTO "availability" ("vehicle_id", "date_available")
       VALUES
   `;
-  let values = [vehicleId];
+    let values = [vehicleId];
 
-  // build the query string
-  for (let i = 0; i < formattedAvailability.length; i++) {
-    // start at $2 since $1 will be used for vehicleId
-    query += ` ($1, $${i + 2})`;
-    // push the featureId into values
-    values.push(formattedAvailability[i]);
-    // add a comma or semi-colon depending on if we are at the last interation or not
-    if (i === formattedAvailability.length - 1) {
-      // if last iteration, add semicolon
-      query += `ON CONFLICT DO NOTHING;`;
-    } else {
-      // otherwise, add comma
-      query += `,`;
+    // build the query string
+    for (let i = 0; i < availability.length; i++) {
+      // start at $2 since $1 will be used for vehicleId
+      query += ` ($1, $${i + 2})`;
+      // push the featureId into values
+      values.push(availability[i]);
+      // add a comma or semi-colon depending on if we are at the last interation or not
+      if (i === availability.length - 1) {
+        // if last iteration, add semicolon
+        query += `ON CONFLICT DO NOTHING;`;
+      } else {
+        // otherwise, add comma
+        query += `,`;
+      }
     }
+    pool
+      .query(query, values)
+      .then((result) => {
+        console.log('POST at /vehicle/availability successful');
+        res.sendStatus(201);
+      })
+      .catch((error) => {
+        console.log('Error during POST to availability: ', error);
+        res.sendStatus(500);
+      });
   }
-  pool
-    .query(query, values)
-    .then((result) => {
-      console.log('POST at /vehicle/availability successful');
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.log('Error during POST to availability: ', error);
-      res.sendStatus(500);
-    });
 });
 
 // photos
