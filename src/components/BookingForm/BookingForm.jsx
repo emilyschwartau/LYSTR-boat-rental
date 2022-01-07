@@ -44,32 +44,30 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       </Typography>
       <FormControl margin="normal">
         <Calendar
-          currentDate={new DateObject(date)}
-          value={bookingInput.date}
+          currentDate={new DateObject()
+            .set('year', date.split('-')[2])
+            .set('month', date.split('-')[0])
+            .set('day', date.split('-')[1])}
+          value={new DateObject()
+            .set('year', bookingInput.date.split('-')[2])
+            .set('month', bookingInput.date.split('-')[0])
+            .set('day', bookingInput.date.split('-')[1])}
           numberOfMonths={1}
-          // value={vehicleFormInputs.availability?.map(
-          //   (date) => new DateObject(date)
-          // )}
-          // onChange={setDateInput}
           onChange={(date) => {
-            // setDateInput(date);
             dispatch({
               type: 'BOOKING_FORM_ONCHANGE',
               payload: {
                 property: 'date',
-                value: date.format('YYYY-MM-DD'),
+                value: date.format('MM-DD-YYYY'),
               },
             });
             console.log(date);
           }}
           mapDays={({ date, today }) => {
             const isAvailable = availability?.includes(
-              date.format('YYYY-MM-DD')
+              date.format('MM-DD-YYYY')
             );
-            if (
-              !isAvailable ||
-              date.format('YYYY-MM-DD') < today.format('YYYY-MM-DD')
-            )
+            if (!isAvailable || date.dayOfYear < today.dayOfYear)
               return {
                 disabled: true,
                 style: { color: '#ccc' },
@@ -83,7 +81,11 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       <Typography>
         <b>Rental Date:</b>{' '}
         {bookingInput.date
-          ? new DateObject(bookingInput.date).format('MMMM D, YYYY')
+          ? new DateObject()
+              .set('year', bookingInput.date.split('-')[2])
+              .set('month', bookingInput.date.split('-')[0])
+              .set('day', bookingInput.date.split('-')[1])
+              .format('MMMM D, YYYY')
           : ''}
       </Typography>
       <Typography>

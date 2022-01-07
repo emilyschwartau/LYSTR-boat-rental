@@ -1,12 +1,11 @@
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
-import { height } from '@mui/system';
 import { format } from 'date-fns';
 
 function SearchBarButton() {
   const history = useHistory();
+  const dispatch = useDispatch();
   const vehicleType = useSelector(
     (store) => store.search.searchQuery.vehicleType
   );
@@ -18,8 +17,19 @@ function SearchBarButton() {
       // search parameters push to url
       // url query parsed on ResultsGalleryPage useQuery hook
       history.push(
-        `/gallery?location=${location}&date=${startDate}&type=${vehicleType}`
+        `/gallery?location=${location}&date=${format(
+          startDate,
+          'MM-dd-yyyy'
+        )}&type=${vehicleType}`
       );
+      dispatch({
+        type: 'FETCH_VEHICLES',
+        payload: {
+          location,
+          vehicleType,
+          startDate: format(startDate, 'MM-dd-yyyy'),
+        },
+      });
     } else {
       alert('Please choose vehicle type');
     }

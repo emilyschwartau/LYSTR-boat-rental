@@ -1,5 +1,12 @@
 import { useSelector } from 'react-redux';
-import { Card, CardActions, CardContent, Button, Box, Stack } from '@mui/material';
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Button,
+  Box,
+  Stack,
+} from '@mui/material';
 import useQuery from '../../hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import ResultsGallerySearchBar from './ResultsGallerySearchBar';
@@ -7,7 +14,6 @@ import MapComponent from '../Map/MapComponent';
 
 //gallery of search result cards
 function ResultsGalleryList() {
-
   const history = useHistory();
   const query = useQuery();
   const date = query.get('date');
@@ -23,20 +29,15 @@ function ResultsGalleryList() {
   return (
     <>
       <Box sx={{ width: '90%', margin: '1em auto' }}>
-
         {/* search bar */}
         <ResultsGallerySearchBar />
-        <Stack
-          direction="row"
-          justifyContent="space-around"
-        >
+        <Stack direction="row" justifyContent="space-around">
           <Box>
             {searchResultsList?.map((item) => {
               return (
                 <div id="resultsCard" key={item.vehicleId}>
                   <Card>
                     <CardContent id="resultCardContent">
-
                       {/* returns first image for card */}
                       <img id="resultCardImg" src={item.photos[0]} />
 
@@ -47,32 +48,32 @@ function ResultsGalleryList() {
                         <br></br>
                         {item.city}, {item.state}
                       </div>
-
                     </CardContent>
                     <CardActions>
-
                       {/* button to details page */}
-                      <Button size="small" onClick={() => handleSelectTask(item)}>
+                      <Button
+                        size="small"
+                        onClick={() => handleSelectTask(item)}
+                      >
                         Learn More
                       </Button>
-
                     </CardActions>
                   </Card>
                 </div>
               );
             })}
           </Box>
-          {searchResultsList?.length > 0 ?
-            <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em'}}>
+          {searchResultsList?.length > 0 ? (
+            <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em' }}>
               <MapComponent
                 vehicleList={searchResultsList}
                 searchQueryLocation={galleryItems.searchQuery.location}
                 handleSelectTask={handleSelectTask}
               />
             </Box>
-            :
+          ) : (
             ''
-          }
+          )}
         </Stack>
       </Box>
     </>

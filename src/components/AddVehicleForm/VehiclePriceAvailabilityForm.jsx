@@ -43,26 +43,24 @@ export default function VehicleAvailabilityForm({ validateNumber }) {
             currentDate={new DateObject()}
             multiple
             numberOfMonths={3}
-            value={vehicleFormInputs.availability?.map(
-              (date) => new DateObject(date)
+            value={vehicleFormInputs.availability?.map((date) =>
+              new DateObject()
+                .set('year', date.split('-')[2])
+                .set('month', date.split('-')[0])
+                .set('day', date.split('-')[1])
             )}
             // disable dates of reservations so owner may not overwrite reservations when updating availability
             mapDays={({ date, today }) => {
               const isNotAvailable = vehicleReservations
-                .map((res) => res.rentalDate.split('T')[0])
-                .includes(date.format('YYYY-MM-DD'));
-              if (
-                isNotAvailable ||
-                date.format('YYYY-MM-DD') < today.format('YYYY-MM-DD')
-              )
+                .map((res) => res.rentalDate)
+                .includes(date.format('MM-DD-YYYY'));
+              if (isNotAvailable || date.dayOfYear < today.dayOfYear)
                 return {
                   disabled: true,
                   style: { color: '#ccc' },
                 };
             }}
-            // onChange={setDates}
             onChange={(dates) => {
-              // setDates(dates);
               dispatch({
                 type: 'VEHICLE_FORM_ONCHANGE',
                 payload: {
@@ -71,14 +69,6 @@ export default function VehicleAvailabilityForm({ validateNumber }) {
                 },
               });
             }}
-            // mapDays={({ date }) => {
-            //   const isBooked = examples.includes(date.format());
-            //   if (isBooked)
-            //     return {
-            //       disabled: true,
-            //       style: { color: "#ccc" },
-            //     };
-            // }}
           />
         </FormControl>
       </Grid>
