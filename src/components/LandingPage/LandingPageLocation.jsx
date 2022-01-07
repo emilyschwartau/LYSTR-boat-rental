@@ -40,7 +40,7 @@ function LandingPageLocation() {
             textAlign: 'center',
           }}
         >
-          <Typography variant="h4">Find a Vehicle Rental Near You!</Typography>
+          <Typography variant="h4">Find a Rental Near You!</Typography>
           <br />
           {/* <form onSubmit={() => handleSubmit()}> */}
           <form>
