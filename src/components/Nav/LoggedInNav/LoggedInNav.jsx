@@ -96,6 +96,7 @@ function LoggedInNav() {
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
               color: 'black',
+              justifyContent: 'flex-end',
             }}
           >
             {/* HAMBURGER BUTTON AND ICON */}
