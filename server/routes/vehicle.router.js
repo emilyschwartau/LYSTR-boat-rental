@@ -75,7 +75,8 @@ router.get('/allVehiclesListed/:userId', rejectUnauthenticated, (req, res) => {
     (select JSON_AGG("name") as "features" from "features" join "vehicle_features" on "features"."id" = "vehicle_features"."feature_id" where "vehicle"."id" = "vehicle_features"."vehicle_id") FROM "vehicle" 
   JOIN "type" ON "vehicle"."type_id" = "type"."id" 
   JOIN "user" ON "vehicle"."owned_by" = "user"."id"
-  WHERE "user"."id" = $1;
+  WHERE "user"."id" = $1
+  ORDER BY "vehicle"."id";
   `;
   pool
     .query(query, [userId])
