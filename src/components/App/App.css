@@ -169,7 +169,7 @@ height: 250px;
   text-align: center;
 }
 
-#navCaption {
+.navCaption {
   white-space: nowrap;
 }
 

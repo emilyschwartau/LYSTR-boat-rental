@@ -107,7 +107,7 @@ export default function VehicleDetailsPage() {
                     <ArrowBackIosNewIcon />
                   </IconButton>
 
-                  <Typography variant="caption" sx={{ margin: '0 1em' }} id="navCaption">
+                  <Typography variant="caption" sx={{ margin: '0 1em' }} navCaption>
                     Click to navigate through images
                   </Typography>
 
