@@ -1,4 +1,14 @@
-import { Box, Divider, Stack, Card, CardMedia, CardActionArea, Button, Typography, IconButton } from '@mui/material';
+import {
+  Box,
+  Divider,
+  Stack,
+  Card,
+  CardMedia,
+  CardActionArea,
+  Button,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState, useEffect } from 'react';
@@ -7,6 +17,7 @@ import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
+import CancelReservationButton from '../CancelReservation/CancelReservationButton';
 
 function ListingsInfo({ vehicle }) {
   const user = useSelector((store) => store.user);
@@ -43,7 +54,7 @@ function ListingsInfo({ vehicle }) {
 
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
@@ -117,8 +128,9 @@ function ListingsInfo({ vehicle }) {
               ))}
             </ul>
 
-            <Typography variant='body1'>
-              <strong>Description:</strong><br />
+            <Typography variant="body1">
+              <strong>Description:</strong>
+              <br />
 
               {vehicle?.description}
             </Typography>
@@ -138,25 +150,29 @@ function ListingsInfo({ vehicle }) {
             padding: '1em',
           }}
         >
-          <Typography variant='body1'>
+          <Typography variant="body1">
             {/* if there are future rental dates -> show upcoming rentals otherwise dont show upcoming rental text*/}
-            {vehicle?.rentalData.filter(data => new Date(data.rentalDate) >= new Date()).length > 0 ?
+            {vehicle?.rentalData.filter(
+              (data) => new Date(data.rentalDate) >= new Date()
+            ).length > 0 ? (
               <>
-                <strong>Upcoming Rentals:</strong><br />
+                <strong>Upcoming Rentals:</strong>
+                <br />
                 {vehicle?.rentalData
                   //filter out dates past today
-                  .filter(data => new Date(data.rentalDate) >= new Date())
+                  .filter((data) => new Date(data.rentalDate) >= new Date())
                   //map future dates
                   .map((data) => (
                     <li key={data.id}>
                       {format(new Date(data.rentalDate), 'MM/dd/yyyy')} -{' '}
-                      {data.renterFirst} {data.renterLast} -{' '}
-                      {data.renterEmail}</li>
+                      {data.renterFirst} {data.renterLast} - {data.renterEmail}
+                      <CancelReservationButton rentalData={data} user={user} />
+                    </li>
                   ))}
               </>
-              : ''}
-
-
+            ) : (
+              ''
+            )}
           </Typography>
         </Box>
         <PhotoGalleryModal

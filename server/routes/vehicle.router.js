@@ -234,7 +234,7 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
 
 // availability
 router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
-  const { availability } = req.body;
+  const { formattedAvailability } = req.body;
   const { vehicleId } = req.params;
 
   let query = `
@@ -244,13 +244,13 @@ router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
   let values = [vehicleId];
 
   // build the query string
-  for (let i = 0; i < availability.length; i++) {
+  for (let i = 0; i < formattedAvailability.length; i++) {
     // start at $2 since $1 will be used for vehicleId
     query += ` ($1, $${i + 2})`;
     // push the featureId into values
-    values.push(availability[i]);
+    values.push(formattedAvailability[i]);
     // add a comma or semi-colon depending on if we are at the last interation or not
-    if (i === availability.length - 1) {
+    if (i === formattedAvailability.length - 1) {
       // if last iteration, add semicolon
       query += `ON CONFLICT DO NOTHING;`;
     } else {
@@ -346,7 +346,7 @@ router.post('/coordinates/:vehicleId', rejectUnauthenticated, (req, res) => {
       console.log(`Error during POST to /vehicle/coordinates`, error);
       res.sendStatus(500);
     });
-})
+});
 
 /*
  * DELETE routes
@@ -543,6 +543,6 @@ router.put('/coordinates/:vehicleId', rejectUnauthenticated, (req, res) => {
       console.log(`Error during PUT to /vehicle/coordinates`, error);
       res.sendStatus(500);
     });
-})
+});
 
 module.exports = router;
