@@ -24,7 +24,7 @@ export default function DeleteListingModal({
         <Typography>Reservations:</Typography>
         <br />
         {rentalData?.map((rental) => (
-          <Box key={rental.id}>
+          <Box key={rental.id} sx={{ mb: 2 }}>
             <Typography>{rental.rentalDate}</Typography>
             <Typography>
               {rental.renterFirst} {rental.renterLast}

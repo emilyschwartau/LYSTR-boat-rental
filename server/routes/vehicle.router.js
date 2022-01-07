@@ -363,8 +363,16 @@ router.post('/coordinates/:vehicleId', rejectUnauthenticated, (req, res) => {
  */
 
 // vehicle
-router.delete('/:vehicleId', rejectUnauthenticated, (req, res) => {
+router.delete('/:vehicleId', rejectUnauthenticated, async (req, res) => {
   const { vehicleId } = req.params;
+  const { photos } = req.body;
+  console.log('delete:', req.body);
+
+  if (photos) {
+    for (let photo of photos) {
+      await deleteFile(photo.split('/')[4]);
+    }
+  }
 
   const query = `DELETE FROM "vehicle" WHERE "id" = $1 AND "owned_by" = $2;`;
 
@@ -372,6 +380,7 @@ router.delete('/:vehicleId', rejectUnauthenticated, (req, res) => {
     .query(query, [vehicleId, req.user.id])
     .then((result) => {
       console.log(`DELETE at /vehicle/${vehicleId} successful`);
+
       res.sendStatus(201);
     })
     .catch((err) => {
