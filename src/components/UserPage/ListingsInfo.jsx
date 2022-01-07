@@ -80,7 +80,7 @@ function ListingsInfo({ vehicle }) {
                 <IconButton variant="outlined" onClick={() => handleBack()}>
                   <ArrowBackIosNewIcon />
                 </IconButton>
-                <Typography variant="caption" sx={{ margin: '0 1em' }}>
+                <Typography variant="caption" sx={{ margin: '0 1em' }} className="navCaption">
                   Click to navigate through images
                 </Typography>
                 <IconButton variant="outlined" onClick={() => handleNext()}>

@@ -70,7 +70,10 @@ export default function UpdateVehicle() {
         />
         {/* <VehiclePhotoUploadForm /> */}
         {/* <PhotoGallery vehicleId={vehicleId} /> */}
-        <VehiclePriceAvailabilityForm validateNumber={validateNumber} />
+        <VehiclePriceAvailabilityForm
+          validateNumber={validateNumber}
+          updateMode
+        />
         <Box display="flex" justifyContent="flex-end">
           <Button type="submit" variant="contained" size="large">
             Update Vehicle

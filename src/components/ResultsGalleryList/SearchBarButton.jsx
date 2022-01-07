@@ -17,17 +17,20 @@ function SearchBarButton() {
       // search parameters push to url
       // url query parsed on ResultsGalleryPage useQuery hook
       history.push(
-        `/gallery?location=${location}&date=${format(
-          startDate,
-          'MM-dd-yyyy'
-        )}&type=${vehicleType}`
+        `/gallery?location=${location}&date=${
+          startDate.toString().includes(':')
+            ? format(startDate, 'MM-dd-yyyy')
+            : startDate
+        }&type=${vehicleType}`
       );
       dispatch({
         type: 'FETCH_VEHICLES',
         payload: {
           location,
           vehicleType,
-          startDate: format(startDate, 'MM-dd-yyyy'),
+          startDate: startDate.toString().includes(':')
+            ? format(startDate, 'MM-dd-yyyy')
+            : startDate,
         },
       });
     } else {

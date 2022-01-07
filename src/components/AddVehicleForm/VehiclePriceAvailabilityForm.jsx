@@ -8,11 +8,33 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 
-export default function VehicleAvailabilityForm({ validateNumber }) {
+export default function VehicleAvailabilityForm({
+  validateNumber,
+  updateMode,
+}) {
   const dispatch = useDispatch();
-  // const [dates, setDates] = React.useState([]);
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
   const { vehicleReservations } = useSelector((store) => store.rental);
+
+  const handleMapDays = ({ date, today }) => {
+    const isNotAvailable = vehicleReservations
+      .map((res) => res.rentalDate)
+      .includes(date.format('MM-DD-YYYY'));
+    // only look at reservation dates when updating a vehicle
+    if (updateMode) {
+      if (isNotAvailable || date.dayOfYear < today.dayOfYear)
+        return {
+          disabled: true,
+          style: { color: '#ccc' },
+        };
+    } else {
+      if (date.dayOfYear < today.dayOfYear)
+        return {
+          disabled: true,
+          style: { color: '#ccc' },
+        };
+    }
+  };
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" mb={4}>
@@ -50,22 +72,13 @@ export default function VehicleAvailabilityForm({ validateNumber }) {
                 .set('day', date.split('-')[1])
             )}
             // disable dates of reservations so owner may not overwrite reservations when updating availability
-            mapDays={({ date, today }) => {
-              const isNotAvailable = vehicleReservations
-                .map((res) => res.rentalDate)
-                .includes(date.format('MM-DD-YYYY'));
-              if (isNotAvailable || date.dayOfYear < today.dayOfYear)
-                return {
-                  disabled: true,
-                  style: { color: '#ccc' },
-                };
-            }}
+            mapDays={handleMapDays}
             onChange={(dates) => {
               dispatch({
                 type: 'VEHICLE_FORM_ONCHANGE',
                 payload: {
                   property: 'availability',
-                  value: dates?.map((date) => date.format('YYYY-MM-DD')),
+                  value: dates.map((date) => date.format('MM-DD-YYYY')),
                 },
               });
             }}
