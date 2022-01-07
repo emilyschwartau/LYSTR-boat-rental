@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
@@ -16,10 +16,9 @@ import './LoggedOutNav.css';
 // a link to the about page, a link to the rent page, a link
 // to the list your stuff page, and a link to sign in
 function LoggedOutNav() {
-
   //links on nav bar - appear in hamburger dropdown menu if small screen
-  const pages = [
 
+  const pages = [
     //link to about page
     <Link className="navLink" to="/about">
       About LYSTR
@@ -39,7 +38,6 @@ function LoggedOutNav() {
     <Link to="/login" className="navLink">
       Sign in
     </Link>,
-
   ];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
