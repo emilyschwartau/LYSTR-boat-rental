@@ -3,21 +3,24 @@ import { useState, useEffect } from 'react';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Button, Typography } from '@mui/material';
 import opencage from 'opencage-api-client';
+import { useDispatch } from 'react-redux';
 
 
-function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
+function MapComponent({ vehicleList, searchQuery, handleSelectTask }) {
+    const dispatch = useDispatch();
     const [activeMarker, setActiveMarker] = useState(null);
     const [initialLocation, setInitialLocation] = useState({ lat: '', lng: '' });
 
     useEffect(() => {
         searchLocationGeocode();
+        // dispatch({ type: `FETCH_SEARCH_CITY_COORDS`, payload: searchQuery.location });
     }, []);
 
     const searchLocationGeocode = () => {
 
         const params = {
             key: process.env.REACT_APP_OPENCAGE_API_KEY,
-            q: `${searchQueryLocation}, MN`,
+            q: `${searchQuery.location}, MN`,
             limit: 1,
             pretty: 1,
             countrycode: 'us',

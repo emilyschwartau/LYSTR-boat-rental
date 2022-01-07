@@ -11,6 +11,8 @@ const searchQuery = (
       return { ...state, startDate: action.payload };
     case 'SET_SEARCH_VEHICLE_TYPE':
       return { ...state, vehicleType: action.payload };
+    case 'SET_SEARCH_CITY_COORDS':
+      return { ...state, lat: action.payload.lat, lng: action.payload.lng }
     default:
       return state;
   }

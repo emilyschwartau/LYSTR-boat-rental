@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Card, CardActions, CardContent, Button, Box, Stack } from '@mui/material';
 import useQuery from '../../hooks/useQuery';
@@ -66,7 +67,7 @@ function ResultsGalleryList() {
             <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em'}}>
               <MapComponent
                 vehicleList={searchResultsList}
-                searchQueryLocation={galleryItems.searchQuery.location}
+                searchQuery={galleryItems.searchQuery}
                 handleSelectTask={handleSelectTask}
               />
             </Box>

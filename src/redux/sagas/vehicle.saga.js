@@ -65,7 +65,7 @@ function* addVehicle(action) {
     // post to "photos"
     yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
     // geocoding vehicle location into lat lng coordinates
-    const coords = yield axios.get(`/api/geocode/${street}/${city}/${state}/${zip}`);
+    const coords = yield axios.get(`/api/geocode/`, {street, city, state, zip});
     // post to "coordinates"
     yield axios.post(`/api/vehicle/coordinates/${response.data[0].id}`, coords.data);
     //done posting to other tables

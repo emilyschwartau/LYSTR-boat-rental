@@ -3,13 +3,22 @@ const router = express.Router();
 const opencage = require('opencage-api-client');
 
 
-//geocode using only city
-router.get(`/:city`, (req, res) => {
-    const { city } = req.params;
+//geocode api
+router.get(`/`, (req, res) => {
+    let { street, city, state, zip } = req.body;
+    if (street == undefined)
+        street = ``;
+    if (city == undefined)
+        city = ``;
+    if (state == undefined)
+        state = `MN`;
+    if (zip == undefined)
+        zip = ``;
+
 
     const params = {
         key: process.env.REACT_APP_OPENCAGE_API_KEY,
-        q: `${city}, MN`,
+        q: `${street} ${city} ${state} ${zip}`,
         limit: 1,
         pretty: 1,
         countrycode: 'us',
@@ -18,35 +27,10 @@ router.get(`/:city`, (req, res) => {
         .geocode({ ...params })
         .then((result) => {
             const coords = { lat: result.results[0].geometry.lat, lng: result.results[0].geometry.lng };
-            console.log(`this is coords of city`, coords);
             res.send(coords);
         })
         .catch((error) => {
-            console.log(`Error with /api/geocode/${city}`, error);
-            res.sendStatus(500);
-        })
-});
-
-//geocode using vehicle address
-router.get(`/:street/:city/:state/:zip`, (req, res) => {
-    const { street, city, state, zip } = req.params;
-
-    const params = {
-        key: process.env.REACT_APP_OPENCAGE_API_KEY,
-        q: `${street}, ${city}, ${state} ${zip}`,
-        limit: 1,
-        pretty: 1,
-        countrycode: 'us',
-    }
-    opencage
-        .geocode({ ...params })
-        .then((result) => {
-            const coords = { lat: result.results[0].geometry.lat, lng: result.results[0].geometry.lng };
-            console.log(`this is coords of location`, coords);
-            res.send(coords);
-        })
-        .catch((error) => {
-            console.log(`Error with /api/geocode/${street}/${city}/${state}/${zip}`, error);
+            console.log(`Error with /api/geocode`, error);
             res.sendStatus(500);
         })
 });
