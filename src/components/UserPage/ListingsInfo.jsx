@@ -18,6 +18,7 @@ import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
 import CancelReservationButton from '../CancelReservation/CancelReservationButton';
+import ListingCalendar from './ListingCalendar'
 
 function ListingsInfo({ vehicle }) {
   const user = useSelector((store) => store.user);
@@ -90,6 +91,8 @@ function ListingsInfo({ vehicle }) {
             ) : (
               ''
             )}
+
+            <ListingCalendar vehicle = {vehicle}/>
           </Box>
           <Box
             sx={{
