@@ -234,7 +234,7 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
 
 // availability
 router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
-  const { formattedAvailability } = req.body;
+  const { availability } = req.body;
   const { vehicleId } = req.params;
 
   let query = `
@@ -244,13 +244,13 @@ router.post('/availability/:vehicleId', rejectUnauthenticated, (req, res) => {
   let values = [vehicleId];
 
   // build the query string
-  for (let i = 0; i < formattedAvailability.length; i++) {
+  for (let i = 0; i < availability.length; i++) {
     // start at $2 since $1 will be used for vehicleId
     query += ` ($1, $${i + 2})`;
     // push the featureId into values
-    values.push(formattedAvailability[i]);
+    values.push(availability[i]);
     // add a comma or semi-colon depending on if we are at the last interation or not
-    if (i === formattedAvailability.length - 1) {
+    if (i === availability.length - 1) {
       // if last iteration, add semicolon
       query += `ON CONFLICT DO NOTHING;`;
     } else {
