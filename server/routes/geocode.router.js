@@ -7,18 +7,19 @@ const opencage = require('opencage-api-client');
 router.get(`/:street/:city/:state/:zip`, (req, res) => {
     let { street, city, state, zip } = req.params;
 
-    if (street == undefined)
+    if (street == 'undefined')
         street = ``;
-    if (city == undefined)
+    if (city == 'undefined')
         city = ``;
-    if (state == undefined)
+    if (state == 'undefined')
         state = `MN`;
-    if (zip == undefined)
+    if (zip == 'undefined') {
         zip = ``;
-
+    }
+        
     const params = {
         key: process.env.REACT_APP_OPENCAGE_API_KEY,
-        q: `${street} ${city} ${state} ${zip}`,
+        q: `${street == undefined ? `` : street} ${city} ${state} ${zip}`,
         limit: 1,
         pretty: 1,
         countrycode: 'us',
@@ -27,7 +28,6 @@ router.get(`/:street/:city/:state/:zip`, (req, res) => {
         .geocode({ ...params })
         .then((result) => {
             const coords = { lat: result.results[0].geometry.lat, lng: result.results[0].geometry.lng };
-            console.log(coords);
             res.send(coords);
         })
         .catch((error) => {

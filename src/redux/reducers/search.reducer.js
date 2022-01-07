@@ -23,7 +23,7 @@ const searchQuery = (
 const searchResults = (state = {}, action) => {
   switch (action.type) {
     case 'SET_SEARCH_RESULTS':
-      return { ...action, searchResults: action.payload };
+      return { ...state, searchResults: action.payload.types, coords: action.payload.coords };
     default:
       return state;
   }

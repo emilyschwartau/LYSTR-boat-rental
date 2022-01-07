@@ -14,7 +14,10 @@ function* fetchVehicles({ payload }) {
       `/api/search/${location}/${startDate}/${vehicleType}`
     );
     console.log('in searchSaga fetchVehicles response types:', types);
-    yield put({ type: 'SET_SEARCH_RESULTS', payload: types.data });
+    let street, city = location, state, zip;
+    const coords = yield axios.get(`/api/geocode/${street}/${city}/${state}/${zip}`);
+    console.log(`city coords`, coords.data);
+    yield put({ type: 'SET_SEARCH_RESULTS', payload: {types: types.data, coords: coords.data} });
   } catch (error) {
     console.log('error getting search results:', error);
     yield put({ type: 'GET_ERROR' });

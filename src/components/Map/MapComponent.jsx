@@ -5,33 +5,33 @@ import { Button, Typography } from '@mui/material';
 import opencage from 'opencage-api-client';
 import { useDispatch } from 'react-redux';
 
-function MapComponent({ vehicleList, searchQuery, handleSelectTask }) {
+function MapComponent({ vehicleList, searchQuery, handleSelectTask, coords }) {
     const dispatch = useDispatch();
     const [activeMarker, setActiveMarker] = useState(null);
     const [initialLocation, setInitialLocation] = useState({ lat: '', lng: '' });
 
-    useEffect(() => {
-        searchLocationGeocode();
-        // dispatch({ type: `FETCH_SEARCH_CITY_COORDS`, payload: searchQuery.location });
-    }, []);
+//     useEffect(() => {
+//         searchLocationGeocode();
+//         // dispatch({ type: `FETCH_SEARCH_CITY_COORDS`, payload: searchQuery.location });
+//     }, []);
 
-  const searchLocationGeocode = () => {
-    const params = {
-      key: process.env.REACT_APP_OPENCAGE_API_KEY,
-      q: `${searchQuery.location}, MN`,
-      limit: 1,
-      pretty: 1,
-      countrycode: 'us',
-    };
+//   const searchLocationGeocode = () => {
+//     const params = {
+//       key: process.env.REACT_APP_OPENCAGE_API_KEY,
+//       q: `${searchQuery.location}, MN`,
+//       limit: 1,
+//       pretty: 1,
+//       countrycode: 'us',
+//     };
 
-    opencage.geocode({ ...params }).then((response) => {
-      const result = response.results[0];
-      setInitialLocation({
-        lat: result.geometry.lat,
-        lng: result.geometry.lng,
-      });
-    });
-  };
+//     opencage.geocode({ ...params }).then((response) => {
+//       const result = response.results[0];
+//       setInitialLocation({
+//         lat: result.geometry.lat,
+//         lng: result.geometry.lng,
+//       });
+//     });
+//   };
 
     
     console.log(`this is vehicleList`, vehicleList);
@@ -39,7 +39,7 @@ function MapComponent({ vehicleList, searchQuery, handleSelectTask }) {
     return (<>
         <Map
             //center on [lat, lng]
-            center={[initialLocation?.lat, initialLocation?.lng]}
+            center={[coords?.lat, coords?.lng]}
             //set zoom level
             zoom={9}
         >
