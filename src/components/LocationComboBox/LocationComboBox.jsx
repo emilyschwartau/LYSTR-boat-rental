@@ -56,8 +56,8 @@ function LocationComboBox() {
             renderInput={(params) =>
                 <TextField {...params}
                     required
-                    placeholder="City, State"
-                    helperText="Search Location by City, State"
+                    placeholder="City"
+                    helperText="Search Location by City in Minnesota"
                     onChange={(e) => handleLocationChange(e)}
                     label='Location'
                 />
