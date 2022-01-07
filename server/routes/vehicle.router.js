@@ -200,6 +200,8 @@ router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
 
+  console.log('vehicle router:',vehicleId, features)
+
   let query = `
     INSERT INTO "vehicle_features" ("vehicle_id", "feature_id")
       VALUES

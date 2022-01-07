@@ -9,6 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
+import VehicleGenerator from './VehicleGenerator';
 
 export default function VehicleInfoForm({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
@@ -22,10 +23,15 @@ export default function VehicleInfoForm({ handleChange, validateNumber }) {
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" my={4}>
-      <Grid item>
-        <Typography component="h2" variant="h5">
+      <Grid item
+      // remove VehicleGenerator on deployment
+      // Vehicle Generator turns 'Vehicle Info' into a hidden button that pre-populates the vehicle form
+      >
+        {/* <Typography component="h2" variant="h5">
           Vehicle Info
-        </Typography>
+        </Typography> */}
+        
+        <VehicleGenerator />
       </Grid>
       <Grid item>
         <FormControl margin="normal" fullWidth>

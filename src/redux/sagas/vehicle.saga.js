@@ -106,7 +106,7 @@ function* fetchVehicleById(action) {
     switch (action.type) {
       case 'FETCH_VEHICLE_TO_EDIT':
         yield put({
-          type: 'SET_VECHICLE_FORM_INPUTS',
+          type: 'SET_VEHICLE_FORM_INPUTS',
           payload: vehicle.data[0],
         });
         break;
