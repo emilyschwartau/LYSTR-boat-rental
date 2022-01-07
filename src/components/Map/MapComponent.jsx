@@ -38,7 +38,7 @@ function MapComponent({ vehicleList, searchQueryLocation, handleSelectTask }) {
         //center on [lat, lng]
         center={[initialLocation?.lat, initialLocation?.lng]}
         //set zoom level
-        zoom={10}
+        zoom={9}
       >
         {/* Grabbing actual map design*/}
         <TileLayer

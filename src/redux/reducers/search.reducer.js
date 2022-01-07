@@ -11,6 +11,8 @@ const searchQuery = (
       return { ...state, startDate: action.payload };
     case 'SET_SEARCH_VEHICLE_TYPE':
       return { ...state, vehicleType: action.payload };
+    case 'SET_SEARCH_QUERY':
+      return action.payload;
     default:
       return state;
   }
