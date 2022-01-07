@@ -313,6 +313,19 @@ function* deletePhoto(action) {
   }
 }
 
+function* deleteVehicle(action) {
+  const { photos, vehicleId, userId } = action.payload;
+  try {
+    yield put({ type: 'START_LOADING' });
+    yield axios.delete(`/api/vehicle/${vehicleId}`, { data: { photos } });
+    yield put({ type: 'FETCH_LISTED_VEHICLES_BY_OWNER', payload: userId });
+    yield put({ type: 'STOP_LOADING' });
+  } catch (error) {
+    console.log('error deleting vehicle:', error);
+    yield put({ type: 'DELETE_ERROR' });
+  }
+}
+
 function* vehicleSaga() {
   yield takeLatest('ADD_VEHICLE', addVehicle);
   yield takeLatest('FETCH_VEHICLE_TO_EDIT', fetchVehicleById);
@@ -326,6 +339,7 @@ function* vehicleSaga() {
   );
   yield takeLatest('FETCH_ALL_RESERVATIONS_BY_ID', fetchAllReservationsById);
   yield takeLatest('UPLOAD_IMAGES_FROM_GALLERY', uploadPhotos);
+  yield takeLatest('DELETE_VEHICLE', deleteVehicle);
 }
 
 export default vehicleSaga;
