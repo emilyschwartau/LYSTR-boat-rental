@@ -96,6 +96,7 @@ function LoggedInNav() {
               flexGrow: 1,
               display: { xs: 'flex', md: 'none' },
               color: 'black',
+              justifyContent: 'flex-end',
             }}
           >
             {/* HAMBURGER BUTTON AND ICON */}
@@ -171,7 +172,7 @@ function LoggedInNav() {
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
+                vertical: 'center',
                 horizontal: 'right',
               }}
               keepMounted
