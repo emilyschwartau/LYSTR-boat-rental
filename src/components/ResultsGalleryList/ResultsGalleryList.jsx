@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Card, CardActions, CardContent, Button, Box, Stack } from '@mui/material';
+import { Card, CardActions, CardContent, Button, Box, Stack, CardActionArea } from '@mui/material';
 import useQuery from '../../hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import ResultsGallerySearchBar from './ResultsGallerySearchBar';
@@ -30,11 +30,13 @@ function ResultsGalleryList() {
           direction="row"
           justifyContent="space-around"
         >
+          {searchResultsList?.length > 0 ?
           <Box>
             {searchResultsList?.map((item) => {
               return (
                 <div id="resultsCard" key={item.vehicleId}>
                   <Card>
+                    <CardActionArea onClick={() => handleSelectTask(item)}>
                     <CardContent id="resultCardContent">
 
                       {/* returns first image for card */}
@@ -49,6 +51,7 @@ function ResultsGalleryList() {
                       </div>
 
                     </CardContent>
+                    </CardActionArea>
                     <CardActions>
 
                       {/* button to details page */}
@@ -62,6 +65,10 @@ function ResultsGalleryList() {
               );
             })}
           </Box>
+            :
+            <p>No Rentals Found</p>
+          }
+
           {searchResultsList?.length > 0 ?
             <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em'}}>
               <MapComponent
