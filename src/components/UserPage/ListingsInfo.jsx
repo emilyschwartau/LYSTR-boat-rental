@@ -58,8 +58,13 @@ function ListingsInfo({ vehicle }) {
     console.log(vehicle.vehicleId);
     dispatch({
       type: 'DELETE_VEHICLE',
-      payload: { vehicleId: vehicle.vehicleId, photos: vehicle.photos },
+      payload: {
+        vehicleId: vehicle.vehicleId,
+        photos: vehicle.photos,
+        userId: user.id,
+      },
     });
+    setConfirmDelete(false);
   };
 
   return (

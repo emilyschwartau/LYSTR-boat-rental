@@ -314,10 +314,11 @@ function* deletePhoto(action) {
 }
 
 function* deleteVehicle(action) {
-  const { photos, vehicleId } = action.payload;
+  const { photos, vehicleId, userId } = action.payload;
   try {
     yield put({ type: 'START_LOADING' });
     yield axios.delete(`/api/vehicle/${vehicleId}`, { data: { photos } });
+    yield put({ type: 'FETCH_LISTED_VEHICLES_BY_OWNER', payload: userId });
     yield put({ type: 'STOP_LOADING' });
   } catch (error) {
     console.log('error deleting vehicle:', error);
