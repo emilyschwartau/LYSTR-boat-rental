@@ -15,15 +15,10 @@ function MapComponent({ vehicleList, searchQuery, handleSelectTask }) {
         // dispatch({ type: `FETCH_SEARCH_CITY_COORDS`, payload: searchQuery.location });
     }, []);
 
-  useEffect(() => {
-    searchLocationGeocode();
-  }, []);
-
-
   const searchLocationGeocode = () => {
     const params = {
       key: process.env.REACT_APP_OPENCAGE_API_KEY,
-      q: `${searchQueryLocation}, MN`,
+      q: `${searchQuery.location}, MN`,
       limit: 1,
       pretty: 1,
       countrycode: 'us',
@@ -38,6 +33,8 @@ function MapComponent({ vehicleList, searchQuery, handleSelectTask }) {
     });
   };
 
+    
+    console.log(`this is vehicleList`, vehicleList);
   //geocode location searching end
     return (<>
         <Map
