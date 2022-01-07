@@ -3,17 +3,13 @@ import { Calendar, DateObject } from 'react-multi-date-picker';
 import { useDispatch, useSelector } from 'react-redux';
 import useQuery from '../../hooks/useQuery';
 
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 
 export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const dispatch = useDispatch();
@@ -43,34 +39,35 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
   };
   return (
     <Box>
+      <Typography variant="h5" align="center">
+        Select a Date to Rent
+      </Typography>
       <FormControl margin="normal">
         <Calendar
-          currentDate={new DateObject(date)}
-          value={bookingInput.date}
+          currentDate={new DateObject()
+            .set('year', date.split('-')[2])
+            .set('month', date.split('-')[0])
+            .set('day', date.split('-')[1])}
+          value={new DateObject()
+            .set('year', bookingInput.date.split('-')[2])
+            .set('month', bookingInput.date.split('-')[0])
+            .set('day', bookingInput.date.split('-')[1])}
           numberOfMonths={1}
-          // value={vehicleFormInputs.availability?.map(
-          //   (date) => new DateObject(date)
-          // )}
-          // onChange={setDateInput}
           onChange={(date) => {
-            // setDateInput(date);
             dispatch({
               type: 'BOOKING_FORM_ONCHANGE',
               payload: {
                 property: 'date',
-                value: date.format('YYYY-MM-DD'),
+                value: date.format('MM-DD-YYYY'),
               },
             });
             console.log(date);
           }}
           mapDays={({ date, today }) => {
             const isAvailable = availability?.includes(
-              date.format('YYYY-MM-DD')
+              date.format('MM-DD-YYYY')
             );
-            if (
-              !isAvailable ||
-              date.format('YYYY-MM-DD') < today.format('YYYY-MM-DD')
-            )
+            if (!isAvailable || date.dayOfYear < today.dayOfYear)
               return {
                 disabled: true,
                 style: { color: '#ccc' },
@@ -78,15 +75,21 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
           }}
         />
       </FormControl>
-      <Typography id="dailyRate">Daily Rate: ${dailyRate}</Typography>
       <Typography>
-        Rental Date:{' '}
+        <b>Daily Rate:</b> ${dailyRate}
+      </Typography>
+      <Typography>
+        <b>Rental Date:</b>{' '}
         {bookingInput.date
-          ? new DateObject(bookingInput.date).format('MMMM D, YYYY')
+          ? new DateObject()
+              .set('year', bookingInput.date.split('-')[2])
+              .set('month', bookingInput.date.split('-')[0])
+              .set('day', bookingInput.date.split('-')[1])
+              .format('MMMM D, YYYY')
           : ''}
       </Typography>
-      <Typography id="estimatedCost">
-        Estimated Cost: ${bookingInput.date ? dailyRate * 1 : 0}
+      <Typography>
+        <b>Estimated Cost:</b> ${bookingInput.date ? dailyRate * 1 : 0}
       </Typography>
       <Button variant="contained" onClick={handleBook}>
         Book

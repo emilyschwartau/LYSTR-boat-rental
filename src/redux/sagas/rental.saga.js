@@ -34,9 +34,21 @@ function* fetchVehicleReservations(action) {
   }
 }
 
+function* cancelReservation(action) {
+  const { rentalId, userId } = action.payload;
+  try {
+    yield axios.delete(`/api/rental/${rentalId}`);
+    yield put({ type: 'FETCH_LISTED_VEHICLES_BY_OWNER', payload: userId });
+  } catch (error) {
+    console.log('error cancelling reservation:', error);
+    yield put({ type: 'DELETE_ERROR' });
+  }
+}
+
 function* rentalSaga() {
   yield takeLatest('BOOK_VEHICLE', bookVehicle);
   yield takeLatest('FETCH_VEHICLE_RESERVATIONS', fetchVehicleReservations);
+  yield takeLatest('CANCEL_RESERVATION', cancelReservation);
 }
 
 export default rentalSaga;

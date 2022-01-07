@@ -25,7 +25,7 @@ function LandingPageVehicleType() {
       history.push(
         `/gallery?location=${location}&date=${format(
           startDate,
-          'yyyy-MM-dd'
+          'MM-dd-yyyy'
         )}&type=${vehicleType}`
       );
     } else {

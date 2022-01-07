@@ -111,13 +111,13 @@ input {
   margin-bottom: 10px;
 }
 
-#resultsCard{
+#resultsCard {
   width: 250px;
   padding: 5px;
-  display:inline-block;
+  display: inline-block;
 }
 
-#resultCardImg{
+#resultCardImg {
   width: auto;
   max-width: 218px;
   height: auto;
@@ -125,15 +125,10 @@ input {
   display: block;
   margin-left: auto;
   margin-right: auto;
-
 }
 
-
-
-
-
 #resultCardContent {
-height: 250px;
+  height: 250px;
 }
 
 #resultCardDetails {
@@ -143,7 +138,7 @@ height: 250px;
   display: block;
 }
 
-#boatResultTitle{
+#boatResultTitle {
   font-size: 20px;
   padding: 0px;
   margin: 0px;
@@ -151,12 +146,11 @@ height: 250px;
 
 .detailImages {
   width: auto;
-  max-width: 200px;
-  height: 200px;
+  /* max-width: 200px; */
+  /* height: 200px; */
   display: block;
   margin-left: auto;
   margin-right: auto;
- 
 }
 
 #carouselNav {
@@ -164,7 +158,6 @@ height: 250px;
 }
 
 #carouselNavComponents {
-  
   padding: 0px;
   text-align: center;
 }
@@ -181,7 +174,6 @@ height: 250px;
 .sectionTitle {
   font-weight: bold;
   font-size: 17px;
- 
 }
 
 #backToGalleryBtn {
@@ -197,15 +189,15 @@ height: 250px;
 }
 
 #rentAbout {
-width: 33%;
-display: inline-block;
-white-space: initial;
-border-style: solid;
-border-radius: 50px;
-border-color: green;
-padding: 15px;
-padding-right: 20px;
-text-align: center;
+  width: 33%;
+  display: inline-block;
+  white-space: initial;
+  border-style: solid;
+  border-radius: 50px;
+  border-color: green;
+  padding: 15px;
+  padding-right: 20px;
+  text-align: center;
 }
 
 #listAbout {
@@ -226,7 +218,6 @@ text-align: center;
   white-space: initial;
   padding: 15px;
   align-items: center;
-  
 }
 
 #aboutContainer {
@@ -236,15 +227,14 @@ text-align: center;
   display: flex;
   justify-content: center;
   margin: 20px;
-  
 }
 
 #ulRentAbout {
-  margin-right:16px;
+  margin-right: 16px;
 }
 
 #ulListAbout {
-  margin-right:16px;
+  margin-right: 16px;
 }
 
 li {
@@ -252,13 +242,13 @@ li {
 }
 
 #aboutText {
-display: inline-block;
-/* margin: 20px; */
-text-align: center;
-margin-bottom: 0px;
-width: 100%;
-margin-right: 40px;
-padding-right: 20px;
+  display: inline-block;
+  /* margin: 20px; */
+  text-align: center;
+  margin-bottom: 0px;
+  width: 100%;
+  margin-right: 40px;
+  padding-right: 20px;
 }
 
 #imageDiv {
@@ -285,6 +275,3 @@ padding-right: 20px;
   width: 50%;
   text-align: center;
 }
-
-
-

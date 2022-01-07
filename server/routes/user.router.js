@@ -102,4 +102,54 @@ router.post('/logout', (req, res) => {
   res.sendStatus(200);
 });
 
+// handles profile information update
+router.put('/', rejectUnauthenticated, (req, res) => {
+  const { username, first_name, last_name, email } = req.body;
+  const query = `
+    UPDATE "user" 
+    SET "username" = $1, "first_name" = $2, "last_name" = $3, "email" = $4
+    WHERE "id" = $5;
+  `;
+  pool
+    .query(query, [username, first_name, last_name, email, req.user.id])
+    .then((result) => res.sendStatus(201))
+    .catch((err) => {
+      console.log('User profile update failed: ', err);
+      res.sendStatus(500);
+    });
+});
+
+// handles profile picture update
+router.put(
+  '/pic',
+  rejectUnauthenticated,
+  upload.single('profilePic'),
+  async (req, res) => {
+    const newPic = req.file;
+    const { oldPic } = req.body;
+    console.log(newPic, oldPic);
+
+    // upload the new pic to S3
+    const profilePicKey = await uploadFile(newPic);
+    unlinkFile(newPic.path);
+    // delete old picture from S3
+    deleteFile(oldPic);
+    console.log('deleted from s3');
+
+    // store the new key in the database
+    const query = `
+    UPDATE "user"
+    SET "profile_picture" = $1
+    WHERE "id" = $2;
+    `;
+    pool
+      .query(query, [profilePicKey.Key, req.user.id])
+      .then((result) => res.sendStatus(201))
+      .catch((err) => {
+        console.log('User profile pic update failed: ', err);
+        res.sendStatus(500);
+      });
+  }
+);
+
 module.exports = router;

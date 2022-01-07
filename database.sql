@@ -23,7 +23,7 @@ CREATE TABLE "type" (
 );
 
 INSERT INTO "type" ("name", "image")
-VALUES ('Pontoon', '/images/pontoon.jpeg' ), ('Runabout', '/images/runabout.png'), ('Fishing', '/images/fishingboat.jpeg'), ('Jetski', '/images/jetski.png'), ('Kayak/Canoe', '/images/kayak.jpeg') ;
+VALUES ('Pontoon', '/images/pontoon.jpeg' ), ('Runabout', '/images/runabout.png'), ('Fishing', '/images/fishingboat.jpeg'), ('Jetski', '/images/jetski.png'), ('Kayak', '/images/kayak.jpeg') ;
 
 
 
@@ -72,7 +72,12 @@ CREATE TABLE "vehicle_features" (
     "feature_id" INTEGER NOT NULL REFERENCES "features" ON DELETE CASCADE
 );
 
-
+-- table of dates that vehicles are available to rent
+CREATE TABLE "availability" (
+    "id" SERIAL PRIMARY KEY,
+    "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
+    "date_available" VARCHAR(20) NOT NULL
+);
 
 -- holds rental apointments
 CREATE TABLE "rental" (
@@ -98,15 +103,6 @@ CREATE TABLE "coordinates" (
     "lat" NUMERIC NOT NULL,
     "lng" NUMERIC NOT NULL
 );
-
--- STRETCH table for messages between users
-CREATE TABLE "messages" (
-    "id" SERIAL PRIMARY KEY,
-    "sent_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    "received_by" INTEGER NOT NULL REFERENCES "user" ON DELETE CASCADE,
-    "msg" VARCHAR(1000) NOT NULL
-);
-
 
 -- END COPY PASTE HERE
 
