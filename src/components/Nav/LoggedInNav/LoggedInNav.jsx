@@ -171,7 +171,7 @@ function LoggedInNav() {
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
+                vertical: 'center',
                 horizontal: 'right',
               }}
               keepMounted
