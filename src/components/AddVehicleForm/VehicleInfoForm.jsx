@@ -11,7 +11,7 @@ import Select from '@mui/material/Select';
 import Typography from '@mui/material/Typography';
 import VehicleGenerator from './VehicleGenerator';
 
-export default function VehicleInfo({ handleChange, validateNumber }) {
+export default function VehicleInfoForm({ handleChange, validateNumber }) {
   const dispatch = useDispatch();
 
   React.useEffect(() => {

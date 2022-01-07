@@ -79,4 +79,30 @@ router.post('/:vehicleId', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// handles rental Cancellation
+router.delete('/:rentalId', rejectUnauthenticated, async (req, res) => {
+  const { rentalId } = req.params;
+
+  const deleteQuery = `
+    DELETE FROM "rental"
+    WHERE "id" = $1
+    RETURNING "date_id";
+  `;
+
+  const putQuery = `
+    UPDATE "availability"
+    SET "is_rented" = FALSE
+    WHERE "id" = (select "date_id" from "rental" where "rental"."id" = $1);
+  `;
+  try {
+    await pool.query(putQuery, [rentalId]);
+    await pool.query(deleteQuery, [rentalId]);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log('error cancelling rental', error);
+    res.sendStatus(500);
+  }
+  pool.query;
+});
+
 module.exports = router;

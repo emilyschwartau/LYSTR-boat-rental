@@ -1,29 +1,12 @@
 import { useState } from 'react';
-import {
-  Box,
-  Card,
-  Typography,
-  Button,
-  TextField,
-  FormControl,
-} from '@mui/material';
-import { format } from 'date-fns';
+import { Box, Card, Typography, Button, FormControl } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Scroll from 'react-scroll';
 import LocationComboBox from '../LocationComboBox/LocationComboBox';
-import TripDatePicker from '../TripDatePicker/TripDatePicker'
+import TripDatePicker from '../TripDatePicker/TripDatePicker';
 
 function LandingPageLocation() {
   const ScrollLink = Scroll.Link;
-
-  const dispatch = useDispatch();
-  const { searchQuery } = useSelector((store) => store.search);
-
-  // search input
-  const [search, setSearch] = useState({
-    startDate: null,
-  });
-
 
   return (
     <>
@@ -47,7 +30,7 @@ function LandingPageLocation() {
             <FormControl fullWidth={true}>
               <LocationComboBox />
               <TripDatePicker />
-              
+
               <Button
                 // type="submit"
                 variant="outlined"

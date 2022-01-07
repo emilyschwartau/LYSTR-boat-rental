@@ -4,12 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
+import { format } from 'date-fns';
 
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
   const vehicleList = useSelector((store) => store.data.types);
-  const vehicleType = useSelector((store) => store.search.searchQuery.vehicleType);
+  const vehicleType = useSelector(
+    (store) => store.search.searchQuery.vehicleType
+  );
   const startDate = useSelector((store) => store.search.searchQuery.startDate);
   const location = useSelector((store) => store.search.searchQuery.location);
 
@@ -22,7 +25,12 @@ function LandingPageVehicleType() {
     if (vehicleType) {
       // search parameters push to url
       // url query parsed on ResultsGalleryPage useQuery hook
-      history.push(`/gallery?location=${location}&date=${startDate}&type=${vehicleType}`);
+      history.push(
+        `/gallery?location=${location}&date=${format(
+          startDate,
+          'MM-dd-yyyy'
+        )}&type=${vehicleType}`
+      );
     } else {
       alert('Please choose vehicle type');
     }
@@ -59,15 +67,15 @@ function LandingPageVehicleType() {
         }}
       >
         <Box
-         sx={{
-          textAlign: "center",
-          mt: 4,
-        }}
+          sx={{
+            textAlign: 'center',
+            mt: 4,
+          }}
         >
           <Typography
             variant="h4"
             sx={{
-              m: 2
+              m: 2,
             }}
           >
             Select a Vehicle
@@ -88,12 +96,10 @@ function LandingPageVehicleType() {
             justifyContent="center"
             alignItems="center"
             sx={{ flexWrap: 'wrap' }}
-            
           >
-
             {vehicleList?.map((vehicle) => (
               <Card
-              className = "cardHover"
+                className="cardHover"
                 key={vehicle.id}
                 elevation={vehicleType === vehicle.name ? 8 : 2}
                 onClick={() => {
@@ -114,7 +120,7 @@ function LandingPageVehicleType() {
             variant="outlined"
             sx={{
               width: '20%',
-              m: 2
+              m: 2,
             }}
             onClick={handleSearch}
           >

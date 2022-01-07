@@ -8,11 +8,11 @@ import Box from '@mui/material/Box';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import VehicleInfo from '../../components/AddVehicleForm/VehicleInfo';
-import VehicleAddress from '../../components/AddVehicleForm/VehicleAddress';
-import VehicleFeatures from '../../components/AddVehicleForm/VehicleFeatures';
-// import VehiclePhotoUpload from '../../components/AddVehicleForm/VehiclePhotoUpload';
-import VehiclePriceAvailability from '../../components/AddVehicleForm/VehiclePriceAvailability';
+import VehicleInfoForm from '../../components/AddVehicleForm/VehicleInfoForm';
+import VehicleAddressForm from '../../components/AddVehicleForm/VehicleAddressForm';
+import VehicleFeaturesForm from '../../components/AddVehicleForm/VehicleFeaturesForm';
+// import VehiclePhotoUploadForm from '../../components/AddVehicleForm/VehiclePhotoUploadForm';
+import VehiclePriceAvailabilityForm from '../../components/AddVehicleForm/VehiclePriceAvailabilityForm';
 // import PhotoGallery from '../../components/PhotoGallery/PhotoGallery';
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog';
 
@@ -59,18 +59,21 @@ export default function UpdateVehicle() {
   return (
     <Container component="main">
       <Box component="form" onSubmit={handleSubmit}>
-        <VehicleInfo
+        <VehicleInfoForm
           handleChange={handleChange}
           validateNumber={validateNumber}
         />
-        <VehicleAddress handleChange={handleChange} />
-        <VehicleFeatures
+        <VehicleAddressForm handleChange={handleChange} />
+        <VehicleFeaturesForm
           handleChange={handleChange}
           validateNumber={validateNumber}
         />
-        {/* <VehiclePhotoUpload /> */}
+        {/* <VehiclePhotoUploadForm /> */}
         {/* <PhotoGallery vehicleId={vehicleId} /> */}
-        <VehiclePriceAvailability validateNumber={validateNumber} />
+        <VehiclePriceAvailabilityForm
+          validateNumber={validateNumber}
+          updateMode
+        />
         <Box display="flex" justifyContent="flex-end">
           <Button type="submit" variant="contained" size="large">
             Update Vehicle

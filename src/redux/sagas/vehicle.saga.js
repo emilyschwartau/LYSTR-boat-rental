@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import opencage from 'opencage-api-client';
+import { format } from 'date-fns';
 
 // POST a new vehicle
 function* addVehicle(action) {
@@ -25,6 +26,10 @@ function* addVehicle(action) {
     photos,
     availability,
   } = action.payload;
+
+  const formattedAvailability = availability.map((date) =>
+    format(date, 'MM-dd-yyyy')
+  );
 
   console.log(photos);
   // append the photo files to a FormData for multer upload
@@ -61,7 +66,7 @@ function* addVehicle(action) {
     });
     // post to "availability"
     yield axios.post(`/api/vehicle/availability/${response.data[0].id}`, {
-      availability,
+      formattedAvailability,
     });
     // post to "photos"
     yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
@@ -73,14 +78,13 @@ function* addVehicle(action) {
       limit: 1,
       pretty: 1,
       countrycode: 'us',
-    }
-    yield opencage.geocode({ ...params })
-      .then(response => {
-        const result = response.results[0];
-        // console.log(`this is geocode result[0]`, result);
-        coords = { lat: result.geometry.lat, lng: result.geometry.lng };
-        // console.log(`this is all response from geocode`, response.results);
-      });
+    };
+    yield opencage.geocode({ ...params }).then((response) => {
+      const result = response.results[0];
+      // console.log(`this is geocode result[0]`, result);
+      coords = { lat: result.geometry.lat, lng: result.geometry.lng };
+      // console.log(`this is all response from geocode`, response.results);
+    });
     // post to "coordinates"
     yield axios.post(`/api/vehicle/coordinates/${response.data[0].id}`, coords);
     //done posting to other tables
@@ -125,7 +129,9 @@ function* fetchVehicleById(action) {
 function* fetchListedVehiclesByOwner(action) {
   const userId = action.payload;
   try {
-    let vehiclesListed = yield axios.get(`/api/vehicle/allVehiclesListed/${userId}`);
+    let vehiclesListed = yield axios.get(
+      `/api/vehicle/allVehiclesListed/${userId}`
+    );
 
     for (let i in vehiclesListed.data) {
       let vehicleInfo = vehiclesListed.data[i];
@@ -210,6 +216,12 @@ function* updateVehicle(action) {
     availability,
   } = action.payload;
 
+  const formattedAvailability = availability.map((date) =>
+    format(new Date(date), 'MM-dd-yyyy')
+  );
+
+  console.log(formattedAvailability);
+
   try {
     yield put({ type: 'START_LOADING' });
     yield axios.put(`/api/vehicle/${vehicleId}`, {
@@ -230,7 +242,7 @@ function* updateVehicle(action) {
       heads,
       dailyRate,
     });
-    //features 
+    //features
     yield axios.delete(`/api/vehicle/features/${vehicleId}`);
     yield axios.post(`/api/vehicle/features/${vehicleId}`, {
       features,
@@ -238,7 +250,7 @@ function* updateVehicle(action) {
     //availability
     yield axios.delete(`/api/vehicle/availability/${vehicleId}`);
     yield axios.post(`/api/vehicle/availability/${vehicleId}`, {
-      availability,
+      formattedAvailability,
     });
     // geocoding vehicle location into lat lng coordinates
     let coords = { lat: '', lng: '' };
@@ -248,12 +260,11 @@ function* updateVehicle(action) {
       limit: 1,
       pretty: 1,
       countrycode: 'us',
-    }
-    yield opencage.geocode({ ...params })
-      .then(response => {
-        const result = response.results[0];
-        coords = { lat: result.geometry.lat, lng: result.geometry.lng };
-      });
+    };
+    yield opencage.geocode({ ...params }).then((response) => {
+      const result = response.results[0];
+      coords = { lat: result.geometry.lat, lng: result.geometry.lng };
+    });
     // post to "coordinates"
     yield axios.put(`/api/vehicle/coordinates/${vehicleId}`, coords);
 
