@@ -163,6 +163,16 @@ height: 250px;
   margin-bottom: 50px;
 }
 
+#carouselNavComponents {
+  
+  padding: 0px;
+  text-align: center;
+}
+
+.navCaption {
+  white-space: nowrap;
+}
+
 #detailsBoatTitle {
   font-weight: bold;
   font-size: 25px;
@@ -259,4 +269,22 @@ padding-right: 20px;
   margin: 20px;
   margin-top: 40px;
 }
+
+#detailHeaderContainer {
+  display: flex;
+}
+
+#vehicleDetailsHeader {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+
+#bookingCalendarHeader {
+  display: inline-block;
+  width: 50%;
+  text-align: center;
+}
+
+
 
