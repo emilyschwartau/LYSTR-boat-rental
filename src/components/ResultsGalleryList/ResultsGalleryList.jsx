@@ -30,6 +30,7 @@ function ResultsGalleryList() {
           direction="row"
           justifyContent="space-around"
         >
+          {searchResultsList?.length > 0 ?
           <Box>
             {searchResultsList?.map((item) => {
               return (
@@ -62,6 +63,10 @@ function ResultsGalleryList() {
               );
             })}
           </Box>
+            :
+            <p>No Rentals Found</p>
+          }
+
           {searchResultsList?.length > 0 ?
             <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em'}}>
               <MapComponent
