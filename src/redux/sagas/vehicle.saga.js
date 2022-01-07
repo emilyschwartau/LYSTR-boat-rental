@@ -226,7 +226,7 @@ function* updateVehicle(action) {
       availability,
     });
     // geocoding vehicle location into lat lng coordinates
-    const coords = yield axios.get(`/api/vehicle/geocode/${street}/${city}/${state}/${zip}`);
+    const coords = yield axios.get(`/api/geocode/`, { street, city, state, zip });
     // put to "coordinates"
     yield axios.put(`/api/vehicle/coordinates/${vehicleId}`, coords.data);
 
