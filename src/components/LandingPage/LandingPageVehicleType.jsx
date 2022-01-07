@@ -18,7 +18,10 @@ function LandingPageVehicleType() {
 
   let buttonText = '';
 
+  
+
   const handleSearch = () => {
+
     if (vehicleType) {
       // search parameters push to url
       // url query parsed on ResultsGalleryPage useQuery hook
@@ -31,6 +34,7 @@ function LandingPageVehicleType() {
     } else {
       alert('Please choose vehicle type');
     }
+
   };
 
   const checkId = () => {
