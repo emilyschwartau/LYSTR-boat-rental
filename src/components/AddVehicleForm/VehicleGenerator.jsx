@@ -9,7 +9,7 @@ function VehicleGenerator({ handleChange, validateNumber }) {
 
   const generateVehicle = () => {
     
-    dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : vehicleExamples[0] })
+    dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : vehicleExamples[Math.floor(Math.random() * vehicleExamples.length)] })
 
   }
 
