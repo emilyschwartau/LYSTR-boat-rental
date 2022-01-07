@@ -74,6 +74,11 @@ export default function VehicleDetailsPage() {
       </Button>
 
       {/* vehicle details section */}
+      <div id="detailHeaderContainer">
+        <div id="vehicleDetailsHeader"><h2>Vehicle Details</h2></div>
+        <div id="bookingCalendarHeader"><h2>Booking Calendar</h2></div>
+      </div>
+      
       <Box sx={{ margin: 'auto', padding: '1em', width: '80%' }}>
         <Stack
           direction="row"
