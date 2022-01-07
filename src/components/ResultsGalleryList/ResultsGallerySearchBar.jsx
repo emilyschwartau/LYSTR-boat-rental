@@ -1,4 +1,3 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { Box, Grid } from '@mui/material';
 import LocationComboBox from '../LocationComboBox/LocationComboBox'
 import TripDatePicker from '../TripDatePicker/TripDatePicker';

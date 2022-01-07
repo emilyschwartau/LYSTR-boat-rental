@@ -1,5 +1,4 @@
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
+import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import useQuery from '../../hooks/useQuery'
 
@@ -10,40 +9,40 @@ function VehicleTypeDropdown() {
     const dispatch = useDispatch()
     const vehicleList = useSelector((store) => store.data.types);
     const type = query.get("type");
-    const vehicleSearch = useSelector(store => store.search.vehicleType)
+    const { vehicleType } = useSelector(store => store.search.searchQuery)
 
+    // maps over vehicle list, removes keys, renames name to label.
     const vehicleLabel = vehicleList?.map(x => ({
         label: x.name
     }))
 
-    const handleDropDown = (value) => {
-        console.log('VehicleTypeDropdown', value.label)
-        dispatch({ type: 'SET_SEARCH_VEHICLE_TYPE', payload: value.label });
+    // submits value from select change event to search reducer
+    const handleDropDown = (e) => {
+        dispatch({ type: 'SET_SEARCH_VEHICLE_TYPE', payload: e.target.value });
     }
 
+
     return (
-      
-            <Autocomplete
-                disablePortal
-                autoComplete={true}
-                autoSelect={true}
+
+        <FormControl sx={{ m: 1, minWidth: 120 }}>
+            <InputLabel id="demo-simple-select-helper-label">Vehicle</InputLabel>
+            <Select
+                labelId="VehicleTypeDropdown"
                 id="VehicleTypeDropdown"
-                sx ={{
-                    m: 1
-                }}
-                options={vehicleList ? vehicleLabel : 'none'}
-                isOptionEqualToValue={(option, value) => option.id === value.id}
-                onChange={(event, value) => handleDropDown(value)}
-                disableClearable={true}
-                renderInput={(params) =>
-                    <TextField {...params}
-                        label={vehicleSearch ? vehicleSearch : type}
-                        helperText="Type of Vehicle"
-                    />
-                }
-                getOptionLabel={(option) => option.label}
-            />
-      
+                // checks for reducer for search string, then url
+                value={vehicleType ? vehicleType : type}
+                label="Vehicle"
+                onChange={handleDropDown}
+            >
+                {vehicleLabel?.map((type) => (
+                    // maps over array for select options
+                    <MenuItem key={type.label} value={type.label}>
+                        {type.label}
+                    </MenuItem>
+                ))}
+            </Select>
+            <FormHelperText>Choose a Vehicle Type</FormHelperText>
+        </FormControl>
     )
 }
 

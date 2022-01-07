@@ -2,20 +2,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
-
 import BookingForm from '../../components/BookingForm/BookingForm';
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog';
-
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-
 import {
   Box,
   Divider,
   Stack,
   Card,
   CardMedia,
-  CardActionArea,
+  //CardActionArea,
   Button,
   Typography,
   IconButton,
@@ -25,6 +22,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+//vehicle details page including boat details & booking calendar
 export default function VehicleDetailsPage() {
   const dispatch = useDispatch();
   const { vehicleId } = useParams();
@@ -33,9 +31,10 @@ export default function VehicleDetailsPage() {
   const { vehicleInfo, photos } = useSelector((store) => store.vehicle);
   const { reservationResult } = useSelector((store) => store.rental);
 
-  console.log('photos', photos);
-  console.log('vehicleInfo', vehicleInfo);
+  // console.log('photos', photos);
+  // console.log('vehicleInfo', vehicleInfo);
 
+  //dispatches actions to sagas that set vehicle info in reducer
   React.useEffect(() => {
     dispatch({ type: 'FETCH_VEHICLE_BY_ID', payload: vehicleId });
     dispatch({ type: 'FETCH_VEHICLE_PHOTOS', payload: vehicleId });
@@ -44,6 +43,7 @@ export default function VehicleDetailsPage() {
   const [imageIndex, setImageIndex] = useState(0);
   const history = useHistory();
 
+  //next button on image carousel
   const handleNext = () => {
     if (imageIndex != photos?.length - 1) {
       setImageIndex(imageIndex + 1);
@@ -52,6 +52,7 @@ export default function VehicleDetailsPage() {
     }
   };
 
+  //back button on image carousel
   const handleBack = () => {
     if (imageIndex == 0) {
       setImageIndex(photos?.length - 1);
@@ -59,7 +60,6 @@ export default function VehicleDetailsPage() {
       setImageIndex(imageIndex - 1);
     }
   };
-  console.log('listings info');
 
   return (
     <>
