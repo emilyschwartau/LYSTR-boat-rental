@@ -27,12 +27,7 @@ function* addVehicle(action) {
     availability,
   } = action.payload;
 
-  const formattedAvailability = availability.map((date) =>
-    format(date, 'MM-dd-yyyy')
-  );
-
-  console.log(photos);
-  // append the photo files to a FormData for multer upload
+  // create FormData for multer image upload
   const formData = new FormData();
   for (const photo of photos) {
     console.log(photo);
@@ -66,7 +61,7 @@ function* addVehicle(action) {
     });
     // post to "availability"
     yield axios.post(`/api/vehicle/availability/${response.data[0].id}`, {
-      formattedAvailability,
+      availability,
     });
     // post to "photos"
     yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
@@ -216,12 +211,6 @@ function* updateVehicle(action) {
     availability,
   } = action.payload;
 
-  const formattedAvailability = availability.map((date) =>
-    format(new Date(date), 'MM-dd-yyyy')
-  );
-
-  console.log(formattedAvailability);
-
   try {
     yield put({ type: 'START_LOADING' });
     yield axios.put(`/api/vehicle/${vehicleId}`, {
@@ -250,7 +239,7 @@ function* updateVehicle(action) {
     //availability
     yield axios.delete(`/api/vehicle/availability/${vehicleId}`);
     yield axios.post(`/api/vehicle/availability/${vehicleId}`, {
-      formattedAvailability,
+      availability,
     });
     // geocoding vehicle location into lat lng coordinates
     let coords = { lat: '', lng: '' };
