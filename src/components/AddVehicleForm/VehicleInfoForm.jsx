@@ -23,10 +23,14 @@ export default function VehicleInfoForm({ handleChange, validateNumber }) {
 
   return (
     <Grid container maxWidth="md" mx="auto" direction="column" my={4}>
-      <Grid item>
+      <Grid item
+      // remove VehicleGenerator on deployment
+      // Vehicle Generator turns 'Vehicle Info' into a hidden button that pre-populates the vehicle form
+      >
         {/* <Typography component="h2" variant="h5">
           Vehicle Info
         </Typography> */}
+        
         <VehicleGenerator />
       </Grid>
       <Grid item>
