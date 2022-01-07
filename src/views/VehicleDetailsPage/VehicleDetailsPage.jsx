@@ -88,7 +88,7 @@ export default function VehicleDetailsPage() {
               <br />
               {photos?.length > 1 ? (
                 <>
-                  <div id="carouselNav">
+                  <div id="carouselNav" style={{textAlign: "center"}}> 
                     <IconButton variant="outlined" onClick={() => handleBack()}>
                       <ArrowBackIosNewIcon />
                     </IconButton>
