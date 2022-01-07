@@ -26,16 +26,18 @@ router.get('/:location/:startDate/:vehicleType', (req, res) => {
     .query(query)
 
     .then((result) => {
-      console.log(result.rows);
+      console.log('result: ', result.rows);
 
-      const filtered = result.rows.filter(
-        (row) =>
-          row.city.toLowerCase() === locationKeyword.toLowerCase() &&
-          row.availability.includes(startDate) &&
-          row.type.toLowerCase() === vehicleType.toLowerCase()
-      );
+      const filtered = result.rows
+        .filter((row) => row.availability !== null)
+        .filter(
+          (row) =>
+            row.city.toLowerCase() === locationKeyword.toLowerCase() &&
+            row.availability.includes(startDate) &&
+            row.type.toLowerCase() === vehicleType.toLowerCase()
+        );
 
-      console.log(filtered);
+      console.log('filtered :', filtered);
       res.send(filtered);
     })
 
