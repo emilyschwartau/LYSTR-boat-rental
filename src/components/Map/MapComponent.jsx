@@ -58,7 +58,7 @@ function MapComponent({ vehicleList, searchQuery, handleSelectTask }) {
             // icon={customIcon}
           />
         ))}
-
+            
         {/* If there is an active marker, show pop up */}
         {activeMarker && (
           <Popup
