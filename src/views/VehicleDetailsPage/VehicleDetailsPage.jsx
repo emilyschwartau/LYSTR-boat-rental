@@ -86,6 +86,7 @@ export default function VehicleDetailsPage() {
           justifyContent="space-around"
         >
           {/* image carousel */}
+          
           <Box sx={{ width: '45%', width: '45%', padding: '1em' }}>
             <Card>
               <CardMedia
@@ -101,18 +102,19 @@ export default function VehicleDetailsPage() {
             {photos?.length > 1 ? (
               <>
                 <div id="carouselNav">
-
+                  <div id="carouselNavComponents">
                   <IconButton variant="outlined" onClick={() => handleBack()}>
                     <ArrowBackIosNewIcon />
                   </IconButton>
 
-                  <Typography variant="caption" sx={{ margin: '0 1em' }}>
+                  <Typography variant="caption" sx={{ margin: '0 1em' }} id="navCaption">
                     Click to navigate through images
                   </Typography>
 
                   <IconButton variant="outlined" onClick={() => handleNext()}>
                     <ArrowForwardIosIcon />
                   </IconButton>
+                  </div>
 
                 </div>
               </>
