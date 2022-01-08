@@ -6,6 +6,7 @@ import BookingForm from '../../components/BookingForm/BookingForm';
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Box,
   Divider,
@@ -70,6 +71,7 @@ export default function VehicleDetailsPage() {
               <Button
                 id="backToGalleryBtn"
                 variant="contained"
+                startIcon={<ArrowBackIcon/>}
                 onClick={() => history.goBack()}
               >
                 Back to Search Results

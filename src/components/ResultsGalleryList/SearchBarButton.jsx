@@ -1,4 +1,5 @@
 import { Button } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { format } from 'date-fns';
@@ -41,6 +42,7 @@ function SearchBarButton() {
   return (
     <Button
       variant="contained"
+      startIcon={<SearchIcon />}
       sx={{
         m: 2.25,
       }}

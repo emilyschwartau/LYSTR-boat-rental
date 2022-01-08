@@ -10,6 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
+import AddIcon from '@mui/icons-material/Add';
 import Typography from '@mui/material/Typography';
 
 import VehicleInfoForm from '../../components/AddVehicleForm/VehicleInfoForm';
@@ -78,7 +79,7 @@ export default function AddVehicle() {
         <VehiclePhotoUploadForm />
         <VehiclePriceAvailabilityForm validateNumber={validateNumber} />
         <Box display="flex" justifyContent="flex-end">
-          <Button type="submit" variant="contained" size="large">
+          <Button type="submit" variant="contained" size="large" startIcon={<AddIcon/>}>
             Add Vehicle
           </Button>
         </Box>
