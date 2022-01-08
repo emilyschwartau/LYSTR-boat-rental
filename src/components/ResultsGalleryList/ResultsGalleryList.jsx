@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Card,
@@ -20,7 +21,7 @@ function ResultsGalleryList() {
   const date = query.get('date');
 
   const galleryItems = useSelector((store) => store.search);
-  let searchResultsList = galleryItems.searchResults.payload;
+  let searchResultsList = galleryItems.searchResults.searchResults;
 
   const handleSelectTask = (item) => {
     // go to details view
@@ -34,7 +35,7 @@ function ResultsGalleryList() {
         <ResultsGallerySearchBar />
         <Stack direction="row" justifyContent="space-around">
           {searchResultsList?.length > 0 ? (
-            <Box>
+            <Box minWidth="70%">
               {searchResultsList?.map((item) => {
                 return (
                   <div id="resultsCard" key={item.vehicleId}>
@@ -72,11 +73,12 @@ function ResultsGalleryList() {
           )}
 
           {searchResultsList?.length > 0 ? (
-            <Box maxWidth="25vw" sx={{ width: '100%', paddingLeft: '1em' }}>
+            <Box maxWidth="30%" sx={{ width: '100%', paddingLeft: '1em' }}>
               <MapComponent
                 vehicleList={searchResultsList}
-                searchQueryLocation={galleryItems.searchQuery.location}
+                searchQuery={galleryItems.searchQuery}
                 handleSelectTask={handleSelectTask}
+                coords={galleryItems.searchResults.coords}
               />
             </Box>
           ) : (

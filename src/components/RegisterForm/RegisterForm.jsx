@@ -7,6 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const Input = styled('input')({
   display: 'none',
@@ -139,7 +140,7 @@ function RegisterForm() {
         <Grid container item xs={6} justifyContent="center">
           <Grid item xs={6}>
             <FormControl fullWidth margin="normal">
-              <Button type="submit" variant="contained" size="large">
+              <Button type="submit" variant="contained" size="large" startIcon={<PersonAddIcon />}>
                 Register
               </Button>
             </FormControl>

@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import HomeIcon from '@mui/icons-material/Home';
+import TableRowsIcon from '@mui/icons-material/TableRows';
 
 const msg = {
   add: 'Vehicle added successfully!',
@@ -75,8 +77,8 @@ export default function SuccessDialog({ pathname, reservationResult }) {
         </DialogContent>
       )}
       <DialogActions>
-        <Button onClick={handleHome}>Home</Button>
-        <Button onClick={handleDashboard}>Dashboard</Button>
+        <Button startIcon={<HomeIcon />} onClick={handleHome}>Home</Button>
+        <Button startIcon={<TableRowsIcon />} onClick={handleDashboard}>Dashboard</Button>
       </DialogActions>
     </Dialog>
   );

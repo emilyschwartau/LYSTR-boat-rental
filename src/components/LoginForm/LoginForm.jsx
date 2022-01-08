@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import LoginIcon from '@mui/icons-material/Login';
 
 function LoginForm() {
   const [username, setUsername] = useState('');
@@ -68,7 +69,7 @@ function LoginForm() {
         <Grid container item xs={6} justifyContent="center">
           <Grid item xs={6}>
             <FormControl fullWidth margin="normal">
-              <Button type="submit" variant="contained" size="large">
+              <Button type="submit" variant="contained" size="large" startIcon={<LoginIcon />}>
                 Login
               </Button>
             </FormControl>
