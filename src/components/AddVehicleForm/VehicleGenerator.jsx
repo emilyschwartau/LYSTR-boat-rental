@@ -7,9 +7,20 @@ function VehicleGenerator({ handleChange, validateNumber }) {
   const dispatch = useDispatch()
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
 
+  
+
   const generateVehicle = () => {
     // gets a random choice from generatorData object containing pre populated boat info
-    dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : vehicleExamples[Math.floor(Math.random() * vehicleExamples.length)] })
+
+    const addressExample = () => {
+      const newAddress = address[Math.floor(Math.random() * address.length)] 
+      
+      
+      return {...vehicleExamples[Math.floor(Math.random() * vehicleExamples.length)], street: newAddress.street, city: newAddress.city, zip:newAddress.zip}
+    }
+
+    console.log(addressExample() )
+    dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : addressExample() })
 
   }
 
