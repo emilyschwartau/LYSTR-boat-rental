@@ -38,7 +38,7 @@ function ReservationsInfo({ rental }) {
               <CardActionArea>
                 <CardMedia
                   component="img"
-                  height={'200vh'}
+                  height={'250vh'}
                   image={rental?.photos[imageIndex]}
                 />
               </CardActionArea>

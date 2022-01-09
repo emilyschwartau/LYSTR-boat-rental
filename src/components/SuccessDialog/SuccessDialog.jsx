@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import HomeIcon from '@mui/icons-material/Home';
+import TableRowsIcon from '@mui/icons-material/TableRows';
 
 const msg = {
   add: 'Vehicle added successfully!',
@@ -58,7 +60,11 @@ export default function SuccessDialog({ pathname, reservationResult }) {
           {reservationResult && (
             <Typography>
               Date:{' '}
-              {new DateObject(reservationResult.date).format('MMMM D, YYYY')}
+              {new DateObject()
+                .set('year', reservationResult.date?.split('-')[2])
+                .set('month', reservationResult.date?.split('-')[0])
+                .set('day', reservationResult.date?.split('-')[1])
+                .format('MMMM D, YYYY')}
             </Typography>
           )}
           <Typography>
@@ -71,8 +77,8 @@ export default function SuccessDialog({ pathname, reservationResult }) {
         </DialogContent>
       )}
       <DialogActions>
-        <Button onClick={handleHome}>Home</Button>
-        <Button onClick={handleDashboard}>Dashboard</Button>
+        <Button startIcon={<HomeIcon />} onClick={handleHome}>Home</Button>
+        <Button startIcon={<TableRowsIcon />} onClick={handleDashboard}>Dashboard</Button>
       </DialogActions>
     </Dialog>
   );

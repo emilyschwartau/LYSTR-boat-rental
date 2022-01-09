@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -37,7 +38,7 @@ export default function PhotoGalleryModal({
     <>
       <Dialog fullScreen open={open} onClose={handleClose}>
         <DialogActions>
-          <Button onClick={handleClose}>Close</Button>
+          <Button startIcon={<CloseIcon />} onClick={handleClose}>Close</Button>
         </DialogActions>
         <DialogContent>
           <VehiclePhotoUploadForm

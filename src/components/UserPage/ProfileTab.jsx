@@ -10,6 +10,10 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
+import EditIcon from '@mui/icons-material/Edit';
+import ClearIcon from '@mui/icons-material/Clear';
+import UpdateIcon from '@mui/icons-material/Update';
+import UploadIcon from '@mui/icons-material/Upload';
 import { styled } from '@mui/material/styles';
 
 const Input = styled('input')({
@@ -67,12 +71,12 @@ export default function ProfileTab() {
           </Grid>
           <Grid item alignSelf="center">
             {!editMode ? (
-              <Button variant="contained" onClick={toggleInfoEdit}>
+              <Button variant="contained" startIcon={<EditIcon />} onClick={toggleInfoEdit}>
                 Edit
               </Button>
             ) : (
               <Stack direction="row" spacing={2}>
-                <Button variant="outlined" onClick={toggleInfoEdit}>
+                <Button variant="outlined" startIcon={<ClearIcon />} onClick={toggleInfoEdit}>
                   Cancel
                 </Button>
                 <Button variant="contained" onClick={handleUpdate}>
@@ -165,7 +169,7 @@ export default function ProfileTab() {
                   accept="image/*"
                   onChange={handleProfilePic}
                 />
-                <Button variant="outlined" component="span">
+                <Button variant="outlined" startIcon={<UpdateIcon />} component="span">
                   Update Profile Picture
                 </Button>
                 <Typography variant="body2" mt={1}>
@@ -177,7 +181,7 @@ export default function ProfileTab() {
 
           {profilePic && (
             <Grid item>
-              <Button variant="contained" onClick={handleUpload}>
+              <Button variant="contained" startIcon={<UploadIcon />} onClick={handleUpload}>
                 Upload
               </Button>
             </Grid>

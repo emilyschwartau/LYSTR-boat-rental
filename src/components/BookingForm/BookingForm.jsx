@@ -10,6 +10,8 @@ import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
+import CheckIcon from '@mui/icons-material/Check';
+import LoginIcon from '@mui/icons-material/Login';
 
 export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const dispatch = useDispatch();
@@ -92,7 +94,7 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       <Typography>
         <b>Estimated Cost:</b> ${bookingInput.date ? dailyRate * 1 : 0}
       </Typography>
-      <Button variant="contained" onClick={handleBook} disabled={!user.id}>
+      <Button variant="contained" onClick={handleBook} disabled={!user.id} startIcon={user.id ? <CheckIcon /> : <LoginIcon />}>
         {user.id ? 'Book' : 'Login to Book'}
       </Button>
       <Dialog open={noDate} onClose={() => setNoDate(false)}>

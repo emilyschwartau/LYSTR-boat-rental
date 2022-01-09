@@ -4,6 +4,8 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+
 
 export default function PhotoGalleryItem({ photo, amount }) {
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ export default function PhotoGalleryItem({ photo, amount }) {
       <CardMedia component="img" height={250} image={photo.path} />
       <CardActions>
         {/* <Button size="small">Make Primary</Button> */}
-        <Button size="small" color="error" onClick={handleDelete}>
+        <Button size="small" color="error" startIcon={<DeleteForeverIcon />} onClick={handleDelete}>
           Delete
         </Button>
       </CardActions>

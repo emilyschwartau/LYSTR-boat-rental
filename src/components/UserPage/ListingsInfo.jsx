@@ -9,6 +9,8 @@ import {
   Typography,
   IconButton,
 } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import UpdateIcon from '@mui/icons-material/Update';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState, useEffect } from 'react';
@@ -83,7 +85,7 @@ function ListingsInfo({ vehicle }) {
               <CardActionArea onClick={() => setOpen(true)}>
                 <CardMedia
                   component="img"
-                  height={'200vh'}
+                  height={'250vh'}
                   image={vehicle?.photos[imageIndex]}
                 />
               </CardActionArea>
@@ -159,6 +161,7 @@ function ListingsInfo({ vehicle }) {
           <Stack direction="row" spacing={4}>
             <Button
               variant="contained"
+              startIcon={<UpdateIcon />}
               onClick={() =>
                 history.push(`/update-vehicle/${vehicle.vehicleId}`)
               }
@@ -168,6 +171,7 @@ function ListingsInfo({ vehicle }) {
             <Button
               variant="contained"
               color="error"
+              startIcon={<DeleteForeverIcon />}
               onClick={() => setConfirmDelete(true)}
             >
               Remove Listing

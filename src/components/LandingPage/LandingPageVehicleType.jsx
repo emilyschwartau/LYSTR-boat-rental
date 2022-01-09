@@ -118,6 +118,7 @@ function LandingPageVehicleType() {
           </Stack>
           <Button
             variant="outlined"
+            startIcon={<SearchIcon />}
             sx={{
               width: '20%',
               m: 2,

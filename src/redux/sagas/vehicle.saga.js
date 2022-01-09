@@ -1,7 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import opencage from 'opencage-api-client';
 import { format } from 'date-fns';
+
 
 // POST a new vehicle
 function* addVehicle(action) {
@@ -66,22 +66,9 @@ function* addVehicle(action) {
     // post to "photos"
     yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
     // geocoding vehicle location into lat lng coordinates
-    let coords = { lat: '', lng: '' };
-    const params = {
-      key: process.env.REACT_APP_OPENCAGE_API_KEY,
-      q: `${street}, ${city}, ${state} ${zip}`,
-      limit: 1,
-      pretty: 1,
-      countrycode: 'us',
-    };
-    yield opencage.geocode({ ...params }).then((response) => {
-      const result = response.results[0];
-      // console.log(`this is geocode result[0]`, result);
-      coords = { lat: result.geometry.lat, lng: result.geometry.lng };
-      // console.log(`this is all response from geocode`, response.results);
-    });
+    const coords = yield axios.get(`/api/geocode/${street}/${city}/${state}/${zip}`);
     // post to "coordinates"
-    yield axios.post(`/api/vehicle/coordinates/${response.data[0].id}`, coords);
+    yield axios.post(`/api/vehicle/coordinates/${response.data[0].id}`, coords.data);
     //done posting to other tables
     yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Added!');
@@ -242,20 +229,12 @@ function* updateVehicle(action) {
       availability,
     });
     // geocoding vehicle location into lat lng coordinates
-    let coords = { lat: '', lng: '' };
-    const params = {
-      key: process.env.REACT_APP_OPENCAGE_API_KEY,
-      q: `${street}, ${city}, ${state} ${zip}`,
-      limit: 1,
-      pretty: 1,
-      countrycode: 'us',
-    };
-    yield opencage.geocode({ ...params }).then((response) => {
-      const result = response.results[0];
-      coords = { lat: result.geometry.lat, lng: result.geometry.lng };
-    });
-    // post to "coordinates"
-    yield axios.put(`/api/vehicle/coordinates/${vehicleId}`, coords);
+    console.log(`street city state zip in saga`, street, city, state, zip);
+    const coords = yield axios.get(`/api/geocode/${street}/${city}/${state}/${zip}`);
+    console.log(`this is coords.data`, coords.data);
+    // put to "coordinates"
+    yield axios.put(`/api/vehicle/coordinates/${vehicleId}`, coords.data);
+
 
     yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Updated!');

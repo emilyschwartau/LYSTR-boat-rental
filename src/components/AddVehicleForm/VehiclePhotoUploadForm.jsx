@@ -7,6 +7,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
+import UploadIcon from '@mui/icons-material/Upload';
 
 const thumbsContainer = {
   display: 'flex',
@@ -169,7 +170,7 @@ export default function VehiclePhotoUploadForm(props) {
 
         {props.galleryMode && (
           <Grid container item justifyContent="flex-end">
-            <Button variant="contained" onClick={handleGalleryModeUpload}>
+            <Button variant="contained" startIcon={<UploadIcon />} onClick={handleGalleryModeUpload}>
               Upload
             </Button>
           </Grid>

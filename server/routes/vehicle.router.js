@@ -16,6 +16,8 @@ const {
   rejectUnauthenticated,
 } = require('../modules/authentication-middleware');
 
+
+
 /*
  * GET routes
  */
@@ -131,6 +133,7 @@ router.get('/uploads/:key', (req, res) => {
   // pipe the read stream to the client
   readStream.pipe(res);
 });
+
 
 /*
  * POST routes
