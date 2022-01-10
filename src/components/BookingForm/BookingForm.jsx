@@ -21,6 +21,11 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const query = useQuery();
   const date = query.get('date');
 
+  const searchDateObj = new DateObject()
+    .set('year', date.split('-')[2])
+    .set('month', date.split('-')[0])
+    .set('day', date.split('-')[1]);
+
   // const user = useSelector((store) => store.user);
   // const [dateInput, setDateInput] = React.useState('');
 
@@ -41,8 +46,6 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
     }
   };
 
-  console.log(date)
-
   return (
     <Box>
       <Typography variant="h5" align="center">
@@ -50,14 +53,7 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       </Typography>
       <FormControl margin="normal">
         <Calendar
-          currentDate={new DateObject()
-            .set('year', date.split('-')[2])
-            .set('month', date.split('-')[0])
-            .set('day', date.split('-')[1])}
-          value={new DateObject()
-            .set('year', bookingInput.date.split('-')[2])
-            .set('month', bookingInput.date.split('-')[0])
-            .set('day', bookingInput.date.split('-')[1])}
+          currentDate={searchDateObj}
           numberOfMonths={1}
           onChange={(date) => {
             dispatch({
@@ -97,7 +93,12 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       <Typography>
         <b>Estimated Cost:</b> ${bookingInput.date ? dailyRate * 1 : 0}
       </Typography>
-      <Button variant="contained" onClick={handleBook} disabled={!user.id} startIcon={user.id ? <CheckIcon /> : <LoginIcon />}>
+      <Button
+        variant="contained"
+        onClick={handleBook}
+        disabled={!user.id}
+        startIcon={user.id ? <CheckIcon /> : <LoginIcon />}
+      >
         {user.id ? 'Book' : 'Login to Book'}
       </Button>
       <Dialog open={noDate} onClose={() => setNoDate(false)}>

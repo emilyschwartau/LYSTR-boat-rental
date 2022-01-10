@@ -9,15 +9,14 @@ import Grid from '@mui/material/Grid';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {
   Box,
-  Divider,
-  Stack,
   Card,
   CardMedia,
-  //CardActionArea,
   Button,
   Typography,
   IconButton,
+  Stack,
 } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
@@ -71,7 +70,7 @@ export default function VehicleDetailsPage() {
               <Button
                 id="backToGalleryBtn"
                 variant="contained"
-                startIcon={<ArrowBackIcon/>}
+                startIcon={<ArrowBackIcon />}
                 onClick={() => history.goBack()}
               >
                 Back to Search Results
@@ -91,7 +90,7 @@ export default function VehicleDetailsPage() {
               <br />
               {photos?.length > 1 ? (
                 <>
-                  <div id="carouselNav" style={{textAlign: "center"}}> 
+                  <div id="carouselNav" style={{ textAlign: 'center' }}>
                     <IconButton variant="outlined" onClick={() => handleBack()}>
                       <ArrowBackIosNewIcon />
                     </IconButton>
@@ -115,6 +114,27 @@ export default function VehicleDetailsPage() {
               <Typography>
                 {vehicleInfo?.year} {vehicleInfo?.make} {vehicleInfo?.model}
               </Typography>
+              <br />
+
+              <Stack direction="row">
+                <Typography variant="body1" sx={{ alignSelf: 'center', mr: 2 }}>
+                  <span className="sectionTitle">Owner:</span>
+                  <br />
+                </Typography>
+                <Avatar
+                  alt={vehicleInfo?.ownedBy}
+                  src={
+                    vehicleInfo?.ownerPic &&
+                    `/api/user/pic/${vehicleInfo?.ownerPic}`
+                  }
+                  sx={{ width: '60px', height: '60px' }}
+                />
+                <Typography
+                  variant="body1"
+                  sx={{ alignSelf: 'center', ml: 1 }}
+                >{`${vehicleInfo?.ownedBy}`}</Typography>
+              </Stack>
+
               <br />
 
               <Typography variant="body1">

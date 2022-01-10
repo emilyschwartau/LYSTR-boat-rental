@@ -5,6 +5,9 @@ import { Collapse, IconButton, TableRow, TableCell } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { format } from 'date-fns';
+import Avatar from '@mui/material/Avatar';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
 
 function ReservationsRow({ rental }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +33,20 @@ function ReservationsRow({ rental }) {
         <TableCell align="right">
           {format(new Date(rental?.dateRented), 'MM/dd/yyyy')}
         </TableCell>
-        <TableCell align="right">{<>{rental?.ownerFirstName} {rental?.ownerLastName}<br />{rental?.ownerEmail}</>}</TableCell>
+        <TableCell align="right">
+          <Stack direction="row" justifyContent="flex-end">
+            <Avatar
+              src={rental?.ownerPic}
+              alt={rental?.ownerFirstName}
+              sx={{ mr: 1 }}
+            />
+            <Typography align="left" variant="body">
+              {rental?.ownerFirstName} {rental?.ownerLastName}
+              <br />
+              {rental?.ownerEmail}
+            </Typography>
+          </Stack>
+        </TableCell>
         <TableCell align="right">${rental?.dailyRate}</TableCell>
       </TableRow>
       {/* ACTUAL TABLE ROW END */}
