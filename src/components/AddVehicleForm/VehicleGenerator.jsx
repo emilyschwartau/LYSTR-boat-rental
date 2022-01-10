@@ -14,14 +14,10 @@ function VehicleGenerator({ handleChange, validateNumber }) {
 
     const addressExample = () => {
       const newAddress = address[Math.floor(Math.random() * address.length)] 
-      
-      
       return {...vehicleExamples[Math.floor(Math.random() * vehicleExamples.length)], street: newAddress.street, city: newAddress.city, zip:newAddress.zip}
     }
 
-    console.log(addressExample() )
     dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : addressExample() })
-
   }
 
   return (
