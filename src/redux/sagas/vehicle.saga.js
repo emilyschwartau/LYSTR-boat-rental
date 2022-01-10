@@ -2,7 +2,6 @@ import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 import { format } from 'date-fns';
 
-
 // POST a new vehicle
 function* addVehicle(action) {
   const {
@@ -66,9 +65,14 @@ function* addVehicle(action) {
     // post to "photos"
     yield axios.post(`/api/vehicle/photos/${response.data[0].id}`, formData);
     // geocoding vehicle location into lat lng coordinates
-    const coords = yield axios.get(`/api/geocode/${street}/${city}/${state}/${zip}`);
+    const coords = yield axios.get(
+      `/api/geocode/${street}/${city}/${state}/${zip}`
+    );
     // post to "coordinates"
-    yield axios.post(`/api/vehicle/coordinates/${response.data[0].id}`, coords.data);
+    yield axios.post(
+      `/api/vehicle/coordinates/${response.data[0].id}`,
+      coords.data
+    );
     //done posting to other tables
     yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Added!');
@@ -153,7 +157,7 @@ function* fetchAllReservationsById(action) {
       let rental = reservationsList.data[i];
       // getting owner name from db by vehicle id
       const ownerName = yield axios.get(
-        `/api/data/vehicleOwner/${rental.vehicleId}`
+        `/api/rental/vehicleOwner/${rental.vehicleId}`
       );
       // adding owner names into reservations
       reservationsList.data[i] = {
@@ -161,6 +165,7 @@ function* fetchAllReservationsById(action) {
         ownerFirstName: ownerName.data[0].firstName,
         ownerLastName: ownerName.data[0].lastName,
         ownerEmail: ownerName.data[0].email,
+        ownerPic: ownerName.data[0].profilePic,
       };
     }
     // setting reservations list into reducer
@@ -230,11 +235,12 @@ function* updateVehicle(action) {
     });
     // geocoding vehicle location into lat lng coordinates
     console.log(`street city state zip in saga`, street, city, state, zip);
-    const coords = yield axios.get(`/api/geocode/${street}/${city}/${state}/${zip}`);
+    const coords = yield axios.get(
+      `/api/geocode/${street}/${city}/${state}/${zip}`
+    );
     console.log(`this is coords.data`, coords.data);
     // put to "coordinates"
     yield axios.put(`/api/vehicle/coordinates/${vehicleId}`, coords.data);
-
 
     yield put({ type: 'STOP_LOADING' });
     console.log('Vehicle Updated!');
