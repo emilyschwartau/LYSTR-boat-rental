@@ -1,15 +1,21 @@
-import * as React from 'react';
+import React from 'react';
 import LandingPageLayout from '../components/LandingPage/LandingPageLayout';
 import LandingPageLocation from '../components/LandingPage/LandingPageLocation';
 import LandingPageVehicleType from '../components/LandingPage/LandingPageVehicleType';
 import * as Scroll from 'react-scroll';
+import { useDispatch } from 'react-redux';
 
 //give name to element to scroll to
 
 function LandingPage() {
+  const dispatch = useDispatch();
   const ScrollElement = Scroll.Element;
 
   const backgroundImage = '/images/landing_bg.jpg';
+
+  React.useEffect(() => {
+    dispatch({ type: 'CLEAR_SEARCH_QUERY' });
+  }, []);
 
   return (
     <>
