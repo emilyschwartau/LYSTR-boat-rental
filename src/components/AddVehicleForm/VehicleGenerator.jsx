@@ -12,12 +12,13 @@ function VehicleGenerator({ handleChange, validateNumber }) {
   const generateVehicle = () => {
     // gets a random choice from generatorData object containing pre populated boat info
 
-    const addressExample = () => {
+    const newVehicle = () => {
       const newAddress = address[Math.floor(Math.random() * address.length)] 
-      return {...vehicleExamples[Math.floor(Math.random() * vehicleExamples.length)], street: newAddress.street, city: newAddress.city, zip:newAddress.zip}
+
+      return {...vehicleModel, ...vehicleExamples[Math.floor(Math.random() * vehicleExamples.length)], street: newAddress.street, city: newAddress.city, zip:newAddress.zip}
     }
 
-    dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : addressExample() })
+    dispatch({ type: 'SET_VEHICLE_FORM_INPUTS', payload : newVehicle() })
   }
 
   return (
