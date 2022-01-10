@@ -76,7 +76,7 @@ function ListingsInfo({ vehicle }) {
         <Stack
           direction="row"
           // divider={<Divider orientation="vertical" flexItem />}
-          justifyContent="space-around"
+          justifyContent="space-between"
         >
           <Box sx={{ width: '40%', textAlign: 'center' }}>
             <Typography variant="caption" sx={{ margin: '0 1em' }}>
