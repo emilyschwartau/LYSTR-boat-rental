@@ -36,7 +36,7 @@ function ReservationsRow({ rental }) {
         <TableCell align="right">
           <Stack direction="row" justifyContent="flex-end">
             <Avatar
-              src={rental?.ownerPic}
+              src={`/api/user/pic/${rental?.ownerPic}`}
               alt={rental?.ownerFirstName}
               sx={{ mr: 1 }}
             />
