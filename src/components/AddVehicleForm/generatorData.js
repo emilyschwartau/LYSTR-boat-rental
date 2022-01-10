@@ -125,12 +125,13 @@ fishingDescription = [
         
 ]
 
-
+// generates random number based on array length
 function randomNum(arr) {
         arr.length = Math.floor(arr.length);
         return Math.floor(Math.random() * arr.length )
 }
 
+// generates random number between a range of numbers
 function randomRange(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
@@ -542,7 +543,6 @@ vehicleExamples = [
                 description: runaboutDescription[randomNum(runaboutDescription)],
                 dailyRate: randomRange(300, 500)
         },
-
         {
                 title: jetSkiTitle[randomNum(jetSkiTitle)],
                 type: 'Jetski',
