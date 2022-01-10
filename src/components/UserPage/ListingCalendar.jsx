@@ -1,6 +1,8 @@
 import React from 'react';
 import { Calendar, DateObject } from 'react-multi-date-picker';
 import FormControl from '@mui/material/FormControl';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 function ListingCalendar({ vehicle }) {
   // calendar to show when vehicle is available on my listings tab
@@ -23,20 +25,25 @@ function ListingCalendar({ vehicle }) {
   };
 
   return (
-    <FormControl margin="normal">
-      <Calendar
-        currentDate={findEarliest()}
-        numberOfMonths={2}
-        mapDays={({ date, today }) => {
-          const isAvailable = availability?.includes(date.format('MM-DD-YYYY'));
-          if (!isAvailable || date.dayOfYear < today.dayOfYear)
-            return {
-              disabled: true,
-              style: { color: '#ccc' },
-            };
-        }}
-      />
-    </FormControl>
+    <Box>
+      <Typography variant="h6">Availability</Typography>
+      <FormControl margin="normal">
+        <Calendar
+          currentDate={findEarliest()}
+          numberOfMonths={2}
+          mapDays={({ date, today }) => {
+            const isAvailable = availability?.includes(
+              date.format('MM-DD-YYYY')
+            );
+            if (!isAvailable || date.dayOfYear < today.dayOfYear)
+              return {
+                disabled: true,
+                style: { color: '#ccc' },
+              };
+          }}
+        />
+      </FormControl>
+    </Box>
   );
 }
 
