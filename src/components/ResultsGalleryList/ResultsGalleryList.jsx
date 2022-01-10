@@ -55,6 +55,7 @@ function ResultsGalleryList() {
                             sx={{ 
                               fontSize: 16,
                               fontWeight: 700,
+                              lineHeight: 1.3
                              }}
                             
                             >{item.title} </Typography>
