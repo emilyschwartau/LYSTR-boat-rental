@@ -40,6 +40,9 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
       });
     }
   };
+
+  console.log(date)
+
   return (
     <Box>
       <Typography variant="h5" align="center">

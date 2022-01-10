@@ -20,6 +20,7 @@ import { format } from 'date-fns';
 
 import PhotoGalleryModal from '../PhotoGallery/PhotoGalleryModal';
 import CancelReservationButton from '../CancelReservation/CancelReservationButton';
+import ListingCalendar from './ListingCalendar'
 import DeleteListingModal from '../DeleteListing/DeleteListingModal';
 
 function ListingsInfo({ vehicle }) {
@@ -111,6 +112,8 @@ function ListingsInfo({ vehicle }) {
             ) : (
               ''
             )}
+
+            <ListingCalendar vehicle = {vehicle}/>
           </Box>
           <Box
             sx={{
