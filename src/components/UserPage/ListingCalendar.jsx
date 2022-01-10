@@ -35,7 +35,7 @@ function ListingCalendar ({vehicle}) {
             :
             firstAvailable.month
         }
-          numberOfMonths={1}
+          numberOfMonths={2}
           mapDays={({ date, today }) => {
             const isAvailable = availability?.includes(
               date.format('MM-DD-YYYY')
