@@ -43,22 +43,6 @@ router.get('/features', (req, res) => {
     });
 });
 
-router.get('/vehicleOwner/:vehicleId', (req, res) => {
-  const { vehicleId } = req.params;
-  const query = `
-    SELECT "first_name" AS "firstName", "last_name" AS "lastName", "email" FROM "user"
-    JOIN "vehicle" ON "vehicle"."owned_by" = "user"."id"
-    WHERE "vehicle"."id" = $1;`;
-
-  pool
-    .query(query, [vehicleId])
-    .then((result) => res.send(result.rows))
-    .catch((err) => {
-      console.log(`Error getting vehicle owner by vehicle id`, err);
-      res.sendStatus(500);
-    });
-});
-
 /**
  * POST routes
  */

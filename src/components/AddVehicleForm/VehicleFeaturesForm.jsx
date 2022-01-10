@@ -69,7 +69,15 @@ export default function VehicleFeaturesForm({ validateNumber }) {
       </Grid>
       <Grid container item mt={2}>
         {features?.map((feature) => (
-          <Grid item key={feature.id}>
+          <Grid
+            item
+            key={feature.id}
+            mx={0.5}
+            my={0.5}
+            border="1px solid lightgray"
+            borderRadius={5}
+            pl={2}
+          >
             <FormControl>
               <FormControlLabel
                 control={
