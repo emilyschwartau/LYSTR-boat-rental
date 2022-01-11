@@ -9,14 +9,21 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import ReservationsRow from './ReservationsRow';
 
 function ReservationsTab() {
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
+
   const reservationsList = useSelector(
     (store) => store.vehicle.allReservationsById
   );
+
+  React.useEffect(() => {
+    dispatch({ type: `FETCH_ALL_RESERVATIONS_BY_ID`, payload: user.id });
+  }, []);
   return (
     <>
       <Typography variant="h2">My Reservations</Typography>

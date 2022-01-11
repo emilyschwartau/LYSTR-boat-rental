@@ -12,14 +12,6 @@ import Paper from '@mui/material/Paper';
 import { useDispatch } from 'react-redux';
 
 function UserPage() {
-  const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-
-  useEffect(() => {
-    dispatch({ type: `FETCH_LISTED_VEHICLES_BY_OWNER`, payload: user.id });
-    dispatch({ type: `FETCH_ALL_RESERVATIONS_BY_ID`, payload: user.id });
-  }, [user.id]);
-
   const [value, setValue] = useState(0);
 
   //handles tab selection

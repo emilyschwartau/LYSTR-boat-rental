@@ -10,12 +10,18 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 function ListingsTab() {
+  const dispatch = useDispatch();
   const ownerListingList = useSelector(
     (store) => store.vehicle.listedVehiclesByOwner
   );
+  const user = useSelector((store) => store.user);
+
+  React.useEffect(() => {
+    dispatch({ type: `FETCH_LISTED_VEHICLES_BY_OWNER`, payload: user.id });
+  }, [user.id]);
 
   return (
     <>
