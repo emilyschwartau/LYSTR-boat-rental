@@ -94,32 +94,34 @@ function LandingPageVehicleType() {
             padding: '1em',
           }}
         >
-          <Stack
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ flexWrap: 'wrap' }}
-          >
-            {vehicleList.length > 0
-              ? vehicleList.map((vehicle) => (
-                  <Card
-                    className="cardHover"
-                    key={vehicle.id}
-                    elevation={vehicleType === vehicle.name ? 8 : 2}
-                    onClick={() => {
-                      dispatch({
-                        type: 'SET_SEARCH_VEHICLE_TYPE',
-                        payload: vehicle.name,
-                      });
-                    }}
-                    sx={{ margin: '1em', height: '20vh', width: '20vw' }}
-                  >
-                    <img src={images[vehicle.name]} height="70%" />
-                    <p>{vehicle.name}</p>
-                  </Card>
-                ))
-              : ''}
-          </Stack>
+          {vehicleList.length > 0 ? (
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              sx={{ flexWrap: 'wrap' }}
+            >
+              {vehicleList.map((vehicle) => (
+                <Card
+                  className="cardHover"
+                  key={vehicle.id}
+                  elevation={vehicleType === vehicle.name ? 8 : 2}
+                  onClick={() => {
+                    dispatch({
+                      type: 'SET_SEARCH_VEHICLE_TYPE',
+                      payload: vehicle.name,
+                    });
+                  }}
+                  sx={{ margin: '1em', height: '20vh', width: '20vw' }}
+                >
+                  <img src={images[vehicle.name]} height="70%" />
+                  <p>{vehicle.name}</p>
+                </Card>
+              ))}
+            </Stack>
+          ) : (
+            ''
+          )}
           <Button
             variant="outlined"
             startIcon={<SearchIcon />}
