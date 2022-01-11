@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
 import TabPanel from './TabPanel';
 import ListingsTab from './ListingsTab';
 import ReservationsTab from './ReservationsTab';
