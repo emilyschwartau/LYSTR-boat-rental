@@ -61,12 +61,6 @@ function LandingPageVehicleType() {
   // checks store reducer value after boat type is selected
   checkId();
 
-  React.useEffect(() => {
-    dispatch({
-      type: 'FETCH_TYPE_LIST',
-    });
-  }, []);
-
   return (
     <>
       {/* page border */}
@@ -120,7 +114,7 @@ function LandingPageVehicleType() {
                 }}
                 sx={{ margin: '1em', height: '20vh', width: '20vw' }}
               >
-                <img src={images[vehicle.name]} height="70%" />
+                {/* <img src={images[vehicle.name]} height="70%" /> */}
                 <p>{vehicle.name}</p>
               </Card>
             ))}
