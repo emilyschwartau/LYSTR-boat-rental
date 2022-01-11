@@ -6,7 +6,6 @@ import { Button, Typography } from '@mui/material';
 function MapComponent({ vehicleList, handleSelectTask, coords }) {
   const [activeMarker, setActiveMarker] = useState(null);
 
-  console.log(`this is vehicleList`, vehicleList);
   //geocode location searching end
   return (
     <>

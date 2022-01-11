@@ -25,8 +25,6 @@ function LocationComboBox() {
     }
   };
 
-  // console.log('value should equal location combobox',searchQuery.location)
-
   React.useEffect(() => {
     dispatch({ type: 'FETCH_CITY_LIST' });
   }, []);

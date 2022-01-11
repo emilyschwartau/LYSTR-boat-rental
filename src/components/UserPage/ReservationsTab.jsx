@@ -17,7 +17,6 @@ function ReservationsTab() {
   const reservationsList = useSelector(
     (store) => store.vehicle.allReservationsById
   );
-  console.log('reservations mounted');
   return (
     <>
       <Typography variant="h2">My Reservations</Typography>
