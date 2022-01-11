@@ -21,7 +21,7 @@ export default function PhotoGalleryItem({ photo, amount }) {
   };
 
   return (
-    <Card>
+    <Card sx={{ m: 0.5 }}>
       <CardMedia component="img" height={250} image={photo.path} />
       <CardActions>
         <Button
