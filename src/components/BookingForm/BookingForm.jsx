@@ -21,13 +21,11 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
   const query = useQuery();
   const date = query.get('date');
 
+  // create DateObject using the query string date
   const searchDateObj = new DateObject()
     .set('year', date.split('-')[2])
     .set('month', date.split('-')[0])
     .set('day', date.split('-')[1]);
-
-  // const user = useSelector((store) => store.user);
-  // const [dateInput, setDateInput] = React.useState('');
 
   // for requiring a date selection
   const [noDate, setNoDate] = React.useState(false);
@@ -35,7 +33,6 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
   React.useEffect(() => dispatch({ type: 'CLEAR_BOOKING_INPUT' }), []);
 
   const handleBook = () => {
-    console.log(bookingInput.date, dailyRate);
     if (bookingInput.date === '') {
       setNoDate(true);
     } else {
@@ -63,7 +60,6 @@ export default function BookingForm({ availability, dailyRate, vehicleId }) {
                 value: date.format('MM-DD-YYYY'),
               },
             });
-            console.log(date);
           }}
           mapDays={({ date, today }) => {
             const isAvailable = availability?.includes(

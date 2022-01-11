@@ -1,6 +1,6 @@
-require("dotenv").config();
-const fs = require("fs");
-const aws = require("aws-sdk");
+require('dotenv').config();
+const fs = require('fs');
+const aws = require('aws-sdk');
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 const region = process.env.AWS_BUCKET_REGION;
@@ -36,6 +36,7 @@ function getFileStream(fileKey) {
   return s3.getObject(downloadParams).createReadStream();
 }
 
+// delete an object from the bucket
 function deleteFile(fileKey) {
   const deleteParams = {
     Key: fileKey,

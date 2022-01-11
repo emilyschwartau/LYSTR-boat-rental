@@ -58,8 +58,6 @@ export default function ProfileTab() {
     setProfilePic(null);
   };
 
-  console.log(profileUpdates);
-  console.log(profilePic);
   return (
     <Box>
       <Grid container flexDirection="column">
@@ -71,12 +69,20 @@ export default function ProfileTab() {
           </Grid>
           <Grid item alignSelf="center">
             {!editMode ? (
-              <Button variant="contained" startIcon={<EditIcon />} onClick={toggleInfoEdit}>
+              <Button
+                variant="contained"
+                startIcon={<EditIcon />}
+                onClick={toggleInfoEdit}
+              >
                 Edit
               </Button>
             ) : (
               <Stack direction="row" spacing={2}>
-                <Button variant="outlined" startIcon={<ClearIcon />} onClick={toggleInfoEdit}>
+                <Button
+                  variant="outlined"
+                  startIcon={<ClearIcon />}
+                  onClick={toggleInfoEdit}
+                >
                   Cancel
                 </Button>
                 <Button variant="contained" onClick={handleUpdate}>
@@ -169,7 +175,11 @@ export default function ProfileTab() {
                   accept="image/*"
                   onChange={handleProfilePic}
                 />
-                <Button variant="outlined" startIcon={<UpdateIcon />} component="span">
+                <Button
+                  variant="outlined"
+                  startIcon={<UpdateIcon />}
+                  component="span"
+                >
                   Update Profile Picture
                 </Button>
                 <Typography variant="body2" mt={1}>
@@ -181,7 +191,11 @@ export default function ProfileTab() {
 
           {profilePic && (
             <Grid item>
-              <Button variant="contained" startIcon={<UploadIcon />} onClick={handleUpload}>
+              <Button
+                variant="contained"
+                startIcon={<UploadIcon />}
+                onClick={handleUpload}
+              >
                 Upload
               </Button>
             </Grid>

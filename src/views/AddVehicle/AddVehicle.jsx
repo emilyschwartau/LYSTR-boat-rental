@@ -11,7 +11,6 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import AddIcon from '@mui/icons-material/Add';
-import Typography from '@mui/material/Typography';
 
 import VehicleInfoForm from '../../components/AddVehicleForm/VehicleInfoForm';
 import VehicleAddressForm from '../../components/AddVehicleForm/VehicleAddressForm';
@@ -26,7 +25,6 @@ export default function AddVehicle() {
   const location = useLocation();
 
   const { vehicleFormInputs } = useSelector((store) => store.vehicle);
-  const { loading, success } = useSelector((store) => store.feedback);
 
   // for requiring at least one image upload
   const [noImage, setNoImage] = React.useState(false);
@@ -34,7 +32,6 @@ export default function AddVehicle() {
   React.useEffect(() => dispatch({ type: 'CLEAR_VEHICLE_FORM' }), [dispatch]);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     const { name, value } = e.target;
     dispatch({
       type: 'VEHICLE_FORM_ONCHANGE',
@@ -56,7 +53,6 @@ export default function AddVehicle() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(vehicleFormInputs);
     if (vehicleFormInputs.photos.length == 0) {
       setNoImage(true);
     } else {
@@ -79,7 +75,12 @@ export default function AddVehicle() {
         <VehiclePhotoUploadForm />
         <VehiclePriceAvailabilityForm validateNumber={validateNumber} />
         <Box display="flex" justifyContent="flex-end">
-          <Button type="submit" variant="contained" size="large" startIcon={<AddIcon/>}>
+          <Button
+            type="submit"
+            variant="contained"
+            size="large"
+            startIcon={<AddIcon />}
+          >
             Add Vehicle
           </Button>
         </Box>

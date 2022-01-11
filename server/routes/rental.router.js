@@ -33,7 +33,6 @@ router.get('/:rentalId', rejectUnauthenticated, (req, res) => {
 
 router.get('/vehicle/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { vehicleId } = req.params;
-  console.log(req.params);
 
   const query = `
     SELECT "rental"."id", "rental"."vehicle_id" AS "vehicleId", "date_available" AS "rentalDate", "first_name" AS "renterFirst", "last_name" AS "renterLast", "email" AS "renterEmail" FROM "rental"

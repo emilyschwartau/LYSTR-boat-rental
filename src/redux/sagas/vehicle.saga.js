@@ -1,6 +1,5 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import { format } from 'date-fns';
 
 // POST a new vehicle
 function* addVehicle(action) {
@@ -29,7 +28,6 @@ function* addVehicle(action) {
   // create FormData for multer image upload
   const formData = new FormData();
   for (const photo of photos) {
-    console.log(photo);
     formData.append('photos', photo);
   }
   let response;
@@ -234,11 +232,9 @@ function* updateVehicle(action) {
       availability,
     });
     // geocoding vehicle location into lat lng coordinates
-    console.log(`street city state zip in saga`, street, city, state, zip);
     const coords = yield axios.get(
       `/api/geocode/${street}/${city}/${state}/${zip}`
     );
-    console.log(`this is coords.data`, coords.data);
     // put to "coordinates"
     yield axios.put(`/api/vehicle/coordinates/${vehicleId}`, coords.data);
 
@@ -267,10 +263,8 @@ function* fetchVehiclePhotos(action) {
 // POST a vehicle photo
 function* uploadPhotos(action) {
   const { vehicleId, photos } = action.payload;
-  console.log('payload.photos', photos);
   const formData = new FormData();
   for (const photo of photos) {
-    console.log(photo);
     formData.append('photos', photo);
   }
   try {

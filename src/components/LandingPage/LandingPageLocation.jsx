@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { Box, Card, Typography, Button, FormControl } from '@mui/material';
-import { useDispatch, useSelector } from 'react-redux';
 import * as Scroll from 'react-scroll';
 import LocationComboBox from '../LocationComboBox/LocationComboBox';
 import TripDatePicker from '../TripDatePicker/TripDatePicker';
@@ -25,26 +23,19 @@ function LandingPageLocation() {
         >
           <Typography variant="h4">Find a Rental Near You!</Typography>
           <br />
-          {/* <form onSubmit={() => handleSubmit()}> */}
           <form>
             <FormControl fullWidth={true}>
               <LocationComboBox />
               <TripDatePicker />
 
               <Button
-                // type="submit"
                 variant="outlined"
                 sx={{
                   width: '50%',
                   margin: 'auto',
                 }}
               >
-                <ScrollLink
-                  // type="submit"
-                  to="vehicleType"
-                  spy={true}
-                  smooth={true}
-                >
+                <ScrollLink to="vehicleType" spy={true} smooth={true}>
                   Select Vehicle Type
                 </ScrollLink>
               </Button>

@@ -1,4 +1,13 @@
-import { Box, Divider, Stack, Card, CardActionArea, CardMedia, Typography, IconButton,} from '@mui/material';
+import {
+  Box,
+  Divider,
+  Stack,
+  Card,
+  CardActionArea,
+  CardMedia,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { useState } from 'react';
@@ -27,7 +36,7 @@ function ReservationsInfo({ rental }) {
   console.log('reservations info', rental);
   return (
     <>
-      <Box sx={{ margin: 'auto', padding: '1em', width: '90%'}}>
+      <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
         <Stack
           direction="row"
           divider={<Divider orientation="vertical" flexItem />}
@@ -50,7 +59,11 @@ function ReservationsInfo({ rental }) {
                 <IconButton variant="outlined" onClick={() => handleBack()}>
                   <ArrowBackIosNewIcon />
                 </IconButton>
-                <Typography variant="caption" sx={{ margin: '0 1em' }} className="navCaption">
+                <Typography
+                  variant="caption"
+                  sx={{ margin: '0 1em' }}
+                  className="navCaption"
+                >
                   Click to navigate through images
                 </Typography>
                 <IconButton variant="outlined" onClick={() => handleNext()}>
@@ -98,8 +111,9 @@ function ReservationsInfo({ rental }) {
               ))}
             </ul>
 
-            <Typography variant='body1'>
-              <strong>Description:</strong><br />
+            <Typography variant="body1">
+              <strong>Description:</strong>
+              <br />
 
               {rental?.description}
             </Typography>

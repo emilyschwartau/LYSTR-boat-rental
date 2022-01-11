@@ -10,8 +10,6 @@ router.get('/:location/:startDate/:vehicleType', (req, res) => {
   const startDate = req.params.startDate;
   const vehicleType = req.params.vehicleType;
 
-  console.log(locationKeyword, startDate, vehicleType);
-
   const query = `
 
     SELECT "vehicle"."id" AS "vehicleId", "user"."username" AS "ownedBy", "type"."name" AS "type", "title", "make", "model", "year", "length", "capacity", "horsepower", "street", "city", "state", "zip", "description", "cabins", "heads", "daily_rate" AS "dailyRate",
@@ -24,10 +22,8 @@ router.get('/:location/:startDate/:vehicleType', (req, res) => {
 
   pool
     .query(query)
-
     .then((result) => {
-      console.log('result: ', result.rows);
-
+      // filter the list of all vehicles based on the search query
       const filtered = result.rows
         .filter((row) => row.availability !== null)
         .filter(
@@ -36,8 +32,6 @@ router.get('/:location/:startDate/:vehicleType', (req, res) => {
             row.availability.includes(startDate) &&
             row.type.toLowerCase() === vehicleType.toLowerCase()
         );
-
-      console.log('filtered :', filtered);
       res.send(filtered);
     })
 

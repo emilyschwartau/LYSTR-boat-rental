@@ -6,9 +6,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
 import UploadIcon from '@mui/icons-material/Upload';
 
+// styles for thumbnail previews
 const thumbsContainer = {
   display: 'flex',
   flexDirection: 'row',
@@ -49,8 +49,6 @@ export default function VehiclePhotoUploadForm(props) {
     (store) => store.vehicle
   );
 
-  // const [files, setFiles] = React.useState([]);
-
   const thumbs = props.galleryMode
     ? photoGalleryInput.photos?.map((photo) => (
         <div style={thumb} key={photo.name}>
@@ -69,7 +67,6 @@ export default function VehiclePhotoUploadForm(props) {
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: 'image/*',
-    // noClick: true,
     noKeyboard: true,
     onDrop: (acceptedFiles) => {
       const photos = acceptedFiles.map((photo) =>
@@ -103,18 +100,6 @@ export default function VehiclePhotoUploadForm(props) {
     },
     [vehicleFormInputs.photos, photoGalleryInput.photos]
   );
-
-  const filepath = props.galleryMode
-    ? photoGalleryInput.photos?.map((photo) => (
-        <li key={photo.path}>
-          {photo.path} - {photo.size} bytes
-        </li>
-      ))
-    : vehicleFormInputs.photos?.map((photo) => (
-        <li key={photo.path}>
-          {photo.path} - {photo.size} bytes
-        </li>
-      ));
 
   const handleGalleryModeUpload = () => {
     if (photoGalleryInput.photos.length == 0) {
@@ -159,9 +144,6 @@ export default function VehiclePhotoUploadForm(props) {
             <Typography component="p" variant="body1" align="center">
               Drag 'n' drop some files here, or click to select files
             </Typography>
-            {/* <button type="button" onClick={open}>
-                Open File Dialog
-              </button> */}
           </Box>
         </Grid>
         <Grid item xs={12}>
@@ -170,7 +152,11 @@ export default function VehiclePhotoUploadForm(props) {
 
         {props.galleryMode && (
           <Grid container item justifyContent="flex-end">
-            <Button variant="contained" startIcon={<UploadIcon />} onClick={handleGalleryModeUpload}>
+            <Button
+              variant="contained"
+              startIcon={<UploadIcon />}
+              onClick={handleGalleryModeUpload}
+            >
               Upload
             </Button>
           </Grid>
