@@ -27,7 +27,7 @@ function ListingsInfo({ vehicle }) {
   const user = useSelector((store) => store.user);
   const [imageIndex, setImageIndex] = useState(0);
   const [open, setOpen] = useState(false);
-  const [renderStatus, setRenderStatus] = useState(false); // for forcing re render
+  const [renderStatus, setRenderStatus] = useState(false); // for forcing re render when a change to photo gallery is made
   const [confirmDelete, setConfirmDelete] = useState(false); // for opening the delete listing modal
   const history = useHistory();
   const dispatch = useDispatch();
@@ -58,7 +58,6 @@ function ListingsInfo({ vehicle }) {
   };
 
   const handleDeleteListing = () => {
-    console.log(vehicle.vehicleId);
     dispatch({
       type: 'DELETE_VEHICLE',
       payload: {
@@ -73,11 +72,7 @@ function ListingsInfo({ vehicle }) {
   return (
     <>
       <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
-        <Stack
-          direction="row"
-          // divider={<Divider orientation="vertical" flexItem />}
-          justifyContent="space-between"
-        >
+        <Stack direction="row" justifyContent="space-between">
           <Box sx={{ width: '40%', textAlign: 'center' }}>
             <Typography variant="caption" sx={{ margin: '0 1em' }}>
               Click on image to delete or upload new images

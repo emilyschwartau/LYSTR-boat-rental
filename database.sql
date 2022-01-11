@@ -21,11 +21,10 @@ CREATE TABLE "type" (
     "name" VARCHAR(255) NOT NULL,
     "image" VARCHAR(255) NOT NULL
 );
-
+-- initialize the table
+-- images are stored in public/images
 INSERT INTO "type" ("name", "image")
 VALUES ('Pontoon', '/images/pontoon.jpeg' ), ('Runabout', '/images/runabout.png'), ('Fishing', '/images/fishingboat.jpeg'), ('Jetski', '/images/jetski.png'), ('Kayak', '/images/kayak.jpeg') ;
-
-
 
 -- listed vehicles go here:
 CREATE TABLE "vehicle" (
@@ -61,7 +60,7 @@ CREATE TABLE "features" (
     "id" SERIAL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL
 );
-
+-- initilaize table
 INSERT INTO "features" ("name")
 VALUES ('Radar'), ('Sonar'), ('GPS'), ('Depth Finder'), ('Fish Finder'), ('Trolling Motor'), ('Anchor'), ('Live Well'), ('Life Jackets'), ('Fire Extinguisher'), ('First Aid Kit'), ('Stereo System'), ('Towels'), ('Wake-board Tower and Board'), ('Water Skis'), ('Towable Tube'), ('Tow Rope'), ('Fishing Rod');
 
@@ -76,7 +75,8 @@ CREATE TABLE "vehicle_features" (
 CREATE TABLE "availability" (
     "id" SERIAL PRIMARY KEY,
     "vehicle_id" INTEGER NOT NULL REFERENCES "vehicle" ON DELETE CASCADE,
-    "date_available" VARCHAR(20) NOT NULL
+    "date_available" VARCHAR(20) NOT NULL,
+    "is_rented" BOOLEAN DEFAULT FALSE
 );
 
 -- holds rental apointments
@@ -88,6 +88,8 @@ CREATE TABLE "rental" (
 );
 
 -- auto fill city table
+-- use usa_zipcode_of_mn-1540j.csv to fill this table
+-- it may be imported using Postico
 CREATE TABLE "cities" (
     "id" SERIAL PRIMARY KEY,
     "city_name" VARCHAR(32),
@@ -105,5 +107,3 @@ CREATE TABLE "coordinates" (
 );
 
 -- END COPY PASTE HERE
-
-INSERT INTO "vehicle" ("owned_by", "type_id", "title", "make", "model", "year", "capacity", "length", "horsepower", "daily_rate", "cabins", "heads", "street", "city", "state", "zip");

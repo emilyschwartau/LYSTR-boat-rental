@@ -11,9 +11,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import VehicleInfoForm from '../../components/AddVehicleForm/VehicleInfoForm';
 import VehicleAddressForm from '../../components/AddVehicleForm/VehicleAddressForm';
 import VehicleFeaturesForm from '../../components/AddVehicleForm/VehicleFeaturesForm';
-// import VehiclePhotoUploadForm from '../../components/AddVehicleForm/VehiclePhotoUploadForm';
 import VehiclePriceAvailabilityForm from '../../components/AddVehicleForm/VehiclePriceAvailabilityForm';
-// import PhotoGallery from '../../components/PhotoGallery/PhotoGallery';
 import SuccessDialog from '../../components/SuccessDialog/SuccessDialog';
 
 export default function UpdateVehicle() {
@@ -30,7 +28,6 @@ export default function UpdateVehicle() {
   const { loading, success } = useSelector((store) => store.feedback);
 
   const handleChange = (e) => {
-    console.log(e.target.value);
     const { name, value } = e.target;
     dispatch({
       type: 'VEHICLE_FORM_ONCHANGE',
@@ -52,7 +49,6 @@ export default function UpdateVehicle() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(vehicleFormInputs);
     dispatch({ type: 'UPDATE_VEHICLE', payload: vehicleFormInputs });
   };
 
@@ -68,8 +64,6 @@ export default function UpdateVehicle() {
           handleChange={handleChange}
           validateNumber={validateNumber}
         />
-        {/* <VehiclePhotoUploadForm /> */}
-        {/* <PhotoGallery vehicleId={vehicleId} /> */}
         <VehiclePriceAvailabilityForm
           validateNumber={validateNumber}
           updateMode

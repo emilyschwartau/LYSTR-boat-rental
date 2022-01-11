@@ -3,7 +3,7 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import search from './search.reducer';
 import vehicle from './vehicle.reducer';
-import data from './data.reducer';
+import staticData from './static_data.reducer';
 import feedback from './feedback.reducer';
 import rental from './rental.reducer';
 
@@ -16,11 +16,11 @@ import rental from './rental.reducer';
 const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
-  search,
-  vehicle,
-  data,
-  feedback,
-  rental,
+  search, // search query and results
+  vehicle, // all info regarding vehicles
+  staticData, // data for form dropdowns and toggles, city autofill
+  feedback, // loading and success feedback
+  rental, // reservation info
 });
 
 export default rootReducer;

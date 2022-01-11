@@ -5,30 +5,26 @@ import {
   Route,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch, useSelector } from 'react-redux';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
-
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../../views/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AddVehicle from '../../views/AddVehicle/AddVehicle';
 import UpdateVehicle from '../../views/UpdateVehicle/UpdateVehicle';
 import VehicleDetailsPage from '../../views/VehicleDetailsPage/VehicleDetailsPage';
+import ResultsGalleryPage from '../../views/ResultsGalleryPage/ResultsGalleryPage';
 
 import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import ResultsGalleryPage from '../../views/ResultsGalleryPage/ResultsGalleryPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -92,14 +88,6 @@ function App() {
             path="/user"
           >
             <UserPage />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path="/info"
-          >
-            <InfoPage />
           </ProtectedRoute>
 
           <Route exact path="/login">

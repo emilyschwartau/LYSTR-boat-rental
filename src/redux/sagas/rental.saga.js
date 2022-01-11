@@ -24,7 +24,6 @@ function* bookVehicle(action) {
 
 function* fetchVehicleReservations(action) {
   const vehicleId = action.payload;
-  console.log(action.payload);
   try {
     const response = yield axios.get(`/api/rental/vehicle/${vehicleId}`);
     yield put({ type: 'SET_VEHICLE_RESERVATIONS', payload: response.data });

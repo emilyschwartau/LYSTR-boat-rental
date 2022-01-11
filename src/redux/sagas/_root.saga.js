@@ -4,7 +4,7 @@ import registrationSaga from './registration.saga';
 import userSaga from './user.saga';
 import vehicleSaga from './vehicle.saga';
 import searchSaga from './search.saga';
-import dataSaga from './data.saga';
+import staticDataSaga from './static_data.saga';
 import rentalSaga from './rental.saga';
 
 // rootSaga is the primary saga.
@@ -21,7 +21,7 @@ export default function* rootSaga() {
     searchSaga(),
     userSaga(),
     vehicleSaga(),
-    dataSaga(),
+    staticDataSaga(),
     rentalSaga(),
   ]);
 }

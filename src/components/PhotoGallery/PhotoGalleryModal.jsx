@@ -20,7 +20,6 @@ export default function PhotoGalleryModal({
   setRenderStatus,
 }) {
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
 
   // for requiring at least one image upload
   const [noImage, setNoImage] = React.useState(false);
@@ -38,7 +37,9 @@ export default function PhotoGalleryModal({
     <>
       <Dialog fullScreen open={open} onClose={handleClose}>
         <DialogActions>
-          <Button startIcon={<CloseIcon />} onClick={handleClose}>Close</Button>
+          <Button startIcon={<CloseIcon />} onClick={handleClose}>
+            Close
+          </Button>
         </DialogActions>
         <DialogContent>
           <VehiclePhotoUploadForm
@@ -46,11 +47,6 @@ export default function PhotoGalleryModal({
             vehicleId={vehicleId}
             setNoImage={setNoImage}
           />
-          {/* <DialogActions sx={{ justifyContent: 'center', mb: 2 }}>
-          <Button variant="contained" onClick={handleClose}>
-            Upload
-          </Button>
-        </DialogActions> */}
           <PhotoGallery vehicleId={vehicleId} />
         </DialogContent>
       </Dialog>

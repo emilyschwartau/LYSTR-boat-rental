@@ -1,7 +1,6 @@
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { DateObject } from 'react-multi-date-picker';
-// import { format } from 'date-fns';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -77,8 +76,12 @@ export default function SuccessDialog({ pathname, reservationResult }) {
         </DialogContent>
       )}
       <DialogActions>
-        <Button startIcon={<HomeIcon />} onClick={handleHome}>Home</Button>
-        <Button startIcon={<TableRowsIcon />} onClick={handleDashboard}>Dashboard</Button>
+        <Button startIcon={<HomeIcon />} onClick={handleHome}>
+          Home
+        </Button>
+        <Button startIcon={<TableRowsIcon />} onClick={handleDashboard}>
+          Dashboard
+        </Button>
       </DialogActions>
     </Dialog>
   );

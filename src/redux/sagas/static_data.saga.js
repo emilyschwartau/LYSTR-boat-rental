@@ -31,10 +31,10 @@ function* fetchFeaturesList() {
   }
 }
 
-function* dataSaga() {
+function* staticDataSaga() {
   yield takeLatest('FETCH_CITY_LIST', fetchCityList);
   yield takeLatest('FETCH_TYPE_LIST', fetchTypeList);
   yield takeLatest('FETCH_FEATURES_LIST', fetchFeaturesList);
 }
 
-export default dataSaga;
+export default staticDataSaga;

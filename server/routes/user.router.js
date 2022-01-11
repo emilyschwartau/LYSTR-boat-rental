@@ -33,7 +33,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // route for getting profile picture upload from S3
 router.get('/pic/:key', (req, res) => {
-  console.log('getting S3');
   const { key } = req.params;
   // create a read stream for the image in the S3 bucket
   const readStream = getFileStream(key);
@@ -127,7 +126,6 @@ router.put(
   async (req, res) => {
     const newPic = req.file;
     const { oldPic } = req.body;
-    console.log(newPic, oldPic);
 
     // upload the new pic to S3
     const profilePicKey = await uploadFile(newPic);

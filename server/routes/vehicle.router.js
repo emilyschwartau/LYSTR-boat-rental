@@ -120,7 +120,6 @@ router.get(`/allReservations/:userId`, rejectUnauthenticated, (req, res) => {
 });
 
 router.get('/uploads/:key', (req, res) => {
-  console.log('getting S3');
   const { key } = req.params;
   // create a read stream for the image in the S3 bucket
   const readStream = getFileStream(key);
@@ -138,7 +137,6 @@ router.get('/uploads/:key', (req, res) => {
 
 // vehicle
 router.post('/', rejectUnauthenticated, (req, res) => {
-  console.log(req.body);
   const {
     title,
     type,
@@ -199,8 +197,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 router.post('/features/:vehicleId', rejectUnauthenticated, (req, res) => {
   const { features } = req.body;
   const { vehicleId } = req.params;
-
-  console.log('vehicle router:', vehicleId, features);
 
   let query = `
     INSERT INTO "vehicle_features" ("vehicle_id", "feature_id")
@@ -290,7 +286,6 @@ router.post(
   async (req, res) => {
     const photos = req.files;
     const { vehicleId } = req.params;
-    console.log(`/photos/${vehicleId} req.files:`, req.files);
 
     let imagePaths = [];
 
@@ -368,7 +363,6 @@ router.post('/coordinates/:vehicleId', rejectUnauthenticated, (req, res) => {
 router.delete('/:vehicleId', rejectUnauthenticated, async (req, res) => {
   const { vehicleId } = req.params;
   const { photos } = req.body;
-  console.log('delete:', req.body);
 
   if (photos) {
     for (let photo of photos) {
@@ -460,7 +454,6 @@ router.delete('/photos/:photoId', rejectUnauthenticated, (req, res) => {
 // availability (toggle is_rented)
 router.put('/availability', rejectUnauthenticated, (req, res) => {
   const { vehicleId, date } = req.query;
-  console.log(req.query);
 
   const query = `
     UPDATE "availability"
