@@ -114,7 +114,7 @@ function LandingPageVehicleType() {
                   }}
                   sx={{ margin: '1em', height: '20vh', width: '20vw' }}
                 >
-                  <img src={images[vehicle.name]} height="70%" />
+                  <img src={vehicle.image} height="70%" />
                   <p>{vehicle.name}</p>
                 </Card>
               ))}

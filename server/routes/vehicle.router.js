@@ -3,12 +3,7 @@ const pool = require('../modules/pool');
 const router = express.Router();
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
-const {
-  uploadFile,
-  getFileStream,
-  deleteFile,
-  // upload,
-} = require('../services/S3.js');
+const { uploadFile, getFileStream, deleteFile } = require('../services/S3.js');
 const fs = require('fs');
 const util = require('util');
 const unlinkFile = util.promisify(fs.unlink);
@@ -31,7 +26,6 @@ router.get('/:vehicleId', (req, res) => {
     FROM "vehicle" JOIN "type" ON "vehicle"."type_id" = "type"."id" JOIN "user" ON "vehicle"."owned_by" = "user"."id"
     WHERE "vehicle"."id" = $1;
   `;
-  // (select JSON_AGG("image_path") as "photos" from "photos" where "vehicle"."id" = "photos"."vehicle_id"),
 
   pool
     .query(query, [vehicleId])
