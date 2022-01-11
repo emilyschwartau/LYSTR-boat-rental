@@ -13,12 +13,7 @@ const upload = multer({
     next(err);
   },
 });
-const {
-  uploadFile,
-  getFileStream,
-  deleteFile,
-  // upload,
-} = require('../services/s3.js');
+const { uploadFile, getFileStream, deleteFile } = require('../services/S3.js');
 const fs = require('fs');
 const util = require('util');
 const unlinkFile = util.promisify(fs.unlink);

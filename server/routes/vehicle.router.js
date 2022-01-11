@@ -8,7 +8,7 @@ const {
   getFileStream,
   deleteFile,
   // upload,
-} = require('../services/s3.js');
+} = require('../services/S3.js');
 const fs = require('fs');
 const util = require('util');
 const unlinkFile = util.promisify(fs.unlink);
