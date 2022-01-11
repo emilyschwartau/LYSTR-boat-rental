@@ -33,7 +33,6 @@ function ReservationsInfo({ rental }) {
     }
   };
 
-  console.log('reservations info', rental);
   return (
     <>
       <Box sx={{ margin: 'auto', padding: '1em', width: '90%' }}>
