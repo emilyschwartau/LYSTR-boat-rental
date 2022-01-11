@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ResultsGalleryList from '../../components/ResultsGalleryList/ResultsGalleryList';
 import useQuery from '../../hooks/useQuery';
 
@@ -14,7 +14,6 @@ function ResultsGalleryPage() {
   const [searchQuery, setSearchQuery] = React.useState(null);
 
   React.useEffect(() => {
-    // setSearchQuery({ location, date, type });
     dispatch({
       type: 'FETCH_VEHICLES',
       payload: {
@@ -25,7 +24,6 @@ function ResultsGalleryPage() {
     });
   }, []);
 
-  // console.log('useQuery gallery page', location, date, type)
   return (
     <>
       <ResultsGalleryList setSearchQuery={setSearchQuery} />

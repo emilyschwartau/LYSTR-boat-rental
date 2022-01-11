@@ -139,15 +139,12 @@ input {
 }
 
 #boatResultTitle {
-  /* font-size: 20px; */
   padding: 0px;
   margin: 0px;
 }
 
 .detailImages {
   width: auto;
-  /* max-width: 200px; */
-  /* height: 200px; */
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -243,7 +240,6 @@ li {
 
 #aboutText {
   display: inline-block;
-  /* margin: 20px; */
   text-align: center;
   margin-bottom: 0px;
   width: 100%;

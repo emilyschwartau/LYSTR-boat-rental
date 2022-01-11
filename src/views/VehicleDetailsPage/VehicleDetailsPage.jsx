@@ -31,9 +31,6 @@ export default function VehicleDetailsPage() {
   const { vehicleInfo, photos } = useSelector((store) => store.vehicle);
   const { reservationResult } = useSelector((store) => store.rental);
 
-  // console.log('photos', photos);
-  // console.log('vehicleInfo', vehicleInfo);
-
   //dispatches actions to sagas that set vehicle info in reducer
   React.useEffect(() => {
     dispatch({ type: 'FETCH_VEHICLE_BY_ID', payload: vehicleId });
@@ -84,7 +81,7 @@ export default function VehicleDetailsPage() {
                   className="detailImages"
                   component="img"
                   image={photos[imageIndex]?.path}
-                  sx={{height: "35vh", objectFit: "fill"}}
+                  sx={{ height: '35vh', objectFit: 'fill' }}
                 />
               </Card>
               <br />

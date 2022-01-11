@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import {
   Card,
@@ -8,13 +7,12 @@ import {
   Box,
   Stack,
   CardActionArea,
-  Typography
+  Typography,
 } from '@mui/material';
 import useQuery from '../../hooks/useQuery';
 import { useHistory } from 'react-router-dom';
 import ResultsGallerySearchBar from './ResultsGallerySearchBar';
 import MapComponent from '../Map/MapComponent';
-
 
 //gallery of search result cards
 function ResultsGalleryList() {
@@ -49,17 +47,17 @@ function ResultsGalleryList() {
 
                           {/* title, daily rate, location */}
                           <div id="resultCardDetails">
-
-                            <Typography id="boatResultTitle" 
-                            variant='h6'
-                            sx={{ 
-                              fontSize: 16,
-                              fontWeight: 700,
-                              lineHeight: 1.3
-                             }}
-                            
-                            >{item.title} </Typography>
-
+                            <Typography
+                              id="boatResultTitle"
+                              variant="h6"
+                              sx={{
+                                fontSize: 16,
+                                fontWeight: 700,
+                                lineHeight: 1.3,
+                              }}
+                            >
+                              {item.title}{' '}
+                            </Typography>
                             Daily Rate: ${item.dailyRate}
                             <br></br>
                             {item.city}, {item.state}

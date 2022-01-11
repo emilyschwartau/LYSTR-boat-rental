@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import PhotoGalleryItem from './PhotoGalleryItem';
 
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';

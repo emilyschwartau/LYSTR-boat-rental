@@ -36,7 +36,7 @@ function LoggedOutNav() {
 
     //link to sign in page
     <Link to="/login" className="navLink">
-      Sign in
+      Log In
     </Link>,
   ];
 

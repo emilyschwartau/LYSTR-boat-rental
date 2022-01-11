@@ -10,7 +10,7 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const vehicleRouter = require('./routes/vehicle.router');
-const dataRouter = require('./routes/data.router');
+const staticDataRouter = require('./routes/static_data.router');
 const searchRouter = require('./routes/search.router');
 const rentalRouter = require('./routes/rental.router');
 const geocodeRouter = require('./routes/geocode.router');
@@ -29,7 +29,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/vehicle', vehicleRouter);
-app.use('/api/data', dataRouter);
+app.use('/api/data', staticDataRouter);
 app.use('/api/search', searchRouter);
 app.use('/api/rental', rentalRouter);
 app.use('/api/geocode', geocodeRouter);

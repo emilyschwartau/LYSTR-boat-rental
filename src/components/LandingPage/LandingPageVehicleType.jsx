@@ -9,7 +9,7 @@ import { format } from 'date-fns';
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const vehicleList = useSelector((store) => store.data.types);
+  const vehicleList = useSelector((store) => store.staticData.types);
   const vehicleType = useSelector(
     (store) => store.search.searchQuery.vehicleType
   );
@@ -18,10 +18,7 @@ function LandingPageVehicleType() {
 
   let buttonText = '';
 
-  
-
   const handleSearch = () => {
-
     if (vehicleType) {
       // search parameters push to url
       // url query parsed on ResultsGalleryPage useQuery hook
@@ -34,7 +31,6 @@ function LandingPageVehicleType() {
     } else {
       alert('Please choose vehicle type');
     }
-
   };
 
   const checkId = () => {
@@ -85,7 +81,6 @@ function LandingPageVehicleType() {
         <Box
           sx={{
             margin: 'auto',
-            // border: 'solid black 1px',
             textAlign: 'center',
             width: '80%',
             padding: '1em',
