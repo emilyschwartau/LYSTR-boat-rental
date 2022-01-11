@@ -19,7 +19,7 @@ function LandingPageVehicleType() {
   let buttonText = '';
 
   const handleSearch = () => {
-    if (vehicleType) {
+    if (vehicleType && startDate) {
       // search parameters push to url
       // url query parsed on ResultsGalleryPage useQuery hook
       history.push(
@@ -28,8 +28,10 @@ function LandingPageVehicleType() {
           'MM-dd-yyyy'
         )}&type=${vehicleType}`
       );
-    } else {
-      alert('Please choose vehicle type');
+    } else if (!startDate) {
+      alert('Please choose a date');
+    } else if (!vehicleType) {
+      alert('Please choose a vehicle type');
     }
   };
 

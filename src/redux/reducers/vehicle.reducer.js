@@ -25,6 +25,11 @@ const newVehicleInitial = {
 const vehicleFormInputs = (state = newVehicleInitial, action) => {
   switch (action.type) {
     case 'SET_VEHICLE_FORM_INPUTS':
+      if (action.payload.features === null) {
+        action.payload.features = [];
+      } else if (action.payload.availability === null) {
+        action.payload.availability = [];
+      }
       return action.payload;
     case 'VEHICLE_FORM_ONCHANGE':
       return { ...state, [action.payload.property]: action.payload.value };
