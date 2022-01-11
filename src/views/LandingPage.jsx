@@ -15,6 +15,7 @@ function LandingPage() {
 
   React.useEffect(() => {
     dispatch({ type: 'CLEAR_SEARCH_QUERY' });
+    dispatch({ type: 'FETCH_TYPE_LIST' });
   }, []);
 
   return (

@@ -33,7 +33,6 @@ function App() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_TYPE_LIST' });
   }, [dispatch]);
 
   return (
@@ -43,6 +42,10 @@ function App() {
         <Switch>
           {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
           <Redirect exact from="/" to="/home" />
+
+          <Route exact path="/home">
+            <LandingPage />
+          </Route>
 
           {/* Visiting localhost:3000/about will show the about page. */}
           <Route
@@ -110,10 +113,6 @@ function App() {
               // Otherwise, show the registration page
               <RegisterPage />
             )}
-          </Route>
-
-          <Route exact path="/home">
-            <LandingPage />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
