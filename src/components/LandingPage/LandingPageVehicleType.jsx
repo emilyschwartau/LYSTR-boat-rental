@@ -6,20 +6,6 @@ import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
 import { format } from 'date-fns';
 
-import fishing from '../../assets/images/fishingboat.jpeg';
-import jetski from '../../assets/images/jetski.png';
-import kayak from '../../assets/images/kayak.jpeg';
-import pontoon from '../../assets/images/pontoon.jpeg';
-import runabout from '../../assets/images/runabout.png';
-
-const images = {
-  Fishing: fishing,
-  Jetski: jetski,
-  Kayak: kayak,
-  Pontoon: pontoon,
-  Runabout: runabout,
-};
-
 function LandingPageVehicleType() {
   const dispatch = useDispatch();
   const history = useHistory();
