@@ -3,7 +3,7 @@ import axios from 'axios';
 
 function* fetchCityList() {
   try {
-    const cities = yield axios.get('/api/data/cities');
+    const cities = yield axios.get('/api/staticData/cities');
     yield put({ type: 'SET_CITIES', payload: cities.data });
   } catch (error) {
     console.log('error getting cities list', error);
@@ -13,8 +13,9 @@ function* fetchCityList() {
 
 function* fetchTypeList() {
   try {
-    const types = yield axios.get('/api/data/types');
+    const types = yield axios.get('/api/staticData/types');
     yield put({ type: 'SET_TYPES', payload: types.data });
+    console.log(types.data);
   } catch (error) {
     console.log('error getting types list:', error);
     yield put({ type: 'GET_ERROR' });
@@ -23,7 +24,7 @@ function* fetchTypeList() {
 
 function* fetchFeaturesList() {
   try {
-    const features = yield axios.get('/api/data/features');
+    const features = yield axios.get('/api/staticData/features');
     yield put({ type: 'SET_FEATURES', payload: features.data });
   } catch (error) {
     console.log('error getting features list:', error);
