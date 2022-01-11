@@ -1,121 +1,159 @@
+![License](https://img.shields.io/github/license/Lystr-Prime/lystr.svg?style=for-the-badge) ![Repo Size](https://img.shields.io/github/languages/code-size/Lystr-Prime/lystr.svg?style=for-the-badge) ![TOP_LANGUAGE](https://img.shields.io/github/languages/top/Lystr-Prime/lystr.svg?style=for-the-badge) ![FORKS](https://img.shields.io/github/forks/Lystr-Prime/lystr.svg?style=for-the-badge&social) ![Stars](https://img.shields.io/github/stars/Lystr-Prime/lystr.svg?style=for-the-badge)
+    
+# LYSTR
 
-# EDA Project
-This version uses React, Redux, Express, Passport, and PostgreSQL (a full list of dependencies can be found in `package.json`).
+## Table of Contents
 
-We **STRONGLY** recommend following these description carefully. It's a lot, and will take some time to set up, but your life will be much easier this way in the long run.
+- [LYSTR](#lystr)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Screenshots](#screenshots)
+  - [Built With](#built-with)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+  - [Usage](#usage)
+  - [License](#license)
+  - [Acknowledgements](#acknowledgements)
+  - [Contacts](#contacts)
 
-## Use the Template for This Repository (Don't Clone)
+## Description
 
-- Don't Fork or Clone. Instead, click the `Use this Template` button, and make a copy to your personal account.
+LYSTR aims to make the connection between Watercraft Owners and people who want to rent Watercraft easier in MN. Specifically LYSTR is targeting people who already list their vacation homes on common rental platforms who would like to rent their Watercraft out in conjunction with the home. The rental platform will encompass the renting-out of a few types of Watercraft: Pontoons, Runabouts, Fishing boats, Kayaks/Canoes and Jetskis. The platform will be broken down into 2 different experiences: one for the Owner and one for the Renter. The Owner's experience will include the ability to list a Watercraft for rent by typing in its details, rental rate, and uploading photos, along with the ability to enter personal contact information and availability of the Watercraft. The Renter experience will include the ability to search a location and see the Watercraft available for rent within a specified radius of that location. The Renter will be able to narrow down their search by type of Watercraft and availability. The Renter will then be able to select and book a Watercraft, as well as gain access to the Owner’s contact information to confirm rental reservations.
 
+## Screenshots
 
-## Prerequisites
+![Landing Page](README_images/lystr-landing-page.png)
+![Search Results Page](README_images/lystr-search-results.png)
+![Vehicle Details Page](README_images/lystr-details.png)
+![User Dashboard Page](README_images/lystr-user-dashboard.png)
+![Image Upload Page](README_images/lystr-image-upload.png)
 
-Before you get started, make sure you have the following software installed on your computer:
+## Built With
 
-- [Node.js](https://nodejs.org/en/)
+<a href="https://developer.mozilla.org/en-US/docs/Web/CSS"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original.svg" height="40px" width="40px" /></a><a href="https://www.heroku.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/heroku/heroku-original.svg" height="40px" width="40px" /></a><a href="https://developer.mozilla.org/en-US/docs/Web/HTML"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original.svg" height="40px" width="40px" /></a><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" height="40px" width="40px" /></a><a href="https://material-ui.com/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/materialui/materialui-original.svg" height="40px" width="40px" /></a><a href="https://nodejs.org/en/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" height="40px" width="40px" /></a><a href="https://www.postgresql.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" height="40px" width="40px" /></a><a href="https://reactjs.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg" height="40px" width="40px" /></a><a href="https://redux.js.org/"><img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/redux/redux-original.svg" height="40px" width="40px" /></a>
+
+## Getting Started
+
+In order to observe and use the functionalities of this application, the user will be required to sign up for a few third-party API keys. The required third-party APIs offers both free and paid services. The required API keys are as followed: 
+
+- [Amazon Simple Storage Service (AWS S3)](https://aws.amazon.com/s3/">https://aws.amazon.com/s3/)
+- [OpenCage Geocoding API](https://opencagedata.com/)
+
+### Prerequisites
+
+Softwares used in creating this application includes:
+
+- [Visual Studio Code](https://code.visualstudio.com/)
 - [PostrgeSQL](https://www.postgresql.org/)
+- [Postico](https://eggerapps.at/postico/)
+- [Node.js](https://nodejs.org/en/)
 - [Nodemon](https://nodemon.io/)
 
-## Create database and table
+The application's repository may require alterations to lines of codes if used with other softwares that are not listed above.
 
-Create a new database called `prime_app` and create a `user` table:
+### Installation
 
-```SQL
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
-```
+1. To run this application, the user should fork the repository onto their own GitHub account. In the user's repository, the user should copy the link and clone the repository onto their local system. Navigate to the repository folder using the terminal and run command line `npm install`
+      - `$ cd ../lystr`
+      - $ `npm install`
 
-If you would like to name your database something else, you will need to change `prime_app` to the name of your new database name in `server/modules/pool.js`
+<br />
 
-## Development Setup Description
+2. Create a .env file in the repository folder and insert in the following lines with the placeholder variables. 
 
-- Run `npm install`
-- Create a `.env` file at the root of the project and paste this line into the file:
-  ```
-  SERVER_SESSION_SECRET=superDuperSecret
-  ```
-  While you're in your new `.env` file, take the time to replace `superDuperSecret` with some long random string like `25POUbVtx6RKVNWszd9ERB9Bb6` to keep your application secure. Here's a site that can help you: [https://passwordsgenerator.net/](https://passwordsgenerator.net/). If you don't do this step, create a secret with less than eight characters, or leave it as `superDuperSecret`, you will get a warning.
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm run server`
-- Run `npm run client`
-- Navigate to `localhost:3000`
+      SERVER_SESSION_SECRET="`strongPassword`" <br />
+      AWS_BUCKET_NAME="`bucketName`" <br />
+      AWS_BUCKET_REGION="`bucketRegion`" <br />
+      AWS_ACCESS_KEY="`accessKey`" <br />
+      AWS_SECRET_KEY="`secretKey`" <br />
+      REACT_APP_OPENCAGE_API_KEY="`openCageKey`" <br />
 
-## Debugging
+      Replace `strongPassword` with a strong password of the user's choice or use [https://passwordsgenerator.net/](https://passwordsgenerator.net/) to generate a password to replace it with.
 
-To debug, you will need to run the client-side separately from the server. Start the client by running the command `npm run client`. Start the debugging server by selecting the Debug button.
+<br />
 
-![VSCode Toolbar](documentation/images/vscode-toolbar.png)
+3. Create an Amazon Simple Storage Service (AWS S3) account. After account creation, follow this link to set up a AWS S3 Bucket for image upload: [https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html).
 
-Then make sure `Launch Program` is selected from the dropdown, then click the green play arrow.
+      During bucket set up, take note of the: 
+      - bucket name
+      - bucket region
+      - secret key (SUPER IMPORTANT! This key will only show up once and the user will not have access to it afterwards)
+      - access key
 
-![VSCode Debug Bar](documentation/images/vscode-debug-bar.png)
+      After creation, replace all corresponding placeholder variables in the .env file with the information and key obtained from AWS S3, for example, replace `bucketName` with the bucket name provided from AWS S3, and so forth.
 
-## Testing Routes with Postman
+<br />
 
-To use Postman with this repo, you will need to set up requests in Postman to register a user and login a user at a minimum.
+4. Create an OpenCage Geocoding API account and obtain the API key. In the .env file, replace `openCageKey` with the API key given upon registration. 
 
-Keep in mind that once you using the login route, Postman will manage your session cookie for you just like a browser, ensuring it is sent with each subsequent request. If you delete the `localhost` cookie in Postman, it will effectively log you out.
+      Now make sure all lines of the .env file have meaningful keys and no longer have the placeholder variables. If there are still placeholder variables, be sure to replace with corresponding keys.
 
-1. Start the server - `npm run server`
-2. Import the sample routes JSON file [v2](./PostmanPrimeSoloRoutesv2.json) by clicking `Import` in Postman. Select the file.
-3. Click `Collections` and `Send` the following three calls in order:
-   1. `POST /api/user/register` registers a new user, see body to change username/password
-   2. `POST /api/user/login` will login a user, see body to change username/password
-   3. `GET /api/user` will get user information, by default it's not very much
+<br />
 
-After running the login route above, you can try any other route you've created that requires a logged in user!
+5.  Create a local postgreSQL database called `lystr` with Postico using the command lines from the database.sql file. Using different database systems may require the user to alter or add additional command lines to reflect the example database provided. 
 
-## Production Build
+<br />
 
-Before pushing to Heroku, run `npm run build` in terminal. This will create a build folder that contains the code Heroku will be pointed at. You can test this build by typing `npm start`. Keep in mind that `npm start` will let you preview the production build but will **not** auto update.
+6. To start up the application, enter in the terminal the npm command lines of:
 
-- Start postgres if not running already by using `brew services start postgresql`
-- Run `npm start`
-- Navigate to `localhost:5000`
+      - `npm run server`
+      - `npm run client`
 
-## Lay of the Land
+      The server should be running on `http://localhost:5000` whereas the client should be on `http://localhost:3000`. Both the server and the client is required to be up and running for the application to run successfully.
 
-There are a few videos linked below that show a walkthrough the client and sever setup to help acclimatize to the boilerplate. Please take some time to watch the videos in order to get a better understanding of what the boilerplate is like.
+## Usage
 
-- [Initial Set](https://vimeo.com/453297271)
-- [Server Walkthrough](https://vimeo.com/453297212)
-- [Client Walkthrough](https://vimeo.com/453297124)
+Once the application is up and running, the user should be redirected to the browser with the application loaded. If not, open up a browser and enter in the url:
 
-Directory Structure:
+- `http://localhost:3000`
 
-- `src/` contains the React application
-- `public/` contains static assets for the client-side
-- `build/` after you build the project, contains the transpiled code from `src/` and `public/` that will be viewed on the production site
-- `server/` contains the Express App
+Users of this application will be vehicle owners looking to list their vehicles for rental or renters search for available vehicles to rent. Users can also be both, listing their own vehicles and searching for other vehicles to rent.
 
-This code is also heavily commented. We recommend reading through the comments, getting a lay of the land, and becoming comfortable with how the code works before you start making too many changes. If you're wondering where to start, consider reading through component file comments in the following order:
+- Listing A Vehicle For Rental:<br />
+     - To list a vehicle to rent out to other users, the user must first have created an account and be logged in. 
+     - In the navigation bar, near the top of the application, there will be a 'LIST YOUR STUFF' button that will redirect the user to a form to add a new vehicle into the database.
+     - The user will then enter in all the required fields. Features of the listed vehicles can be selected from the given options. At least 1 photo is required to be uploaded. The last part of the form will be selecting the dates that user wish to make the vehicle available for other users to rent out. 
 
-- src/components
-  - App/App
-  - Footer/Footer
-  - Nav/Nav
-  - AboutPage/AboutPage
-  - InfoPage/InfoPage
-  - UserPage/UserPage
-  - LoginPage/LoginPage
-  - RegisterPage/RegisterPage
-  - LogOutButton/LogOutButton
-  - ProtectedRoute/ProtectedRoute
+- Searching For Vehicles To Rent: <br />
+     - The application allows any user, whether they are logged in or not logged in, to use the search feature. 
+     - The user can search by a city location in MN and select from the auto-populated options. The user will also have to select the date of which they wish to find a vehicle to rent for.
+     - After selecting location and date, the user will have to select the type of vehicle they wish to search for. 
+     - Upon clicking 'Find Boat To Rent', the user will be redirected to a results page. If there are no available vehicles, the page will display no results, otherwise, the results be will displayed as info cards and pins on the interactive map.
+     - The pin locations reflect the location of the available vehicles. Clicking on a pin will pull up a small informational window on that particular vehicle.
+     - Clicking on the info card or 'Learn More' on both the card and pin pop-up will redirect the user to a details page of the vehicle. The details page will display more detailed information and images on the vehicle as well as other available dates.
+     - Users that are not logged in will not be able to proceed with a booking request and will be asked to logged in first. If the user is already logged in, the user can select the date which the user wish to rent out the vehicle using the provided calendar and click 'Book'.
+     - After clicking 'Book', a pop up with owner information will be displayed and ask the user to contact the owner to proceed with the next steps of booking the vehicle such as payment.
 
-## Deployment
+- User Dashboard: <br />
+     - Users that have created an account and is logged in can access the User Dashboard view by clicking on 'User Dashboard' when the avatar in the navigation bar is clicked.
+     - The 'My Reservations' tab panel will display the user's rental history along with information about the vehicle that was rented including the vehicle's owner information.
+     - The 'My Listings' tab panel will display the user's vehicles that they've listed out for rental along with vehicle information, availability and upcoming rentals on the vehicle.
+     - The 'Profile' tab panel displays the user's account information and gives the user the option to edit their information and update their profile picture.
 
-1. Create a new Heroku project
-1. Link the Heroku project to the project GitHub Repo
-1. Create an Heroku Postgres database
-1. Connect to the Heroku Postgres database from Postico
-1. Create the necessary tables
-1. Add an environment variable for `SERVER_SESSION_SECRET` with a nice random string for security
-1. In the deploy section, select manual deploy
 
-## Update Documentation
 
-Customize this ReadMe and the code comments in this project to read less like a starter repo and more like a project. Here is an example: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+## License
+
+<a href="https://choosealicense.com/licenses/unlicense/"><img src="https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/unlicense.svg" height=40 />The Unlicense</a>
+
+## Acknowledgements
+
+Special thanks to the Lystr team, Dean Adleman, CEO and Co-Founder, and Hong Huie, Technology Director, for providing us with the opportunity to develop this amazing application. This application was developed with the support and direction of the Lystr team. 
+
+We would also like to extend a thanks to our instructors, Dane Smith and Liz Kerber, the Solinas Cohort, and the whole greater community at Prime Digital Academy, for providing us with the necessary tools and skills to succeed.
+
+Lastly, we would like to thank our friends and families for continuing to support as we've continued to grow into developers.
+
+## Contacts
+Austin Kammerer
+<a href="https://www.linkedin.com/in/austin-kammerer"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  <a href="mailto:austin4191@gmail.com"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>< br/>
+
+Chaoching Vang
+<a href="https://www.linkedin.com/in/chaochingvang"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  <a href="mailto:chaoching.vang@gmail.com"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>< br/>
+
+Emily Schwartau
+<a href="https://www.linkedin.com/in/emily-schwartau-87a351136"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  <a href="mailto:emilyschwartau@gmail.com"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>< br/>
+
+Sam Clavette
+<a href="https://www.linkedin.com/in/sam-clavette-2896609"><img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>  <a href="mailto:sam.clavette@gmail.com"><img src=https://raw.githubusercontent.com/johnturner4004/readme-generator/master/src/components/assets/images/email_me_button_icon_151852.svg /></a>< br/>
