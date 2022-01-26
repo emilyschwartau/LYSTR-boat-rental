@@ -88,7 +88,7 @@ CREATE TABLE "rental" (
 );
 
 -- auto fill city table
--- use usa_zipcode_of_mn-1540j.csv to fill this table
+-- use LYSTR spreadsheet.csv to fill this table
 -- it may be imported using Postico
 CREATE TABLE "cities" (
     "id" SERIAL PRIMARY KEY,
